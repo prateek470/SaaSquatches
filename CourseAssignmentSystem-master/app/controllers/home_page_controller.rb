@@ -30,31 +30,58 @@ class HomePageController < ApplicationController
   
   def addpreference
     @timeslot = TimeSlot.all
+    newID1 = nil
+    newID2 = nil
+    newID3 = nil
+    #Check if 
     if params[:class] !=nil &&params[:class][:time_slot_id1] !=""
       @params_time_slot1 = params[:class][:time_slot_id1]
       if !Preference.exists?(:time_slot_id => @params_time_slot1, :building_id=> '1')
-        
-        Preference.create!(:time_slot_id=>@params_time_slot1, :building_id=> "1")
+        Preference.create!(:time_slot_id=>@params_time_slot1, :building_id=> '1')
+        puts "New Preference Added"
       end
-      newID1 = Preference.where(["time_slot_id=?",@params_time_slot1],["building_id=?", :building_id =>"1"]).select("id").first
+      pref1 = Preference.where("time_slot_id=? AND building_id = ?",@params_time_slot1, '1').select("id").first
+      if pref1!=nil
+        newID1 = pref1.id.to_s()
+      elsif
+        puts "Preference 1 not found"
+      end
     end
+    
     if params[:class] !=nil &&params[:class][:time_slot_id2] !=""
       @params_time_slot2 = params[:class][:time_slot_id2]
       if !Preference.exists?(:time_slot_id => @params_time_slot2, :building_id=> '1')
-        
-        Preference.create!(:time_slot_id=>@params_time_slot2, :building_id=> "1")
+        Preference.create!(:time_slot_id=>@params_time_slot2, :building_id=> '1')
+        puts "New Preference Added"
       end
-      newID2 = Preference.where(["time_slot_id=?",@params_time_slot2],["building_id=?", :building_id =>"1"]).select("id").first
+      pref2 = Preference.where("time_slot_id=? AND building_id = ?",@params_time_slot2, '1').select("id").first
+      if pref2!=nil
+        newID2 = pref2.id.to_s()
+      elsif
+        puts "Preference 2 not found"
+      end
     end
     
     if params[:class] !=nil &&params[:class][:time_slot_id3] !=""
       @params_time_slot3 = params[:class][:time_slot_id3]
       if !Preference.exists?(:time_slot_id => @params_time_slot3, :building_id=> '1')
-        Preference.create!(:time_slot_id=>@params_time_slot3, :building_id=> "1")
+        Preference.create!(:time_slot_id=>@params_time_slot3, :building_id=> '1')
+        puts "New Preference Added"
       end
-      newID3 = Preference.where(["time_slot_id=?",@params_time_slot3],["building_id=?", :building_id =>"1"]).select("id").first
+      pref3 = Preference.where("time_slot_id=? AND building_id = ?",@params_time_slot3, '1').select("id").first
+      if pref3!=nil
+        newID3 = pref3.id.to_s()
+      elsif
+        puts "Preference 3 not found"
+      end
     end
-    FacultyPreference.create!(:preference1_id=>newID1.id.to_s() ,:preference2_id => newID2.id.to_s() ,:preference3_id=>newID3.id.to_s())
+    
+    if !FacultyPreference.exists?(:preference1_id=>newID1 ,:preference2_id => newID2 ,:preference3_id=>newID3)
+      FacultyPreference.create!(:preference1_id=>newID1 ,:preference2_id => newID2 ,:preference3_id=>newID3)
+      puts "New FacultyPreference Added"
+    elsif
+      puts"FacultyPreference Exists"
+    end
 
   end
   

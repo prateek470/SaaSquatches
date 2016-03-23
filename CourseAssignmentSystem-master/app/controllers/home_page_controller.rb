@@ -30,6 +30,7 @@ class HomePageController < ApplicationController
   
   def addpreference
     @timeslot = TimeSlot.all
+    @days = DayCombination.all
     newID1 = nil
     newID2 = nil
     newID3 = nil

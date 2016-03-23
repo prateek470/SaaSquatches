@@ -12,8 +12,8 @@ Rails.application.routes.draw do
   get "setsession" => 'home_page#setsession'
   get "addpreference" => 'home_page#addpreference'
 
-  #root 'home_page#home'
-  root 'home_page#professorhome'
+  root 'home_page#home'
+  #root 'home_page#professorhome'
   resources :faculty_preferences, :except => [:show]
   get 'faculty_preferences/update_time_slots', :as => 'update_time_slots'
   get 'faculty_preferences/:id/display_summary' => 'faculty_preferences#display_summary', :as => 'display_summary'

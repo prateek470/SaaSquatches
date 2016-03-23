@@ -1,0 +1,24 @@
+<div class="center jumbotron">
+  <h2>Add New Preferences </h2>
+  <br><br>
+
+  <%= form_for :class , method: :get, url: addpreference_path do |f| %>
+  <h3><%= f.label "Choose Preference 1" %></h3>
+  <%= f.select :time_slot_id1 , options_for_select(@timeslot.collect { |timeslot| [timeslot.time_slot,timeslot.id] },
+  	session[:time_slot_id1] ), {prompt: "Please Select", hide_label: :true }, 
+  	{id: 'sessionId' , class: "btn btn-default dropdown-toggle"} %>
+  <h3><%= f.label "Choose Preference 2" %></h3>
+  <%= f.select :time_slot_id2 , options_for_select(@timeslot.collect { |timeslot| [timeslot.time_slot,timeslot.id] },
+  	session[:time_slot_id2] ), {prompt: "Please Select", hide_label: :true }, 
+  	{ id: 'sessionId' , class: "btn btn-default dropdown-toggle"} %>
+  <h3><%= f.label "Choose Preference 3" %></h3>
+    <%= f.select :time_slot_id3 , options_for_select(@timeslot.collect { |timeslot| [timeslot.time_slot,timeslot.id] },
+  	session[:time_slot_id3] ), {prompt: "Please Select", hide_label: :true }, 
+  	{ id: 'sessionId' , class: "btn btn-default dropdown-toggle"} %>
+  <br></br>
+  <%= f.submit "Submit", class: "btn btn-lg btn-primary" %>
+  <br></br>
+  <br></br>
+  <%= link_to "Back"%>
+ <% end %>
+</div>

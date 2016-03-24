@@ -13,7 +13,7 @@
 
  <div style="background:#40E0D0 !important" class="jumbotron">
 <%= form_tag edit_faculty_course_path(@faculty_course), :method => :get do %>
-  <%= label_tag :faculty_name,"Faculty Name : " +  @faculty.faculty_name%>
+  <%= label_tag :faculty_name,"Faculty Name: " +  @faculty.faculty_name%>
   <%= content_tag(:br) %>
   <p>
   <%= label :courses, :course1_id, "Course 1" %>

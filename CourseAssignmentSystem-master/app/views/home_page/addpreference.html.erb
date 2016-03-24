@@ -5,19 +5,20 @@
   <%= form_for :class , method: :get, url: addpreference_path do |f| %>
   <p><%= f.label "Professor Name: " %>
       <%= f.text_field :FacultyName %>
+      
   <h3><%= f.label "Choose Preference 1" %></h3>
-  <%= f.select :time_slot_id1 , options_for_select(@timeslot.collect { |timeslot| timeslot.time_slot + " " + DayCombination.where("id=?",timeslot.day_combination_id).select("day_combination").take.day_combination.to_s },
+  <%= f.select :time_slot_id1 , options_for_select(@timeslot.collect { |timeslot| [timeslot.time_slot + " " + DayCombination.where("id=?",timeslot.day_combination_id).select("day_combination").take.day_combination.to_s, timeslot.id] },
   	session[:time_slot_id1] ), {prompt: "Please Select", hide_label: :true }, 
   	{id: 'sessionId' , class: "btn btn-default dropdown-toggle"} %>
   	
   <h3><%= f.label "Choose Preference 2" %></h3>
-  <%= f.select :time_slot_id2 , options_for_select(@timeslot.collect { |timeslot| timeslot.time_slot + " " + DayCombination.where("id=?",timeslot.day_combination_id).select("day_combination").take.day_combination.to_s },
+  <%= f.select :time_slot_id2 , options_for_select(@timeslot.collect { |timeslot| [timeslot.time_slot + " " + DayCombination.where("id=?",timeslot.day_combination_id).select("day_combination").take.day_combination.to_s, timeslot.id] },
   
   	session[:time_slot_id2] ), {prompt: "Please Select", hide_label: :true }, 
   	{ id: 'sessionId' , class: "btn btn-default dropdown-toggle"} %>
   	
   <h3><%= f.label "Choose Preference 3" %></h3>
-    <%= f.select :time_slot_id3 , options_for_select(@timeslot.collect { |timeslot| timeslot.time_slot + " " + DayCombination.where("id=?",timeslot.day_combination_id).select("day_combination").take.day_combination.to_s },
+    <%= f.select :time_slot_id3 , options_for_select(@timeslot.collect { |timeslot| [timeslot.time_slot + " " + DayCombination.where("id=?",timeslot.day_combination_id).select("day_combination").take.day_combination.to_s, timeslot.id] },
   	session[:time_slot_id3] ), {prompt: "Please Select", hide_label: :true }, 
   	{ id: 'sessionId' , class: "btn btn-default dropdown-toggle"} %>
   	

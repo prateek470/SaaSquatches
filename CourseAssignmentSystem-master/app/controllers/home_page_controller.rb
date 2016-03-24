@@ -30,20 +30,23 @@ class HomePageController < ApplicationController
   
   def addpreference
     @timeslot = TimeSlot.all
-    @days = DayCombination.all
+    @semester_id = session[:semester_id]
+    @prof_name = params[:class][:FacultyName]
+
     newID1 = nil
     newID2 = nil
     newID3 = nil
     #Check if 
     if params[:class] !=nil &&params[:class][:time_slot_id1] !=""
       @params_time_slot1 = params[:class][:time_slot_id1]
-      if !Preference.exists?(:time_slot_id => @params_time_slot1, :building_id=> '1')
-        Preference.create!(:time_slot_id=>@params_time_slot1, :building_id=> '1')
+      if !Preference.exists?(:time_slot_id => @params_time_slot1, :building_id=> '1',:semester_id=> @semester_id)
+        
+        Preference.create!(:time_slot_id=>@params_time_slot1, :building_id=> '1',:semester_id=> @semester_id)
         puts "New Preference Added"
       end
-      pref1 = Preference.where("time_slot_id=? AND building_id = ?",@params_time_slot1, '1').select("id").first
+      pref1 = Preference.where("time_slot_id=? AND building_id = ? AND semester_id =?",@params_time_slot1, '1', @semester_id).select("id").take
       if pref1!=nil
-        newID1 = pref1.id.to_s()
+        newID1 = pref1.id
       elsif
         puts "Preference 1 not found"
       end
@@ -51,13 +54,13 @@ class HomePageController < ApplicationController
     
     if params[:class] !=nil &&params[:class][:time_slot_id2] !=""
       @params_time_slot2 = params[:class][:time_slot_id2]
-      if !Preference.exists?(:time_slot_id => @params_time_slot2, :building_id=> '1')
-        Preference.create!(:time_slot_id=>@params_time_slot2, :building_id=> '1')
+      if !Preference.exists?(:time_slot_id => @params_time_slot2, :building_id=> '1', :semester_id=> @semester_id)
+        Preference.create!(:time_slot_id=>@params_time_slot2, :building_id=> '1', :semester_id=> @semester_id )
         puts "New Preference Added"
       end
-      pref2 = Preference.where("time_slot_id=? AND building_id = ?",@params_time_slot2, '1').select("id").first
+      pref2 =  Preference.where("time_slot_id=? AND building_id = ? AND semester_id =?",@params_time_slot2, '1', @semester_id).select("id").take
       if pref2!=nil
-        newID2 = pref2.id.to_s()
+        newID2 = pref2.id
       elsif
         puts "Preference 2 not found"
       end
@@ -65,25 +68,30 @@ class HomePageController < ApplicationController
     
     if params[:class] !=nil &&params[:class][:time_slot_id3] !=""
       @params_time_slot3 = params[:class][:time_slot_id3]
-      if !Preference.exists?(:time_slot_id => @params_time_slot3, :building_id=> '1')
-        Preference.create!(:time_slot_id=>@params_time_slot3, :building_id=> '1')
+      if !Preference.exists?(:time_slot_id => @params_time_slot3, :building_id=> '1', :semester_id=> @semester_id)
+        Preference.create!(:time_slot_id=>@params_time_slot3, :building_id=> '1', :semester_id=> @semester_id)
         puts "New Preference Added"
       end
-      pref3 = Preference.where("time_slot_id=? AND building_id = ?",@params_time_slot3, '1').select("id").first
+      pref3 =  Preference.where("time_slot_id=? AND building_id = ? AND semester_id =?",@params_time_slot3, '1', @semester_id).select("id").take
       if pref3!=nil
-        newID3 = pref3.id.to_s()
+        newID3 = pref3.id
       elsif
         puts "Preference 3 not found"
       end
     end
     
-    if !FacultyPreference.exists?(:preference1_id=>newID1 ,:preference2_id => newID2 ,:preference3_id=>newID3)
-      FacultyPreference.create!(:preference1_id=>newID1 ,:preference2_id => newID2 ,:preference3_id=>newID3)
+    if !FacultyPreference.exists?(:preference1_id=>newID1 ,:preference2_id => newID2 ,:preference3_id=>newID3, :semester_id=> @semester_id)
+      FacultyPreference.create!(:preference1_id=>newID1 ,:preference2_id => newID2 ,:preference3_id=>newID3, :semester_id=> @semester_id)
       puts "New FacultyPreference Added"
     elsif
       puts"FacultyPreference Exists"
     end
-
+    prof_pref = FacultyPreference.where("preference1_id=? AND preference2_id=? AND preference3_id=? AND semester_id=?",newID1,newID2,newID3,@semester_id).take
+    if prof_pref !=nil
+      prof_pref_id = prof_pref.id
+      name_id = Faculty.where("faculty_name = ?", @prof_name).take.id
+      Faculty.update(name_id, preference: prof_pref_id.to_s)
+    end
   end
   
   def createsemester

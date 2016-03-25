@@ -12,6 +12,7 @@ end
     end
   end
 
+    #Logout
     def destroy
      session[:user_id] = nil
      redirect_to '/'

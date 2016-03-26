@@ -7,10 +7,16 @@ class HomePageController < ApplicationController
     @semester = Semester.all
   end
   def addfaculty
-	if params[:class] != nil && params[:class][:FacultyName] != ""
-  		Faculty.create!(faculty_name: params[:class][:FacultyName])
-	end
-     #redirect_to root_path;
+    @permissions = ["Admin", "User"]
+  	if params[:class] != nil && params[:class][:FacultyName] != "" && params[:class][:permission] !=
+    		Faculty.create!(faculty_name: params[:class][:FacultyName], permission: params[:class][:permission])
+    		flash[:success] = "New Faculty Member added"
+    		redirect_to root_path
+    #elsif
+      #flash[:error] = "Please enter Faculty Name"
+      #redirect_to addfaculty_path
+	 end
+     
   end
 
   def addcourse

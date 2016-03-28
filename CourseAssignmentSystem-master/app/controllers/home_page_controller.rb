@@ -1,5 +1,13 @@
 class HomePageController < ApplicationController
+<<<<<<< HEAD
   def professorhome
+=======
+  
+  before_action :require_user, only: [:home, :addfaculty, :addcourse, :addsemester, :setsession, :createsemester]
+
+
+  def home
+>>>>>>> ProfessorLogin
   	@semester = Semester.all
   end
   

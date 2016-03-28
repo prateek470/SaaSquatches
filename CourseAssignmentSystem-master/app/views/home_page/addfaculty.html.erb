@@ -6,9 +6,16 @@
   <%= form_for :class , method: :get, url: addfaculty_path do |f| %>
   <p><%= f.label "Faculty Name" %>
       <%= f.text_field :FacultyName %> 
-      <%= f.submit "Submit" %>
-  </p>
+   </p>
+   
+   <p><%=f.label "Permission Level: "%>
+   	<%= f.select :permission , options_for_select(@permissions.collect{|permission| permission},
+  	session[:permission] ), {prompt: "Please Select", hide_label: :true }, 
+  	{id: 'sessionId' , class: "btn btn-default dropdown-toggle"} %> 
+      <br></br>
+      <%= f.submit "Submit", class: "btn btn-lg btn-primary"  %>
+ </p>
  
-  <%= link_to "Back", root_path , class: "btn btn-lg btn-primary" %>
+  <%= link_to "Back", root_path %>
  <% end %>
 </div>

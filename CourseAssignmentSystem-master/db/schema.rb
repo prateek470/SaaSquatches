@@ -66,6 +66,8 @@ ActiveRecord::Schema.define(version: 20151130220731) do
 
   create_table "faculties", force: :cascade do |t|
     t.string   "faculty_name"
+    t.string   "permission"
+    t.integer  "preference"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
   end

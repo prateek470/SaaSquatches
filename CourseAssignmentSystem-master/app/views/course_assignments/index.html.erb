@@ -12,7 +12,7 @@
 <body>
   <h1 align="center">Assign Room and Timings for Faculty Courses</h1>
   <div style="background:#40E0D0 !important" class="jumbotron">
-      <%= label_tag :faculty_id, "Faculties" %>
+      <%= label_tag :faculty_id, "Faculty: " %>
       <%= select_tag :faculty_id, options_from_collection_for_select(@faculties,"id","faculty_name"), :include_blank => true ,class: "btn btn-default dropdown-toggle"%>
        </br>
        </br>

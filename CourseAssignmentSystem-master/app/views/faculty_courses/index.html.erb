@@ -10,9 +10,9 @@
 
 <body>
   <h1 align="center">Faculty and Courses</h1>
-  <div style="background:#40E0D0 !important" class="jumbotron">
+  <div class="jumbotron">
     <%= form_tag :action => :select_faculty, :method => :post do %>
-    <%= label_tag :faculty_id, "Faculties" %>
+    <%= label_tag :faculty_id, "Faculty Name: " %>
     <%= select_tag :faculty_id, options_from_collection_for_select(@faculties,"id","faculty_name"), :include_blank => true ,class: "btn btn-default dropdown-toggle"%>
     <%= submit_tag "Select" ,class: "btn btn-primary"%>
     <% end %>

@@ -7,16 +7,16 @@ def create
   @user = User.new(user_params)
   if @user.save
     session[:user_id] = @user.id
-    redirect_to '/'
+    redirect_to '/login'
   else
     redirect_to '/signup'
   end
 end
 
-def destroy
+ def destroy
   User.find(params(:user_id).destroy
   redirect_to '/signup'
-end
+ end
 
 private
   def user_params

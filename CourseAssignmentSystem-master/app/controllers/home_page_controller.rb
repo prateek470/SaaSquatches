@@ -1,13 +1,8 @@
 class HomePageController < ApplicationController
-<<<<<<< HEAD
-  def professorhome
-=======
-  
-  before_action :require_user, only: [:home, :addfaculty, :addcourse, :addsemester, :setsession, :createsemester]
-
+   before_action :require_user, only: [:home, :addfaculty, :addcourse, :addsemester, :setsession, :createsemester]
 
   def home
->>>>>>> ProfessorLogin
+
   	@semester = Semester.all
   end
   
@@ -80,7 +75,7 @@ class HomePageController < ApplicationController
         redirect_to addpreference_path
       end
     end
-    
+    #repeated for second preference
     if params[:class] !=nil &&params[:class][:time_slot_id2] !=""
       
         @params_time_slot2 = params[:class][:time_slot_id2]
@@ -100,7 +95,7 @@ class HomePageController < ApplicationController
         redirect_to addpreference_path
       end
     end
-    
+    #repeat for third preference
     if params[:class] !=nil &&params[:class][:time_slot_id3] !=""
       @params_time_slot3 = params[:class][:time_slot_id3]
       day_combo = TimeSlot.where(:id=>@params_time_slot3).select('day_combination_id').take.day_combination_id

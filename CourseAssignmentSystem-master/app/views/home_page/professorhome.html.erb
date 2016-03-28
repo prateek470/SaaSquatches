@@ -44,13 +44,7 @@
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-              <ul class="nav navbar-nav navbar-right">
-                <li>
 
-                  <a href="#about">About</a>
-                </li>
-                
-              </ul>
             </div>
             <!-- /.navbar-collapse -->
           </div>
@@ -70,18 +64,24 @@
                   <p>
                     <%= form_for :class,  method: :get , url: setsession_path do |f| %>
                     <h3><%= f.label "Choose Semester" %></h3>
-                    <%= f.select :semester_id , options_for_select(@semester.collect { |semester| [semester.SemesterTitle, semester.id] },session[:semester_id] ), 
-                    	{prompt: "Please Select", hide_label: :true },
-                    	{ :onchange => "this.form.submit()", id: 'sessionId' , class: "btn btn-default dropdown-toggle"} %>
-                    <% end %>
+                    <%= f.select :semester_id , options_for_select(@semester.collect { |semester| [semester.SemesterTitle, semester.id] },session[:semester_id] ), {prompt: "Please Select", hide_label: :true }, { :onchange => "this.form.submit()", id: 'sessionId' , class: "btn btn-default dropdown-toggle"} %>
+                  <% end %>  
                   </p>
+                  <h3>Edit Faculty</h3>
+                  
                   <hr class="intro-divider">
                   <ul class="list-inline intro-social-buttons">
-                    <li>
-                     <%= link_to "Add New Preference", addpreference_path, class: "btn btn-default btn-lg" %>
-                   </li>
-                </p>
-                <br>
+                  <li>
+                     <%= link_to "Edit  Preference", addpreference_path, class: "btn btn-default btn-lg" %>
+                  </li>
+                   
+             <br></br>
+             <br></br>
+             <hr class="intro-divider">
+             <ul class="list-inline intro-social-buttons">
+	             <li>
+	               <%= link_to "Logout", logout_path, method: "delete", class: "btn btn-default btn-lg" %>
+	             </li>
              
            </ul>
          </div>
@@ -221,7 +221,7 @@
             <a href="#contact">Contact</a>
           </li>
         </ul>
-        <p class="copyright text-muted small">Copyright &copy; Your Company 2014. All Rights Reserved</p>
+        <p class="copyright text-muted small">Copyright &copy; TAMU 2015. All Rights Reserved</p>
       </div>
     </div>
   </div>

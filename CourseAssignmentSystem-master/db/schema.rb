@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160325173629) do
+ActiveRecord::Schema.define(version: 20160329001045) do
 
   create_table "buildings", force: :cascade do |t|
     t.string   "building_name"
@@ -158,6 +158,8 @@ ActiveRecord::Schema.define(version: 20160325173629) do
     t.string   "password_digest"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
+    t.integer  "faculty_id"
+    t.string   "faculty_name"
   end
 
 end

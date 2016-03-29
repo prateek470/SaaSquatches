@@ -6,9 +6,18 @@ end
     @user = User.find_by_email(params[:session][:email])
     if @user && @user.authenticate(params[:session][:password])
       session[:user_id] = @user.id
-      redirect_to '/'
+      prof_id = User.where(:id=>@user).select(:faculty_id).take.faculty_id.to_s
+      permission = Faculty.where(:id=>prof_id).select(:permission).take.permission.to_s
+      session[:permission] = permission
+      if session[:permission] == 'Admin'
+        redirect_to '/'
+      else
+        @semester = Semester.all
+        redirect_to professorhome_path 
+      end
+      
     else
-      redirect_to 'login'
+      redirect_to '/login'
     end
   end
 

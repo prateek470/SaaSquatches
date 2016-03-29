@@ -30,11 +30,11 @@ Then /"(.*)" is selected with "(.*)"$/ do |select_box,value|
 	page.should have_select(select_box, selected: value)
 end
 
-When /I choose semester "(.*)" and follow "(.*)"$/ do |semester,link|
-	step "I select \"#{semester}\" from \"sessionId\""
-	page.execute_script("$('#sessionId').trigger('onchange')")
-	step "I follow \"#{link}\""
-end
+# When /I choose semester "(.*)" and follow "(.*)"$/ do |semester,link|
+	# step "I select \"#{semester}\" from \"sessionId\""
+	# page.execute_script("$('#sessionId').trigger('onchange')")
+	# step "I follow \"#{link}\""
+# end
 
 When /I choose faculty "(.*)" from "(.*)"$/ do |name,field|
 	step "I select \"#{name}\" from \"#{field}\""

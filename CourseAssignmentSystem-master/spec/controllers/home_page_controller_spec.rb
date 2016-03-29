@@ -11,8 +11,8 @@ RSpec.describe HomePageController, type: :controller do
 
   describe "add new faculty" do
     it "should call the model method to create new faculty" do
-	Faculty.should_receive(:create!).with({:faculty_name => "Faculty1"})
-	post :addfaculty, {:class => {:FacultyName => "Faculty1"}}
+	Faculty.should_receive(:create!).with({:faculty_name => "Faculty1", :permission=>"User"})
+	post :addfaculty, {:class => {:FacultyName => "Faculty1", :permission=>"User"}}
     end
   end
 
@@ -42,7 +42,20 @@ RSpec.describe HomePageController, type: :controller do
 		response.should redirect_to addsemester_path
 	end
   end
-
+  
+  describe 'adding new preference' do
+    it 'should add a new preference'do
+    Preference.should_receive(:create!).with({:time_slot_id=>'1',:day_combination_id=>'1', :building_id=> '1',:semester_id=> '1'})
+    post :addpreference, {:class=>{:time_slot_id=>'1',:day_combination_id=>'1', :building_id=> '1',:semester_id=> '1'}}
+  end
+  end
+  
+  describe 'adding new faculty preference' do
+    it 'should add a new faculty preference if it is new'do
+    FacultyPreference.should_receive(:create!).with(:preference1_id=>'99')
+    post :addpreference, {:class=>{:time_slot_id1=>'99'}}
+  end
+  end
   # Links to various pages:
 
 =begin
@@ -103,15 +116,15 @@ RSpec.describe HomePageController, type: :controller do
   end
 =end
 
-=begin
-  # 7. Add New Course
-  describe "GET #add_new_course" do
-    it "redirects to the Add New Course page" do
-      get :add_new_course
+begin
+  # 7. Add New Preference
+  describe "GET #addpreference" do
+    it "redirects to the Add New Preference page" do
+      get :addpreference
       expect(response).to have_http_status(:success)
     end
   end
-=end
+end
 
 end
 

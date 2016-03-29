@@ -6,6 +6,7 @@ class HomePageController < ApplicationController
   def home
     @semester = Semester.all
   end
+  
   def addfaculty
     @permissions = ["Admin", "User"]
   	if params[:class] != nil && params[:class][:FacultyName] != "" && params[:class][:permission] !=

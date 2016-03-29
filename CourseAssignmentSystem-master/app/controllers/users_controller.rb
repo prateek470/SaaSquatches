@@ -7,11 +7,13 @@ end
 def create
   
   user_name = Faculty.where(:id=>params[:user][:faculty_id]).select(:faculty_name).take.faculty_name.to_s
-  if !User.exists?(:faculty_id=>params[:user][:faculty_id])
+  if !User.exists?(:faculty_id=>params[:user][:faculty_id])||!User.exists?(:email=>params[:user][:email])
     @user = User.new(user_params)
     if @user.save
       session[:user_id] = @user.id
+      
       @user.update(faculty_name: user_name)
+      
       redirect_to '/login'
       flash[:success] = user_name+ " is signed up!"
     else

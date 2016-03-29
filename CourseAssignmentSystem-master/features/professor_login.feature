@@ -17,11 +17,11 @@ And the following users exist:
   And I press "Login"
   Then I am on the home page
   
-  #Scenario: User logs out
+  Scenario: User logs out
   
-  #When I go to the home page
-  #When I follow "Log Out"
-  #Then I should be on the login page
+  When I go to the home page
+  When I follow "Log Out"
+  Then I should be on the login page
 
  
   

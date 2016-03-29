@@ -35,25 +35,25 @@ Feature: add a page to assign courses to faculty members
    Then I am on the Course and Faculty page
 
 
- Scenario: selecting faculty
-   When I choose faculty "1" from "faculty_id"
-   Then I should see "Assign Courses"
-   And I should see "faculty_1" 
+# Scenario: selecting faculty
+#   When I choose faculty "1" from "faculty_id"
+#   Then I should see "Assign Courses"
+#   And I should see "faculty_1" 
  
- Scenario: showing courses for selected faculty
-   When I select "Chen Jianer" from "faculty_id"
-   And I press "Select"
-   Then I should see "Chen Jianer"
-   And "courses_course1_id" is selected with "CSCE 629"
-   And "courses_course2_id" is selected with "CSCE 608"
-   And "courses_course3_id" is selected with ""
+# Scenario: showing courses for selected faculty
+#   When I select "Chen Jianer" from "faculty_id"
+#   And I press "Select"
+#   Then I should see "Chen Jianer"
+#   And "courses_course1_id" is selected with "CSCE 629"
+#   And "courses_course2_id" is selected with "CSCE 608"
+#   And "courses_course3_id" is selected with ""
 
- Scenario: assigning courses to faculty
-   When I select "Ioerger Thomas" from "faculty_id"
-   And I press "Select"
-   Then I should see "Ioerger Thomas"
-   When I select "CSCE 625" from "courses_course1_id"
-   And I press "Submit"
-   Then I am on the Course and Faculty page
-   And I should see "CSCE 625"
+# Scenario: assigning courses to faculty
+#   When I select "Ioerger Thomas" from "faculty_id"
+#   And I press "Select"
+#   Then I should see "Ioerger Thomas"
+#   When I select "CSCE 625" from "courses_course1_id"
+#   And I press "Submit"
+#   Then I am on the Course and Faculty page
+#   And I should see "CSCE 625"
 

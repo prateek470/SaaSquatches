@@ -152,8 +152,8 @@ ActiveRecord::Schema.define(version: 20160329001045) do
   add_index "time_slots", ["day_combination_id"], name: "index_time_slots_on_day_combination_id"
 
   create_table "users", force: :cascade do |t|
-    t.string   "first_name"
-    t.string   "last_name"
+    t.integer  "faculty_id"
+    t.string   "faculty_name"
     t.string   "email"
     t.string   "password_digest"
     t.datetime "created_at",      null: false

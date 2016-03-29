@@ -1,10 +1,7 @@
 class HomePageController < ApplicationController
    before_action :require_user, only: [:home, :addfaculty, :addcourse, :addsemester, :setsession, :createsemester]
 
-  def home
 
-  	@semester = Semester.all
-  end
   
   def home
     @semester = Semester.all

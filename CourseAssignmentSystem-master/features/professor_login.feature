@@ -2,22 +2,35 @@ Feature: Add a login functionality, so professors can log in and set their prefe
   
   As a professor
   So that I can insert my preferences
-  I want to be able to login to the apllication
+  I want to be able to login to the application
   
-  Scenario: User creates account
-  
-  Given I am on the login page
-  When I press "Sign Up"
-  Then I should be on the signup page
+Given I am on the login page 
+
+And the following users exist:
+ | First name  | Last name | Email         | Password |
+ | Cesar       | Ch        | cc@email.com  | log      |
+
+
+  Scenario: User Login
   When I fill in "Email" with "cc@email.com"
-  And I fill in "First Name" with "Cesar"
-  And I fill in "Last Name" with "Ch"
   And I fill in "Password" with "log"
-  Then I should be logged in on the professor home page
+  And I press "Login"
+  Then I am on the home page
   
-  Scenario: User logs out
+  #Scenario: User logs out
   
-  Given I am on the home page logged in
-  When I press "Log Out"
-  Then I should be on the login page
+  #When I go to the home page
+  #When I follow "Log Out"
+  #Then I should be on the login page
+
  
+  
+ 
+ 
+ 
+ 
+  
+  
+  
+  
+  

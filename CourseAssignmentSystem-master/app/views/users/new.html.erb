@@ -6,12 +6,12 @@
 
     <%= form_for(@user) do |f| %>
     <%= f.select :faculty_id , options_for_select(@faculty_names.collect { |name| [name.faculty_name , name.id] },
-	  	session[:faculty_id] ), {prompt: "Select Your Name", hide_label: :true }, 
+	  	session[:faculty_id]), {prompt: "Select Your Name", hide_label: :true }, 
 	  	{id: 'sessionId' , class: "btn btn-default dropdown-toggle"} %>
       
       <%= f.email_field :email, :placeholder => "Email" %>
       <%= f.password_field :password, :placeholder => "Password" %>
-      <%= f.submit "Create an account", class: "btn-submit" %>
+      <%= f.submit "Create an account", class: "btn-submit", id: "singup_button" %>
     <% end %>
 
     </div>

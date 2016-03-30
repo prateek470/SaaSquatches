@@ -9,12 +9,11 @@ end
       prof_id = User.where(:id=>@user).select(:faculty_id).take.faculty_id.to_s
       permission = Faculty.where(:id=>prof_id).select(:permission).take.permission.to_s
       session[:permission] = permission
-      if session[:permission] == 'Admin'
-        redirect_to '/'
-      else
-        @semester = Semester.all
-        redirect_to professorhome_path 
-      end
+      session[:faculty_id] = @user.faculty_id
+      
+      redirect_to '/'
+      flash[:success]= "Logged in as "+@user.faculty_name.to_s
+
       
     else
       redirect_to '/login'

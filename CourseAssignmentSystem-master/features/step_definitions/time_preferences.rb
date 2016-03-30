@@ -10,21 +10,21 @@ When /^I choose preference_(\d+) "(.*?)" from "(.*?)"$/ do |name,field|
   step "I select \"#{name}\" from \"semester_id\""
 end
 
-When(/^I select "(.*?)" from "(.*?)"$/) do |arg1, arg2|
-  visit "/addpreference"
-end
+#When(/^I select "(.*?)" from "(.*?)"$/) do |arg1, arg2|
+#  visit "/addpreference"
+#end
 
-Given /^I am on the home page$/ do
-  visit "home"
-end
+#Given /^I am on the home page$/ do
+#  visit "home"
+#end
 
-Then /^I am on the addpreference page$/ do
-  visit "/addpreference"
-end
+#Then /^I am on the addpreference page$/ do
+#  visit "/addpreference"
+#end
 
-When /^I press "(.*?)"$/ do
-  visit "/addpreference"
-end
+#When /^I press "(.*?)"$/ do
+#  visit "/addpreference"
+#end
 
 Then /^I should see "(.*?)"$/ do |text|
   page.should have_content text

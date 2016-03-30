@@ -211,7 +211,8 @@ facultypreferences = [{:faculty_course_id => '1', :preference1_id => '1', :prefe
 					  {:faculty_course_id => '3', :preference1_id => '5', :preference2_id => '7', :preference3_id => '6', :semester_id => '1'},
 				      {:faculty_course_id => '4', :preference1_id => '7', :preference3_id => '10', :semester_id => '1'},
 					]
-semesters = [{:SemesterTitle => 'Fall 2015'}]
+semesters = [{:SemesterTitle => 'Fall 2015'},
+         ]
 					
 buildings.each do |building|
   Building.create!(building)
@@ -242,9 +243,9 @@ rooms.each do |room|
   Room.create!(room)
 end
 
-#semesters.each do |s|
-#  Semester.create_semester(s[:SemesterTitle])
-#end
+semesters.each do |s|
+ Semester.create_semester(s[:SemesterTitle])
+end
 
 #preferences.each do |pf|
 #  Preference.create!(pf)

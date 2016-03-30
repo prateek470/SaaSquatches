@@ -18,11 +18,6 @@ Given the following users exist:
   And I press "Login"
   Then I am on the home page
   
-  Scenario: User logs out
-  
-  When I go to the home page
-  When I press "lgt"
-  Then I should be on the login page
 
  
   

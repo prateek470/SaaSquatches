@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   get "addpreference" => 'home_page#addpreference'
   get "professorhome" =>'home_page#professorhome'
   
-  #root 'sessions#new'
+  #root 'home_page#professorhome'
   root 'home_page#home'
 
   resources :faculty_preferences, :except => [:show]

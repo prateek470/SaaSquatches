@@ -243,9 +243,9 @@ rooms.each do |room|
   Room.create!(room)
 end
 
-#semesters.each do |s|
-#  Semester.create_semester(s[:SemesterTitle])
-#end
+semesters.each do |s|
+ Semester.create_semester(s[:SemesterTitle])
+end
 
 #preferences.each do |pf|
 #  Preference.create!(pf)

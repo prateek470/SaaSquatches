@@ -2,7 +2,6 @@ class HomePageController < ApplicationController
    before_action :require_user, only: [:home, :addfaculty, :addcourse, :addsemester, :setsession, :createsemester]
 
 
-  
   def home
     @semester = Semester.all
   end
@@ -34,6 +33,8 @@ class HomePageController < ApplicationController
   	session[:semester_id] = params[:class][:semester_id]
   	redirect_to root_path;
   end
+  
+ 
   
   def addpreference
     @timeslot = TimeSlot.all

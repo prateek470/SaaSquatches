@@ -1,38 +1,21 @@
-class HomePageController < ApplicationController
-  def home
+class ProfessorHomeController < ApplicationController
+  
+   before_action :require_user, only: [:home, :addprofessorpreference, :setsession]
+   
+  def professorhome
     @semester = Semester.all
   end
 
-  def addfaculty
-    @permissions = ["Admin", "User"]
-    if params[:class] != nil && params[:class][:FacultyName] != "" && params[:class][:permission] !=
-        Faculty.create!(faculty_name: params[:class][:FacultyName], permission: params[:class][:permission])
-        flash[:success] = "New Faculty Member added"
-        redirect_to root_path
-    #elsif
-      #flash[:error] = "Please enter Faculty Name"
-      #redirect_to addfaculty_path
-   end
-     
-  end
-  def addpreference
+  
+   def professoraddpreference
     @timeslot = TimeSlot.all
     @semester_id = session[:semester_id]
-    @faculty_names = Faculty.all
-    
 
     newID1 = nil
     newID2 = nil
     newID3 = nil
     
-    if params[:class] !=nil && params[:class][:FacultyName] !=""
-      
-      @prof_id = params[:class][:FacultyName]
-      if !Faculty.exists?(:id=>@prof_id)
-        flash[:error] = "Professor does not exist"
-        redirect_to addpreference_path
-      end
-    end
+    @prof_id = session[:faculty_id]
     #Check if there are times selected 
     if params[:class] !=nil &&params[:class][:time_slot_id1] !=""
       @params_time_slot1 = params[:class][:time_slot_id1]
@@ -50,7 +33,7 @@ class HomePageController < ApplicationController
         newID1 = pref1.id
       elsif
         flash[:error]="Preference 1 not recorded..."
-        redirect_to addpreference_path
+        redirect_to professoraddpreference_path
       end
     end
     #repeated for second preference
@@ -70,7 +53,7 @@ class HomePageController < ApplicationController
         newID2 = pref2.id
       elsif
         flash[:error]="Preference 2 not recorded..."
-        redirect_to addpreference_path
+        redirect_to professoraddpreference_path
       end
     end
     #repeat for third preference
@@ -89,7 +72,7 @@ class HomePageController < ApplicationController
         newID3 = pref3.id
       elsif
         flash[:error]="Preference 3 not recorded..."
-        redirect_to addpreference_path
+        redirect_to professoraddpreference_path
       end
     end
     
@@ -105,43 +88,19 @@ class HomePageController < ApplicationController
       prof_name = Faculty.where(:id=>@prof_id).select("faculty_name").take.faculty_name.to_s
       Faculty.update(@prof_id, preference: prof_pref_id.to_s)
       flash[:success]= "Updated Preference for " + prof_name
-      redirect_to root_path
+      redirect_to professorhome_path
     else
       #flash[:error] = "Faculty Preference Not found..."
     end
   end
 
-  def addcourse
-  if params[:class] != nil && params[:class][:CourseName] != ""
-      Course.create!(:course_name => params[:class][:CourseName], :CourseTitle => params[:class][:CourseTitle])
-  end
-     #redirect_to root_path;
-  end
-
-  def addsemester
-  end
+  
 
   def setsession
     session[:semester_id] = params[:class][:semester_id]
-    redirect_to root_path;
+    redirect_to professorhome_path
   end
 
-  def createsemester
-    success = false;
-    if params[:class] != nil && params[:class][:SemesterTitle] != ""
-    semester = Semester.find_by(SemesterTitle: params[:class][:SemesterTitle])
-  if semester == nil
-    Semester.create_semester(params[:class][:SemesterTitle])
-    success = true
-  end
-    end
-    if success == true
-  flash[:success] = "Created new semester"
-  redirect_to root_path;
-    else
-  flash[:error] = "Enter a valid and new semester"
-  redirect_to addsemester_path;
-    end
-  end
+ 
 
 end

@@ -1,6 +1,6 @@
 class ProfessorHomeController < ApplicationController
   
-   before_action :require_user, only: [:home, :addprofessorpreference, :setsession]
+   before_action :require_user, only: [:professorhome, :addprofessorpreference, :setsession]
    
   def professorhome
     @semester = Semester.all
@@ -16,6 +16,7 @@ class ProfessorHomeController < ApplicationController
     newID3 = nil
     
     @prof_id = session[:faculty_id]
+    puts @prof_id
     #Check if there are times selected 
     if params[:class] !=nil &&params[:class][:time_slot_id1] !=""
       @params_time_slot1 = params[:class][:time_slot_id1]
@@ -85,7 +86,7 @@ class ProfessorHomeController < ApplicationController
     #link Faculty Preference to Faculty record
     if prof_pref !=nil
       prof_pref_id = prof_pref.id
-      prof_name = Faculty.where(:id=>@prof_id).select("faculty_name").take.faculty_name.to_s
+      prof_name = session[:faculty_name]
       Faculty.update(@prof_id, preference: prof_pref_id.to_s)
       flash[:success]= "Updated Preference for " + prof_name
       redirect_to professorhome_path

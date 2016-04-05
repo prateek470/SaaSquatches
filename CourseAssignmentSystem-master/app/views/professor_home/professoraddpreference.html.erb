@@ -2,7 +2,7 @@
   <h2>Edit Your Preferences </h2>
   <br><br>
 
-  <%= form_for :class , method: :get, url: addpreference_path do |f| %>
+  <%= form_for :class , method: :get, url: professoraddpreference_path do |f| %>
       
   <h3><%= f.label "Choose Preference 1" %></h3>
   <%= f.select :time_slot_id1 , options_for_select(@timeslot.collect { |timeslot| [timeslot.time_slot + " " + DayCombination.where("id=?",timeslot.day_combination_id).select("day_combination").take.day_combination.to_s, timeslot.id] },

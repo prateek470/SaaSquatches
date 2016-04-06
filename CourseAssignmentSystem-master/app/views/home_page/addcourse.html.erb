@@ -8,6 +8,9 @@
       <%= f.text_field :CourseName %>
   <p><%= f.label "Course Title" %>
       <%= f.text_field :CourseTitle %> 
+  </p>
+  <p><%= f.label "Course Size" %>
+      <%= f.number_field :course_size, in: 20..200, step: 1, min:20 %>
       <%= f.submit "Submit" %>
   </p>
  

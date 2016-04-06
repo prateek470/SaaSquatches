@@ -25,6 +25,9 @@ module NavigationHelpers
       faculty_course_path(faculty_courses)
     when /the Course Assignments page$/
       course_assignments_path
+    when /^professor home index page$/
+      #professor_home_index_path
+      visit '/professorhome'
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
     #

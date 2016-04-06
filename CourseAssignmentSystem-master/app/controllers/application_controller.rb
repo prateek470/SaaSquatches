@@ -9,13 +9,7 @@ class ApplicationController < ActionController::Base
       end
     end
   end
-  # def create
-    # if session[:permission] =='User'
-      # @home = '/professorhome'
-    # else
-      # @home = '/'
-    # end
-  # end
+
   helper_method :current_user
 
   def current_user

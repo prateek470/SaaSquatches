@@ -11,12 +11,8 @@ Rails.application.routes.draw do
   get "createsemester" => 'home_page#createsemester'
   get "setsession" => 'home_page#setsession'
   get "addpreference" => 'home_page#addpreference'
-<<<<<<< HEAD
-  get "professorhome" =>'home_page#professorhome'
   get "addclassroom" => 'home_page#addclassroom'
-=======
 
->>>>>>> Professor-Log-In
   
   #root 'home_page#professorhome'
   root 'home_page#home'

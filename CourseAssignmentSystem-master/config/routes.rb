@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   resources :professor_home, :controller=> :professorhome
   get "professorhome" =>'professor_home#professorhome'
   get "professoraddpreference" => 'professor_home#professoraddpreference'
+  get "viewpreferences" => 'professor_home#viewpreferences'
   
   resources :faculty_preferences, :except => [:show]
   get 'faculty_preferences/update_time_slots', :as => 'update_time_slots'

@@ -73,7 +73,7 @@
                     	<%= f.select :semester_id , options_for_select(@semester.collect { |semester| [semester.SemesterTitle, semester.id] },session[:semester_id] ), {prompt: "Please Select", hide_label: :true }, { :onchange => "this.form.submit()", id: 'sessionId' , class: "btn btn-default dropdown-toggle"} %>
                   	<% end %>  
                   </p>
-                  <h3>Edit Faculty</h3>
+                  <h3>Manage Your Preferences</h3>
                   
                   <hr class="intro-divider">
                   <ul class="list-inline intro-social-buttons">

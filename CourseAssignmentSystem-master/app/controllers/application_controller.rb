@@ -18,10 +18,14 @@ class ApplicationController < ActionController::Base
     
 
   end
-
+  def check_permission
+    if session[:permission] =='User'
+      redirect_to professorhome_path
+    end
+  end
   def require_user
-    
-    redirect_to '/login' unless current_user
+
+      redirect_to '/login' unless current_user
   end
 
 end

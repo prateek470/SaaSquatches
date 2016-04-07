@@ -1,5 +1,5 @@
 class HomePageController < ApplicationController
-   before_action :require_user, only: [:home, :addfaculty, :addcourse, :addsemester, :setsession, :createsemester]
+   before_action :require_user,:check_permission, only: [:home, :addfaculty, :addcourse, :addsemester, :setsession, :createsemester]
 
 
   def home

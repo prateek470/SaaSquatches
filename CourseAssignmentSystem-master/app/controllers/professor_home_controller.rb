@@ -7,6 +7,7 @@ class ProfessorHomeController < ApplicationController
   end
 
   
+  
   def professoraddpreference
     if session[:semester_id] !=nil && session[:semester_id]!="" 
       @timeslot = TimeSlot.all
@@ -250,7 +251,7 @@ class ProfessorHomeController < ApplicationController
       redirect_to professorhome_path
     end
   end
-
+  
   def viewpreferences
     if session[:semester_id] !=nil && session[:semester_id]!=""  
     # @faculty = Faculty.where(:id=>session[:faculty_id])
@@ -267,13 +268,11 @@ class ProfessorHomeController < ApplicationController
       redirect_to professorhome_path
     end
   end
-
   def profsetsession
-    puts"AAAAAAAAAAAAAAAAAAAAAAAAAA"
     session[:semester_id] = params[:class][:semester_id]
-
-    #redirect_to profsetsession_path
+    redirect_to professorhome_path
   end
+ 
 
  
 

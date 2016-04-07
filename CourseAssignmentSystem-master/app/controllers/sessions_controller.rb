@@ -25,6 +25,7 @@ end
       
       end
     else
+      flash[:error] = 'Email or Password not valid'
       redirect_to '/login'
     end
   end

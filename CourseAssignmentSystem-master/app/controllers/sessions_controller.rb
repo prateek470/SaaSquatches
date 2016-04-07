@@ -6,10 +6,12 @@ end
     @user = User.find_by_email(params[:session][:email])
     if @user && @user.authenticate(params[:session][:password])
       session[:user_id] = @user.id
+      
       #prof_id = User.where(:id=>@user).select(:faculty_id).take.faculty_id.to_s
       #prof_permission = Faculty.where(:id=>prof_id).select(:permission).take.permission.to_s
-      faculty = Faculty.find_by_id(session[:user_id])
+      faculty = Faculty.find_by_id(@user.faculty_id)
       session[:permission] = faculty.permission #prof_permission
+      puts faculty.faculty_name.to_s
       session[:faculty_id] = faculty.id
       session[:faculty_name] = @user.faculty_name
 

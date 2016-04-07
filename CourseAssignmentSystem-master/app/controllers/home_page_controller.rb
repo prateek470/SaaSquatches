@@ -38,7 +38,7 @@ class HomePageController < ApplicationController
  
   
   def addpreference
-    if session[:semester_id] !=nil && sesseion[:semester_id]!=""
+    if session[:semester_id] !=nil && session[:semester_id]!=""
       @timeslot = TimeSlot.all
       @semester_id = session[:semester_id]
       @faculty_names = Faculty.all
@@ -262,28 +262,29 @@ class HomePageController < ApplicationController
           flash[:error]="Bad Preference 5 not recorded..."
           redirect_to root_path
         end
-      else
-        flash[:error] = "Please choose semester"
-        redirect_to root_path
+      
       end
-    end
-    
-    
-    #Create new Faculty Preference
-    if !FacultyPreference.exists?(:preference1_id=>newID1 ,:preference2_id => newID2 ,:preference3_id=>newID3, :preference4_id => newID4, :preference5_id => newID5, :bad_preference1_id => badNewID1, :bad_preference2_id => badNewID2, :bad_preference3_id => badNewID3, :bad_preference4_id => badNewID4, :bad_preference5_id => badNewID5, :semester_id=> @semester_id)
-      FacultyPreference.create!(:preference1_id=>newID1 ,:preference2_id => newID2 ,:preference3_id=>newID3, :preference4_id => newID4, :preference5_id => newID5, :bad_preference1_id => badNewID1, :bad_preference2_id => badNewID2, :bad_preference3_id => badNewID3, :bad_preference4_id => badNewID4, :bad_preference5_id => badNewID5, :semester_id=> @semester_id)
-    end
-    prof_pref = FacultyPreference.where("preference1_id=? AND preference2_id=? AND preference3_id=? AND preference4_id=? AND preference5_id=? AND bad_preference1_id=? AND bad_preference2_id=? AND bad_preference3_id=? AND bad_preference4_id=? AND bad_preference5_id=? AND semester_id=?",
-                                          newID1,newID2,newID3,newID4,newID5,badNewID1,badNewID2,badNewID3,badNewID4,badNewID5,@semester_id).take
-    #link Faculty Preference to Faculty record
-    if prof_pref !=nil
-      prof_pref_id = prof_pref.id
-      prof_name = Faculty.where(:id=>@prof_id).select("faculty_name").take.faculty_name.to_s
-      Faculty.update(@prof_id, preference: prof_pref_id.to_s)
-      flash[:success]= "Updated Preference for " + prof_name
-      redirect_to root_path
+      
+      
+      #Create new Faculty Preference
+      if !FacultyPreference.exists?(:preference1_id=>newID1 ,:preference2_id => newID2 ,:preference3_id=>newID3, :preference4_id => newID4, :preference5_id => newID5, :bad_preference1_id => badNewID1, :bad_preference2_id => badNewID2, :bad_preference3_id => badNewID3, :bad_preference4_id => badNewID4, :bad_preference5_id => badNewID5, :semester_id=> @semester_id)
+        FacultyPreference.create!(:preference1_id=>newID1 ,:preference2_id => newID2 ,:preference3_id=>newID3, :preference4_id => newID4, :preference5_id => newID5, :bad_preference1_id => badNewID1, :bad_preference2_id => badNewID2, :bad_preference3_id => badNewID3, :bad_preference4_id => badNewID4, :bad_preference5_id => badNewID5, :semester_id=> @semester_id)
+      end
+      prof_pref = FacultyPreference.where("preference1_id=? AND preference2_id=? AND preference3_id=? AND preference4_id=? AND preference5_id=? AND bad_preference1_id=? AND bad_preference2_id=? AND bad_preference3_id=? AND bad_preference4_id=? AND bad_preference5_id=? AND semester_id=?",
+                                            newID1,newID2,newID3,newID4,newID5,badNewID1,badNewID2,badNewID3,badNewID4,badNewID5,@semester_id).take
+      #link Faculty Preference to Faculty record
+      if prof_pref !=nil
+        prof_pref_id = prof_pref.id
+        prof_name = Faculty.where(:id=>@prof_id).select("faculty_name").take.faculty_name.to_s
+        Faculty.update(@prof_id, preference: prof_pref_id.to_s)
+        flash[:success]= "Updated Preference for " + prof_name
+        redirect_to root_path
+      else
+        #flash[:error] = "Faculty Preference Not found..."
+      end
     else
-      #flash[:error] = "Faculty Preference Not found..."
+      flash[:error] = "Please choose semester"
+      redirect_to root_path
     end
   end
   

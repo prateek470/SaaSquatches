@@ -42,6 +42,13 @@
               
               <a class="navbar-brand topnav" href="https://howdy.tamu.edu/cp/home/displaylogin">Howdy</a>
             </div>
+            <div class="nav navbar-nav navbar-right">
+	            <% if current_user %>
+	              <ul>
+	                <li><%= link_to "Log Out", logout_path, method: "delete" %></li>
+	              </ul>
+	            <% end %>
+            </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
@@ -94,7 +101,7 @@
  <!-- /.intro-header -->
 
  <!-- Page Content -->
-
+<!-- 
 
  <div class="content-section-a">
 
@@ -118,10 +125,10 @@
   </div>
   <!-- /.container -->
 
-</div>
+<!-- </div> -->
 <!-- /.content-section-a -->
 
-<div class="content-section-b">
+<!-- <div class="content-section-b">
 
   <div class="container">
 
@@ -142,10 +149,10 @@
   </div>
   <!-- /.container -->
 
-</div>
+<!-- </div> -->
 <!-- /.content-section-b -->
 
-<div class="content-section-a">
+<!-- <div class="content-section-a">
 
   <div class="container">
 
@@ -163,12 +170,11 @@
       </div>
     </div>
 
-  </div>
+  </div> -->
   <!-- /.container -->
 
-</div>
-<!-- /.content-section-a -->
-
+<!-- </div> -->
+<!-- /.content-section-a -->  
 
 <div class="banner">
 

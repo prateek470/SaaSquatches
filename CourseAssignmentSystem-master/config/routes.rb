@@ -15,12 +15,15 @@ Rails.application.routes.draw do
 
   
   #root 'home_page#professorhome'
-  root 'home_page#home'
+    root 'home_page#home'
+
+  
   
   resources :professor_home, :controller=> :professorhome
   get "professorhome" =>'professor_home#professorhome'
   get "professoraddpreference" => 'professor_home#professoraddpreference'
   get "viewpreferences" => 'professor_home#viewpreferences'
+  get "profsetsession" => 'professor_home#professorhome'
   
   resources :faculty_preferences, :except => [:show]
   get 'faculty_preferences/update_time_slots', :as => 'update_time_slots'

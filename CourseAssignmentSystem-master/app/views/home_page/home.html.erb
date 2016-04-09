@@ -42,6 +42,13 @@
               
               <a class="navbar-brand topnav" href="https://howdy.tamu.edu/cp/home/displaylogin">Howdy</a>
             </div>
+            <div class="nav navbar-nav navbar-right">
+	            <% if current_user %>
+	              <ul>
+	                <li><%= link_to "Log Out", logout_path, method: "delete" %></li>
+	              </ul>
+	            <% end %>
+            </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
@@ -90,7 +97,9 @@
                    <li>
                      <%= link_to "Add New Course", addcourse_path, class: "btn btn-default btn-lg" %>
                    </li>
-                   
+                   <li>
+                     <%= link_to "Add New Classroom", addclassroom_path, class: "btn btn-default btn-lg" %>
+                   </li>
                   <li>
                     <%= link_to "Assign Classroom", class_index_path, class: "btn btn-default btn-lg" %>
                   </li>
@@ -119,7 +128,7 @@
              <hr class="intro-divider">
              <ul class="list-inline intro-social-buttons">
 	             <li>
-	               <%= link_to "Logout", logout_path, id: "lgt", method: "delete", class: "btn btn-default btn-lg" %>
+	               <%= link_to "Logout", logout_path, id: "lgt", method: "delete", class: "btn btn-default btn-lg", id: "logout_link" %>
 	             </li>
              
            </ul>
@@ -134,7 +143,7 @@
  <!-- /.intro-header -->
 
  <!-- Page Content -->
-
+<!-- 
 
  <div class="content-section-a">
 
@@ -158,10 +167,10 @@
   </div>
   <!-- /.container -->
 
-</div>
+<!-- </div> -->
 <!-- /.content-section-a -->
 
-<div class="content-section-b">
+<!-- <div class="content-section-b">
 
   <div class="container">
 
@@ -182,10 +191,10 @@
   </div>
   <!-- /.container -->
 
-</div>
+<!-- </div> -->
 <!-- /.content-section-b -->
 
-<div class="content-section-a">
+<!-- <div class="content-section-a">
 
   <div class="container">
 
@@ -203,12 +212,11 @@
       </div>
     </div>
 
-  </div>
+  </div> -->
   <!-- /.container -->
 
-</div>
-<!-- /.content-section-a -->
-
+<!-- </div> -->
+<!-- /.content-section-a -->  
 
 <div class="banner">
 

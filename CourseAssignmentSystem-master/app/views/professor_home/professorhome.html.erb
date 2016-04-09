@@ -42,6 +42,13 @@
               
               <a class="navbar-brand topnav" href="https://howdy.tamu.edu/cp/home/displaylogin">Howdy</a>
             </div>
+            <div class="nav navbar-nav navbar-right">
+	            <% if current_user %>
+	              <ul>
+	                <li><%= link_to "Log Out", logout_path, method: "delete" %></li>
+	              </ul>
+	            <% end %>
+            </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
@@ -56,33 +63,32 @@
         
         <div class="intro-header">
           <div class="container">
-
             <div class="row">
               <div class="col-lg-12">
                 <div class="intro-message">
                   <h1>Course Assignment System</h1>
                   <p>
-                    <%= form_for :class,  method: :get , url: setsession_path do |f| %>
-                    <h3><%= f.label "Choose Semester" %></h3>
-                    <%= f.select :semester_id , options_for_select(@semester.collect { |semester| [semester.SemesterTitle, semester.id] },session[:semester_id] ), {prompt: "Please Select", hide_label: :true }, { :onchange => "this.form.submit()", id: 'sessionId' , class: "btn btn-default dropdown-toggle"} %>
-                  <% end %>  
+                    <%= form_for :class,  method: :get , url: profsetsession_path do |f| %>
+                    	<h3><%= f.label "Choose Semester" %></h3>
+                    	<%= f.select :semester_id , options_for_select(@semester.collect { |semester| [semester.SemesterTitle, semester.id] },session[:semester_id] ), {prompt: "Please Select", hide_label: :true }, { :onchange => "this.form.submit()", id: 'sessionId' , class: "btn btn-default dropdown-toggle"} %>
+                  	<% end %>  
                   </p>
-                  <h3>Edit Faculty</h3>
+                  <h3>Manage Your Preferences</h3>
                   
                   <hr class="intro-divider">
                   <ul class="list-inline intro-social-buttons">
                   <li>
-                     <%= link_to "Edit  Preference", addpreference_path, class: "btn btn-default btn-lg" %>
+                     <%= link_to "Edit  Preferences", professoraddpreference_path, class: "btn btn-default btn-lg" %>
                   </li>
-                   
-             <br></br>
-             <br></br>
-             <hr class="intro-divider">
-             <ul class="list-inline intro-social-buttons">
+                  <li>
+                     <%= link_to "View  Preferences", viewpreferences_path, class: "btn btn-default btn-lg" %>
+                  </li>
+	             <br></br>
+	             <hr class="intro-divider">
+	             <ul class="list-inline intro-social-buttons">
 	             <li>
 	               <%= link_to "Logout", logout_path, method: "delete", class: "btn btn-default btn-lg" %>
-	             </li>
-             
+	             </li>            
            </ul>
          </div>
        </div>
@@ -95,7 +101,7 @@
  <!-- /.intro-header -->
 
  <!-- Page Content -->
-
+<!-- 
 
  <div class="content-section-a">
 
@@ -119,10 +125,10 @@
   </div>
   <!-- /.container -->
 
-</div>
+<!-- </div> -->
 <!-- /.content-section-a -->
 
-<div class="content-section-b">
+<!-- <div class="content-section-b">
 
   <div class="container">
 
@@ -143,10 +149,10 @@
   </div>
   <!-- /.container -->
 
-</div>
+<!-- </div> -->
 <!-- /.content-section-b -->
 
-<div class="content-section-a">
+<!-- <div class="content-section-a">
 
   <div class="container">
 
@@ -164,12 +170,11 @@
       </div>
     </div>
 
-  </div>
+  </div> -->
   <!-- /.container -->
 
-</div>
-<!-- /.content-section-a -->
-
+<!-- </div> -->
+<!-- /.content-section-a -->  
 
 <div class="banner">
 

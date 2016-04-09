@@ -11,11 +11,20 @@ Rails.application.routes.draw do
   get "createsemester" => 'home_page#createsemester'
   get "setsession" => 'home_page#setsession'
   get "addpreference" => 'home_page#addpreference'
-  get "professorhome" =>'home_page#professorhome'
+  get "addclassroom" => 'home_page#addclassroom'
+
   
   #root 'home_page#professorhome'
-  root 'home_page#home'
+    root 'home_page#home'
 
+  
+  
+  resources :professor_home, :controller=> :professorhome
+  get "professorhome" =>'professor_home#professorhome'
+  get "professoraddpreference" => 'professor_home#professoraddpreference'
+  get "viewpreferences" => 'professor_home#viewpreferences'
+  get "profsetsession" => 'professor_home#profsetsession'
+  
   resources :faculty_preferences, :except => [:show]
   get 'faculty_preferences/update_time_slots', :as => 'update_time_slots'
   get 'faculty_preferences/:id/display_summary' => 'faculty_preferences#display_summary', :as => 'display_summary'

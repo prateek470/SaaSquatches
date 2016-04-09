@@ -1,36 +1,94 @@
-<div class="center jumbotron">
-  <h2>Add New Preferences </h2>
+<div style="text-align: center;"> 
+  <h2 style="display: inline-block;">Edit Faculty Preferences </h2>
   <br><br>
 
   <%= form_for :class , method: :get, url: addpreference_path do |f| %>
-  <p><%= f.label "Faculty Name: " %>
-      <%= f.select :FacultyName , options_for_select(@faculty_names.collect { |name| [name.faculty_name , name.id] },
-  	session[:FacultyName] ), {prompt: "Please Select", hide_label: :true }, 
-  	{id: 'sessionId' , class: "btn btn-default dropdown-toggle"} %>
-      
-  <h3><%= f.label "Choose Preference 1" %></h3>
-  <%= f.select :time_slot_id1 , options_for_select(@timeslot.collect { |timeslot| [timeslot.time_slot + " " + DayCombination.where("id=?",timeslot.day_combination_id).select("day_combination").take.day_combination.to_s, timeslot.id] },
-  	session[:time_slot_id1] ), {prompt: "Please Select", hide_label: :true }, 
-  	{id: 'sessionId' , class: "btn btn-default dropdown-toggle"} %>
-  	
-  <h3><%= f.label "Choose Preference 2" %></h3>
-  <%= f.select :time_slot_id2 , options_for_select(@timeslot.collect { |timeslot| [timeslot.time_slot + " " + DayCombination.where("id=?",timeslot.day_combination_id).select("day_combination").take.day_combination.to_s, timeslot.id] },
   
-  	session[:time_slot_id2] ), {prompt: "Please Select", hide_label: :true }, 
-  	{ id: 'sessionId' , class: "btn btn-default dropdown-toggle"} %>
-  	
-  <h3><%= f.label "Choose Preference 3" %></h3>
-    <%= f.select :time_slot_id3 , options_for_select(@timeslot.collect { |timeslot| [timeslot.time_slot + " " + DayCombination.where("id=?",timeslot.day_combination_id).select("day_combination").take.day_combination.to_s, timeslot.id] },
-  	session[:time_slot_id3] ), {prompt: "Please Select", hide_label: :true }, 
-  	{ id: 'sessionId' , class: "btn btn-default dropdown-toggle"} %>
-  	
-  <br></br>
-  
-  <%= f.submit "Submit", class: "btn btn-lg btn-primary" %>
-  
-  <br></br>
-  <br></br>
-  
-  <%= link_to "Back"%>
+    <p style="display: inline-block;"><%= f.label "Faculty Name: " %>
+        <%= f.select :FacultyName , options_for_select(@faculty_names.collect { |name| [name.faculty_name , name.id] },
+    	session[:FacultyName] ), {prompt: "Please Select", hide_label: :true }, 
+    	{id: 'sessionId' , class: "btn btn-default dropdown-toggle"} %>
+    
+    	<h2>Top 5</h2>
+     <table>
+     <tr>
+    <td>
+    <!-- <h4><%= f.label "Choose Preference 1" %></h4> -->
+    <%= f.select :time_slot_id1 , options_for_select(@timeslot.collect { |timeslot| [timeslot.time_slot + " " + DayCombination.where("id=?",timeslot.day_combination_id).select("day_combination").take.day_combination.to_s, timeslot.id] },
+    	session[:time_slot_id1] ), {prompt: "Select Time", hide_label: :true }, 
+    	{id: 'sessionId' , class: "btn btn-default dropdown-toggle"} %>
+    </td>
+    <td>
+    <!-- <h4><%= f.label "Choose Preference 2" %></h4> -->
+    <%= f.select :time_slot_id2 , options_for_select(@timeslot.collect { |timeslot| [timeslot.time_slot + " " + DayCombination.where("id=?",timeslot.day_combination_id).select("day_combination").take.day_combination.to_s, timeslot.id] },
+    
+    	session[:time_slot_id2] ), {prompt: "Select Time", hide_label: :true }, 
+    	{ id: 'sessionId' , class: "btn btn-default dropdown-toggle"} %>
+    	</td>
+    	<td> 
+    <!-- <h4><%= f.label "Choose Preference 3" %></h4> -->
+      <%= f.select :time_slot_id3 , options_for_select(@timeslot.collect { |timeslot| [timeslot.time_slot + " " + DayCombination.where("id=?",timeslot.day_combination_id).select("day_combination").take.day_combination.to_s, timeslot.id] },
+    	session[:time_slot_id3] ), {prompt: "Select Time", hide_label: :true }, 
+    	{ id: 'sessionId' , class: "btn btn-default dropdown-toggle"} %>
+    	</td>
+    		<td> 
+    <!-- <h4><%= f.label "Choose Preference 4" %></h4> -->
+      <%= f.select :time_slot_id4 , options_for_select(@timeslot.collect { |timeslot| [timeslot.time_slot + " " + DayCombination.where("id=?",timeslot.day_combination_id).select("day_combination").take.day_combination.to_s, timeslot.id] },
+    	session[:time_slot_id4] ), {prompt: "Select Time", hide_label: :true }, 
+    	{ id: 'sessionId' , class: "btn btn-default dropdown-toggle"} %>
+    	</td>
+    		<td> 
+    <!-- <h4><%= f.label "Choose Preference 5" %></h4> -->
+      <%= f.select :time_slot_id5 , options_for_select(@timeslot.collect { |timeslot| [timeslot.time_slot + " " + DayCombination.where("id=?",timeslot.day_combination_id).select("day_combination").take.day_combination.to_s, timeslot.id] },
+    	session[:time_slot_id5] ), {prompt: "Select Time", hide_label: :true }, 
+    	{ id: 'sessionId' , class: "btn btn-default dropdown-toggle"} %>
+    	</td>
+    	</tr>
+    </table>   
+    <br></br>
+    <h2>Bottom 5</h2>
+    <table>
+     <tr>
+    <td>
+    <!-- <h4><%= f.label "Choose Preference 1" %></h4> -->
+    <%= f.select :bad_time_slot_id1 , options_for_select(@timeslot.collect { |timeslot| [timeslot.time_slot + " " + DayCombination.where("id=?",timeslot.day_combination_id).select("day_combination").take.day_combination.to_s, timeslot.id] },
+    	session[:bad_time_slot_id1] ), {prompt: "Select Time", hide_label: :true }, 
+    	{id: 'sessionId' , class: "btn btn-default dropdown-toggle"} %>
+    </td>
+    <td>
+    <!-- <h4><%= f.label "Choose Preference 2" %></h4> -->
+    <%= f.select :bad_time_slot_id2 , options_for_select(@timeslot.collect { |timeslot| [timeslot.time_slot + " " + DayCombination.where("id=?",timeslot.day_combination_id).select("day_combination").take.day_combination.to_s, timeslot.id] },
+    
+    	session[:bad_time_slot_id2] ), {prompt: "Select Time", hide_label: :true }, 
+    	{ id: 'sessionId' , class: "btn btn-default dropdown-toggle"} %>
+    	</td>
+    	<td> 
+    <!-- <h4><%= f.label "Choose Preference 3" %></h4> -->
+      <%= f.select :bad_time_slot_id3 , options_for_select(@timeslot.collect { |timeslot| [timeslot.time_slot + " " + DayCombination.where("id=?",timeslot.day_combination_id).select("day_combination").take.day_combination.to_s, timeslot.id] },
+    	session[:bad_time_slot_id3] ), {prompt: "Select Time", hide_label: :true }, 
+    	{ id: 'sessionId' , class: "btn btn-default dropdown-toggle"} %>
+    	</td>
+    		<td> 
+    <!-- <h4><%= f.label "Choose Preference 4" %></h4> -->
+      <%= f.select :bad_time_slot_id4 , options_for_select(@timeslot.collect { |timeslot| [timeslot.time_slot + " " + DayCombination.where("id=?",timeslot.day_combination_id).select("day_combination").take.day_combination.to_s, timeslot.id] },
+    	session[:bad_time_slot_id4] ), {prompt: "Select Time", hide_label: :true }, 
+    	{ id: 'sessionId' , class: "btn btn-default dropdown-toggle"} %>
+    	</td>
+    		<td> 
+    <!-- <h4><%= f.label "Choose Preference 5" %></h4> -->
+      <%= f.select :bad_time_slot_id5 , options_for_select(@timeslot.collect { |timeslot| [timeslot.time_slot + " " + DayCombination.where("id=?",timeslot.day_combination_id).select("day_combination").take.day_combination.to_s, timeslot.id] },
+    	session[:bad_time_slot_id5] ), {prompt: "Select Time", hide_label: :true }, 
+    	{ id: 'sessionId' , class: "btn btn-default dropdown-toggle"} %>
+    	</td>
+    	</tr>
+    </table>   
+    <br></br>
+    <%= f.submit "Submit", class: "btn btn-lg btn-primary" %>
+    
+    <br></br>
+    <br></br>
+    
+    <%= link_to "Back", root_path%>
  <% end %>
+
 </div>

@@ -107,6 +107,13 @@ ActiveRecord::Schema.define(version: 20160405190745) do
   add_index "faculty_preferences", ["preference1_id"], name: "index_faculty_preferences_on_preference1_id"
   add_index "faculty_preferences", ["preference2_id"], name: "index_faculty_preferences_on_preference2_id"
   add_index "faculty_preferences", ["preference3_id"], name: "index_faculty_preferences_on_preference3_id"
+  add_index "faculty_preferences", ["preference4_id"], name: "index_faculty_preferences_on_preference4_id"
+  add_index "faculty_preferences", ["preference5_id"], name: "index_faculty_preferences_on_preference5_id"
+  add_index "faculty_preferences", ["bad_preference1_id"], name: "index_faculty_preferences_on_bad_preference1_id"
+  add_index "faculty_preferences", ["bad_preference2_id"], name: "index_faculty_preferences_on_bad_preference2_id"
+  add_index "faculty_preferences", ["bad_preference3_id"], name: "index_faculty_preferences_on_bad_preference3_id"
+  add_index "faculty_preferences", ["bad_preference4_id"], name: "index_faculty_preferences_on_bad_preference4_id"
+  add_index "faculty_preferences", ["bad_preference5_id"], name: "index_faculty_preferences_on_bad_preference5_id"
   add_index "faculty_preferences", ["semester_id"], name: "index_faculty_preferences_on_semester_id"
 
   create_table "preferences", force: :cascade do |t|

@@ -79,16 +79,22 @@
                   <hr class="intro-divider">
                   <ul class="list-inline intro-social-buttons">
                   	
-                  	
-                   <li>
-                     <%= link_to "Add New Faculty", addfaculty_path, class: "btn btn-default btn-lg" %>
-                   </li>
-                   <li>
-                     <%= link_to "Edit Faculty Preference", addpreference_path, class: "btn btn-default btn-lg" %>
-                   </li>
-                   <li>
-             		 <%= link_to "Assign Faculty & Courses", faculty_courses_path, class: "btn btn-default btn-lg" %>
-            	   </li>
+                   <p>
+	                   <li>
+	                     <%= link_to "Add New Faculty", addfaculty_path, class: "btn btn-default btn-lg" %>
+	                   </li>
+	                   <li>
+	                     <%= link_to "Edit Faculty Preference", addpreference_path, class: "btn btn-default btn-lg" %>
+	                   </li>
+                   </p>
+                   <p>
+	                   <li>
+	             		 <%= link_to "Assign Faculty & Courses", faculty_courses_path, class: "btn btn-default btn-lg" %>
+	            	   </li>
+	            	   <li>
+	                     <%= link_to "Reset Faculty Account", resetuser_path, class: "btn btn-default btn-lg" %>
+	                   </li>
+	               </p>
             	   <br>
             	    <br>
             	    <h3>Edit Courses</h3>

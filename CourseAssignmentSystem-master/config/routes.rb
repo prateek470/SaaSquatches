@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   get "setsession" => 'home_page#setsession'
   get "addpreference" => 'home_page#addpreference'
   get "addclassroom" => 'home_page#addclassroom'
-
+  get "resetuser" => 'home_page#resetuser'
   
   #root 'home_page#professorhome'
     root 'home_page#home'

@@ -6,6 +6,18 @@ class HomePageController < ApplicationController
     @semester = Semester.all
   end
   
+  def resetuser
+    @users = User.all
+    
+    if params[:class] != nil
+      desired_user = params[:class][:selectedUser]
+      name = @users.where(:id =>desired_user).select(:faculty_name).take.faculty_name.to_s
+      User.destroy(desired_user)
+      flash[:success] = "Reset Account for " + name
+      redirect_to root_path
+    end
+  end
+  
   def addfaculty
      
     @permissions = ["Admin", "User"]

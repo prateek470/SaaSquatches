@@ -8,8 +8,8 @@ Feature: Administrator Login
 Background: At least one user is already signed up
   
   Given the following faculty is signed up as an administrator
-  |faculty_name |email        |password |
-  |Keyser John  |kj@email.com |AAA      | 
+  |faculty_name|faculty_id |email        |password |
+  |Keyser John |25         |kj@email.com |AAA      |
     
 Scenario: successfully sign up new user
 
@@ -31,17 +31,16 @@ Scenario: successfully sign up new user
 Scenario: The user logs in
  
   Given I am on the login page 
-  When I fill in "Email" with "kj@email.com"
-  And I fill in "Password" with "AAA"
+  When I fill in "Email" with "tyler@tamu.edu"
+  And I fill in "Password" with "BBB"
   And I press "login_btn"
   Then I am on the home page
   And I should see "Course Assignment System"
   
 Scenario: The user logs out
   
-  Given I am logged in with creds "kj@email.com" and "AAA"
+  Given I am logged in with creds "tyler@tamu.edu" and "BBB"
   And I am on the home page 
-  And I should see "Course Assignment System"
   When I follow "logout_link"
   Then I should be on the login page
   But I should not see "Course Assignment System"

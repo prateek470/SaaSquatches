@@ -13,16 +13,16 @@
 Given(/^the following faculty is signed up as an administrator$/) do |faculty_table|
   #Faculty.create!({:faculty_name => 'Keyser John', :permission => 'Admin'}) # Make sure faculty exists
   faculty_table.hashes.each do |faculty_args|
-      Faculty.create!({:faculty_name => faculty_args[0], :permission => 'Admin'}) # Make sure faculty exists
-      User.create!(faculty_args)
+      Faculty.create!({:faculty_name => 'Tyler Windham',:id=>1, :permission => 'Admin'}) # Make sure faculty exists
+      User.create!(:faculty_name=>'Tyler Windham', :faculty_id=>1, :email=>'tyler@tamu.edu',:password=>'BBB')
   end
 end
 
 Given(/^the following faculty is signed up as a professor$/) do |faculty_table|
   #Faculty.create!({:faculty_name => 'Keyser John', :permission => 'Admin'}) # Make sure faculty exists
   faculty_table.hashes.each do |faculty_args|
-      Faculty.create!({:faculty_name => faculty_args[0], :permission => 'User'}) # Make sure faculty exists
-      User.create!(faculty_args)
+      Faculty.create!({:faculty_name => 'Nick Mankus',:id=>2, :permission => 'User'}) # Make sure faculty exists
+      User.create!(:faculty_name=>'Nick Mankus', :faculty_id=>2, :email=>'nick@tamu.edu',:password=>'AAA')
   end
 end
 

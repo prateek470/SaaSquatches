@@ -15,7 +15,7 @@ Rails.application.routes.draw do
 
   
   #root 'home_page#professorhome'
-    root 'home_page#home'
+  root 'home_page#home'
 
   
   

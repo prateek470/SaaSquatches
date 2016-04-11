@@ -52,7 +52,11 @@ Feature: Add a page to assign classroom and time for each of the faculty courses
  | 12:45 pm to 2:00 pm |
  | 5:30 pm to 6:45 pm |
 
+<<<<<<< HEAD
 #TODO - Update to work without selenium or get selenium to work
+=======
+#TODO Update this to work without using selenium, or get selenium to work properly - Matt 4/6/2016
+>>>>>>> origin/master
 
 # And I am on the home page
  When I choose semester "Fall 2015" and follow "Course Assignments"

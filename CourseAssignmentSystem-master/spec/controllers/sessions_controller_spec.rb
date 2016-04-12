@@ -6,7 +6,8 @@ RSpec.describe SessionsController, type: :controller do
 
     describe 'logging in' do
     it 'should redirect to login page if user input is incorrect' do
-      # test here
+      get :home
+      response.should be_failure
     end
     it 'should redirect to professor home page if user input is correct' do
       # test here

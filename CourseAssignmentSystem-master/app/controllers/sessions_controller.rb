@@ -10,12 +10,10 @@ end
       #prof_id = User.where(:id=>@user).select(:faculty_id).take.faculty_id.to_s
       #prof_permission = Faculty.where(:id=>prof_id).select(:permission).take.permission.to_s
       faculty = Faculty.find_by_id(@user.faculty_id)
-      
-      session[:faculty_id] = faculty.id
       session[:permission] = faculty.permission #prof_permission
-      
+      session[:faculty_id] = faculty.id
       session[:faculty_name] = @user.faculty_name
-
+      puts 
       if(session[:permission] == 'User')
         redirect_to '/professorhome'
         flash[:success]= "Logged in as "+@user.faculty_name.to_s

@@ -11,27 +11,27 @@ end
  RSpec.describe HomePageController, type: :controller do
   
   
-   #0. HOME link at the top
-   # describe "GET home" do
-     # it "returns http success" do
-       # get "home"
-       # expect(response).to have_http_status(:success)
-     # end
-   # end
-# 
-   # describe "add new faculty" do
-     # it "should call the model method to create new faculty" do
-	 # Faculty.should_receive(:create!).with({:faculty_name => "Faculty1", :permission=>"User"})
-	 # post :addfaculty, {:class => {:FacultyName => "Faculty1", :permission=>"User"}}
-     # end
-   # end
+  # 0. Try to access home page without logging in
+    describe "GET home" do
+      it "Try to access home page without logging in" do
+        get "home"
+        expect(response).to have_http_status(:redirect)
+      end
+    end
+ 
+  #  describe "add new faculty" do
+  #    it "should call the model method to create new faculty" do
+  #	  Faculty.should_receive(:create!).with({:faculty_name => "Faculty1", :permission=>"User"})
+  #	  post :addfaculty, {:class => {:FacultyName => "Faculty1", :permission=>"User"}}
+  #   end
+  # end
 #  
-   # describe "add new course" do
-     # it "should call the model method to create new course" do
-	 # Course.should_receive(:create!).with(:course_name => 'name', :CourseTitle => 'title')
-	 # post :addcourse, {:class => {:CourseName => "name",:CourseTitle => "title"}}
-     # end
-   # end
+    describe "add new course" do
+      it "should call the model method to create new course" do
+	  Course.should_receive(:create!).with(:course_name => 'name', :CourseTitle => 'title')
+	  post :addcourse, {:class => {:CourseName => "name",:CourseTitle => "title"}}
+      end
+    end
 #  
    # describe 'setting semester id in session' do
 	 # it 'should set the semester id in session and redirect to home page' do
@@ -41,7 +41,7 @@ end
 	 # end
    # end
 #  
-   # describe 'creating new semester' do
+#    describe 'creating new semester' do
 	 # it 'should call model method to create new semester' do
 		 # Semester.should_receive(:find_by)
 		 # Semester.should_receive(:create_semester).with('test1')

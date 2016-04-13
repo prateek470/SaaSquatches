@@ -11,5 +11,13 @@ RSpec.describe UsersController, type: :controller do
     
     end
     end
+    
+    describe 'new' do 
+     it 'should do this' do   
+     
+     User.should_receive(:new)
+     get :new, nil, nil
+     end 
+   end 
 
 end

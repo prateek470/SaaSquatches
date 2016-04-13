@@ -7,6 +7,8 @@ RSpec.describe SessionsController, type: :controller do
     describe 'logging in' do
     it 'should redirect to login page if user input is incorrect' do
       # test here
+      post:create, {:session => {:email => "cav@tamu.edu", :password => "password"}}
+      response.should redirect_to login_path
     end
     it 'should redirect to professor home page if user input is correct' do
       # test here
@@ -16,6 +18,8 @@ RSpec.describe SessionsController, type: :controller do
     describe 'logging out' do 
     it 'should redirect to login page if the user presses the Log Out button' do
       # test here
+      post:destroy, nil, nil
+      response.should redirect_to root_path
     end
     end
     

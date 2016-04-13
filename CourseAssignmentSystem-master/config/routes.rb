@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   get "addpreference" => 'home_page#addpreference'
   get "addclassroom" => 'home_page#addclassroom'
   get "resetuser" => 'home_page#resetuser'
+  get "calendar" => 'home_page#calendar'
   
   #root 'home_page#professorhome'
     root 'home_page#home'

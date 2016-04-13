@@ -330,5 +330,20 @@ class HomePageController < ApplicationController
       redirect_to root_path; 
     end
   end
-  
+
+  def calendar
+    #course_name =Course.where(:id => "1").select(:course_name).take.course_name.to_s
+    #name = @users.where(:id =>desired_user).select(:faculty_name).take.faculty_name.to_s
+    #name = User.where(:id =>"1").select(:faculty_name).take.faculty_name.to_s
+    @course = Course.where(:id =>"1").select(:course_name).take.course_name.to_s
+    @start = "2016-04-14T09:35:00"
+    @end =  "2016-04-14T10:20:00"
+    print "COURSE NAME \n"
+    #print name + "\n"
+    print @course
+    print @start
+    print @end
+    print "------------------------------"
+    
+  end
 end

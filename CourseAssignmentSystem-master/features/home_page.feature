@@ -60,3 +60,10 @@ Scenario: User clicks on the 'Reset User Account' button
   Given: the element "resetuser" should exist
   When: I press "resetuser" 
   Then: I should be on the 'Reset User Account' page
+  
+# 10. Scenario for the 'Edit Faculty Preferences' link
+Scenario: User clicks on the 'Edit Faculty Preferences' button
+  Given: the element "addpreference" should exist
+  When: I press "addpreference"
+  Then: I should be on the 'Edit Faculty Preferences' page
+  

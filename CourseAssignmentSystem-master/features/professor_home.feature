@@ -13,7 +13,7 @@ Scenario: User clicks on the 'View Preferences' button
   When: I press "viewpreferences"
   Then: I should be on the 'View Preferences' page
 
-# 1. Scenario for the 'Edit Preferences' link
+# 2. Scenario for the 'Edit Preferences' link
 Scenario: User clicks on the 'Edit Preferences' button
   Given: the element "professoraddpreference" should exist
   When: I press "professoraddpreference"

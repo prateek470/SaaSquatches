@@ -1,14 +1,14 @@
 require 'rails_helper'
 require 'spec_helper'
-describe Preference do
+#describe Preference do
   
-  before :each do
-    @preference = Preference.new "1" "1" "1" "1"
-  end
+  #before :each do
+    #@preference = Preference.new "1" "1" "1" "1"
+  #end
   
-end
+#end
 
- RSpec.describe HomePageController, type: :controller do
+ #RSpec.describe HomePageController, type: :controller do
   
   
    #0. HOME link at the top
@@ -119,5 +119,5 @@ end
       # end
     # end
 #  
- end
+ #end
 

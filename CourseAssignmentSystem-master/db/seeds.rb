@@ -19,6 +19,10 @@ rooms = [{:room_name => '124', :building_id => 1, :Capacity => 135},
 daycombinations = [{:day_combination => 'MW'},
 				   {:day_combination => 'TR'},
 				   {:day_combination => 'MWF'},
+				   {:day_combination => 'M'},
+				   {:day_combination => 'T'},
+				   {:day_combination => 'W'},
+				   {:day_combination => 'R'}
 				]
 
 faculties = [{:faculty_name => 'Amato Nancy', :permission => 'User'},
@@ -167,7 +171,6 @@ timeslots = 	[{:time_slot => '8:00 am to 8:50 am', :day_combination_id => '3'},
 				 {:time_slot => '9:10 am to 10:00 am', :day_combination_id => '3'},
 				 {:time_slot => '10:20 am to 11:10 am', :day_combination_id => '3'},
 				 {:time_slot => '11:30 am to 12:10 pm', :day_combination_id => '3'},
-				 {:time_slot => '12:40 pm to 1:30 pm', :day_combination_id => '3'},
 				 {:time_slot => '1:50 pm to 2:40 pm', :day_combination_id => '3'},
 				 {:time_slot => '3:00 pm to 3:50 pm', :day_combination_id => '3'},
 				 {:time_slot => '4:10 pm to 5:25 pm', :day_combination_id => '1'},
@@ -177,6 +180,12 @@ timeslots = 	[{:time_slot => '8:00 am to 8:50 am', :day_combination_id => '3'},
 				 {:time_slot => '12:45 pm to 2:00 pm', :day_combination_id => '2'},
 				 {:time_slot => '2:20 pm to 3:35 pm', :day_combination_id => '2'},
 				 {:time_slot => '3:55 pm to 5:10 pm', :day_combination_id => '2'},
+				 {:time_slot => '5:45 pm to 7:00 pm*', :day_combination_id => '1'},
+				  {:time_slot => '5:30 pm to 8:15 pm*', :day_combination_id => '2'},
+				  {:time_slot => '5:45 pm to 8:15 pm*', :day_combination_id => '4'},
+				  {:time_slot => '5:30 pm to 8:00 pm*', :day_combination_id => '5'},
+				  {:time_slot => '5:45 pm to 8:15 pm*', :day_combination_id => '6'},
+				  {:time_slot => '5:30 pm to 8:00 pm*', :day_combination_id => '7'}
 			 
 				]	
 

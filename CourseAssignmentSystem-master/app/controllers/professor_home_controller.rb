@@ -254,15 +254,9 @@ class ProfessorHomeController < ApplicationController
   
   def viewpreferences
     if session[:semester_id] !=nil && session[:semester_id]!=""  
-    # @faculty = Faculty.where(:id=>session[:faculty_id])
-    # @faculty_preference = FacultyPreference.where(:id=>@faculty.select(:preference).take.preference)
-    # @preference1 = Preference.where(:id=> @faculty_preference.select(:preference1_id).take.preference1_id)
-    # @preference2 = Preference.where(:id=> @faculty_preference.select(:preference2_id).take.preference2_id)
-    # @preference3 = Preference.where(:id=> @faculty_preference.select(:preference3_id).take.preference3_id)
-#     
-    # @time_slot1 = TimeSlot.where(:id=>@preference1.select(:time_slot_id).take.time_slot_id).select(:time_slot).take.time_slot.to_s
-    # @time_slot2 = TimeSlot.where(:id=>@preference2.select(:time_slot_id).take.time_slot_id).select(:time_slot).take.time_slot.to_s
-    # @time_slot3 = TimeSlot.where(:id=>@preference3.select(:time_slot_id).take.time_slot_id).select(:time_slot).take.time_slot.to_s
+     @course =  'BANANA'
+     @start = '2016-04-13T09:00:00'
+     @end = '2016-04-13T09:50:00'
     else
       flash[:error] = "Please choose semester"
       redirect_to professorhome_path

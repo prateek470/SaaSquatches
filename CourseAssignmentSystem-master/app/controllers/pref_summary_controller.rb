@@ -6,34 +6,44 @@ class PrefSummaryController < ApplicationController
 #2)Show preference details ordered by faculty name
 def index
 	if session[:semester_id] != nil && session[:semester_id] != ""
-		@facultycourse = FacultyCourse.joins("LEFT JOIN faculties ON faculties.id = faculty_id").where(:semester_id => session[:semester_id]).all.order("faculty_name")
+		@timeslot = TimeSlot.all
+		@faculty = Faculty.all
+		
+		@goodtimes = Array.new
+		@badtimes = Array.new
 
-		@showPrefSummary = Hash.new
-    @faculty = Faculty.all
-		@facultycourse.each do |facultycourse|
-			course = Array.new
-			course << Course.find_by_id(facultycourse.course1_id)
-			course << Course.find_by_id(facultycourse.course2_id)
-			course << Course.find_by_id(facultycourse.course3_id)
-			prefids = Array.new
-			prefids <<FacultyPreference.where(:faculty_course_id=> facultycourse.id).pluck(:preference1_id)[0]
-			prefids <<FacultyPreference.where(:faculty_course_id => facultycourse.id).pluck(:preference2_id)[0]
-			prefids <<FacultyPreference.where(:faculty_course_id => facultycourse.id).pluck(:preference3_id)[0]
-			@note = Preference.where(:id => FacultyPreference.where(:faculty_course_id=> facultycourse.id).pluck(:preference1_id)[0]).pluck(:note)[0]
-			if(@note.nil?)
-				@note = "None! I just seem to like it."
-			end
-			@showPrefSummary[facultycourse.id] = {:faculty =>Faculty.find_by_id(facultycourse.faculty_id),
-				:course => course , :prefids => prefids , :note => @note} 
-		end
+		if params[:class]!=nil
 
-  	 	@faculty_courses = FacultyCourse.order(:id)
-  		  	respond_to do |format|
-  		   	format.html
-    	 	format.csv {send_data text: @faculty_courses.to_csv}
-    	 	format.xls #{send_data text: @faculty_courses.to_csv(col_sep: "\t")}
-   		end
-
+		
+  		selected = params[:class][:selected_time]
+  		selected_time = @timeslot.find_by_id(selected).as_json["time_slot"]
+  		for faculty in @faculty
+  		  fac_preference = faculty.preference
+  		  if fac_preference !=nil
+  		    facultyPreference = FacultyPreference.find_by_id(fac_preference)
+		      preferences = facultyPreference.as_json(except: [:created_at,:updated_at,:faculty_course_id,:id])
+		      prefid = preferences["preference1_id"]
+		      for preference in preferences.keys
+		        prefid = preferences[preference] 
+  		      if prefid !=nil
+  		        pref = Preference.find_by_id(prefid).as_json
+  		        time = pref["time_slot_id"]
+  		        timeslot = @timeslot.find_by_id(time).as_json
+  		        if timeslot["time_slot"] ==selected_time
+  		          @badtimes.push(faculty)
+  		        else
+  		          @goodtimes.push(faculty)
+  		        end  
+  		      else
+  		        next  
+  		      end
+  		      
+		      end
+  		  else
+  		    @goodtimes.push(faculty)
+  		  end
+  		end
+    end
 	else
 			flash[:error] = "Please choose semester"
 			redirect_to root_path

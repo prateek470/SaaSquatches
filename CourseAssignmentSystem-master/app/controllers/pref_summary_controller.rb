@@ -9,7 +9,7 @@ def index
 		@facultycourse = FacultyCourse.joins("LEFT JOIN faculties ON faculties.id = faculty_id").where(:semester_id => session[:semester_id]).all.order("faculty_name")
 
 		@showPrefSummary = Hash.new
-
+    @faculty = Faculty.all
 		@facultycourse.each do |facultycourse|
 			course = Array.new
 			course << Course.find_by_id(facultycourse.course1_id)

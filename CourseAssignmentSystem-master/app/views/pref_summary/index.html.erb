@@ -6,7 +6,7 @@
 </head>
 <body>
 	<h2 align="center">Preference Summary</h2>
-	<h6 align="center"> <%= link_to "Click here to download links to send to faculties", pref_summary_index_path(format: "xls")%></h6>
+	<!-- <h6 align="center"> <%= link_to "Click here to download links to send to faculties", pref_summary_index_path(format: "xls")%></h6> -->
 
 	<% if @showPrefSummary.empty? %>
 			   <h2 align="center"> No Preference summary to display </h2>
@@ -17,64 +17,37 @@
 				<th>Index</th>
 				<th>Faculty Name</th>
 				<th>Courses Assigned</th>
-				<th>Preference 1</th>
-				<th>Preference 2</th>
-				<th>Preference 3</th>
+				<th>Preferred Times</th>
+				<th>Unacceptable Times</th>
 				<th>Faculty Note</th>
 			</tr>
 			<tbody>
 			<% id = 0 %>
-			<% @showPrefSummary.each do |key,prefSummary| 
-				@faculty = prefSummary[:faculty]
-				course = prefSummary[:course]
-				prefids = prefSummary[:prefids]
-				@note = prefSummary[:note]
-				%>
+			<% @faculty.each do |faculty| %>
 				<tr>
 					<td><%= id = id + 1 %></td>
-					<td><%= @faculty.faculty_name %></td>
+					<td><%= faculty.faculty_name %></td>
+					<td> No Courses assigned</td>
 					<td>
-						<% course.each do |course| 
-							unless course.nil? %>
-							<p><%= course.course_name %></p>
-							<% end 
-							end %>
-						</td>
-						<%  prefids.each do |prefid| %>
-						<td>
-							<% if prefid.nil? %>
-							<%= "No Preference" %>
-							<% else %>
-							<% 
-							@pref = Preference.find_by_id(prefid) 
-							@day_combo = DayCombination.find_by_id(@pref.day_combination_id)
-							@timeslot = TimeSlot.find_by_id(@pref.time_slot_id)
-							@building = Building.find_by_id(@pref.building_id)
-							%>
-							<% unless @day_combo.nil? %>
-								<p><%= "Day Combination : #{@day_combo.day_combination}" %></p> 
-							<% else %>
-								<%= "No Day-Combination Preference" %><br>
-							<% end %>
-
-							<% unless @timeslot.nil? %>
-								<p><%= "Time slot : #{@timeslot.time_slot}" %></p>
-							<% else %>
-								<%= "No Time-Slot Preference" %><br>
-							<% end %>
-
-							<% unless @building.nil? %>
-								<p><%= "Location : #{@building.building_name}" %></p>
-							<% else %>
-								<%= "No Location Preference" %><br>
-							<% end %>
-							<% end %>
-						</td>	
-					  <% end %>
-					  <td><%= @note %></td>
+						<%if faculty.preference == nil
+							preferences = FacultyPreference.where(:id =>faculty.preference)
+						
+							preference1 = Preference.find_by_id(preferences.preference1_id)
+							preference2 = Preference.find_by_id(preferences.preference2_id)
+							preference3 = Preference.find_by_id(preferences.preference3_id)						
+						%>
+						<p>preference1.time_slot_id</p>
+						<p>preference2.time_slot_id</p>
+						<p>preference3.time_slot_id</p>
+						<%else%>
+							No Preference
+						<%end%>
+					</td>
+	 
+			  <% end %>
+			  
 					</tr>
 					</tbody>
-					<% end %>
 				</table>
 			</div>
 			<% end %>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160405190745) do
+ActiveRecord::Schema.define(version: 20160415011909) do
 
   create_table "buildings", force: :cascade do |t|
     t.string   "building_name"
@@ -87,20 +87,19 @@ ActiveRecord::Schema.define(version: 20160405190745) do
   add_index "faculty_courses", ["semester_id"], name: "index_faculty_courses_on_semester_id"
 
   create_table "faculty_preferences", force: :cascade do |t|
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
     t.integer  "faculty_course_id"
     t.integer  "preference1_id"
     t.integer  "preference2_id"
     t.integer  "preference3_id"
     t.integer  "semester_id"
-    t.integer  "bad_preference1_id"
-    t.integer  "bad_preference2_id"
-    t.integer  "bad_preference3_id"
-    t.integer  "bad_preference4_id"
-    t.integer  "bad_preference5_id"
     t.integer  "preference4_id"
     t.integer  "preference5_id"
+    t.integer  "preference6_id"
+    t.integer  "preference7_id"
+    t.integer  "preference8_id"
+    t.integer  "preference9_id"
   end
 
   add_index "faculty_preferences", ["faculty_course_id"], name: "index_faculty_preferences_on_faculty_course_id"

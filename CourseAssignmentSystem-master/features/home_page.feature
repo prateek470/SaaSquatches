@@ -5,7 +5,7 @@ So that I can navigate to different feature pages
 I want to see a administrator home page with links to other pages
 
 Background: the user is on the home page
-   Given I am on the home page
+  Given I am on the home page
 
 # 1. Scenario for the 'Add Courses and Faculty' link
 Scenario: User clicks on the 'Add Courses and Faculty' button
@@ -51,9 +51,9 @@ Scenario: User clicks on the 'Add New Course' button
   
 # 8. Scenario for the 'Calendar' link
 Scenario: View Calendar
-  Given: the element "calendar" should exist
-  When: I press "calendar" 
-  Then: I should be on the 'Calendar' page
+  Given the element "calendar" should exist
+  When I press "calendar" 
+  Then I should be on the "Calendar" page
   
 # 9. Scenario for the 'Reset User Account' link
 Scenario: User clicks on the 'Reset User Account' button

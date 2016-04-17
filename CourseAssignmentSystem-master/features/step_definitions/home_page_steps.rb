@@ -1,4 +1,4 @@
-Given /^the element "([^*$])" should exist$/ do |element|
+Given /^the element "(.*?)" should exist$/ do |element|
   page.should have_selector(element)
 end 
 

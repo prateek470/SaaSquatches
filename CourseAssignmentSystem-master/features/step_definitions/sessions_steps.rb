@@ -38,6 +38,7 @@ Given(/^the following faculty is signed up as a professor$/) do |faculty_table|
   end
 end
 
+<<<<<<< HEAD
 
 =begin
 
@@ -61,14 +62,21 @@ end
 =end
 
 
+=======
+>>>>>>> 9f0d42439ba6f044dcf8fc3714d27413cfcf557f
 # step when being logged in is required
 Given(/^I am logged in with creds "(.*?)" and "(.*?)"$/) do |email, password|
   visit login_path
   fill_in("Email", :with => email)
   fill_in("Password", :with => password)
+<<<<<<< HEAD
   %{I press (button)}
 end
 
 When (/^I click "(.*?)"$/) do |button|
   %{I press (button)}
 end
+=======
+  click_button("Login")
+end
+>>>>>>> 9f0d42439ba6f044dcf8fc3714d27413cfcf557f

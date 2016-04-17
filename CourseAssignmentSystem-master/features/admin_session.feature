@@ -35,3 +35,4 @@ Scenario: successfully sign up, log in, and log out as an administrator
   When I follow "logout_link"
   Then I should be on the login page
   But I should not see "Edit Faculty"
+

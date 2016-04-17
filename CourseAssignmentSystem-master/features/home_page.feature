@@ -51,9 +51,9 @@ Scenario: User clicks on the 'Add New Course' button
   
 # 8. Scenario for the 'Calendar' link
 Scenario: View Calendar
-  Given: the element "calendar" should exist
-  When: I press "calendar" 
-  Then: I should be on the 'Calendar' page
+  Given the element "calendar" should exist
+  When I press "calendar" 
+  Then I should be on the "Calendar" page
   
 # 9. Scenario for the 'Reset User Account' link
 Scenario: User clicks on the 'Reset User Account' button

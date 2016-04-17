@@ -4,8 +4,8 @@ As a administrator of the Course Assignment System
 So that I can navigate to different feature pages
 I want to see a administrator home page with links to other pages
 
-Background: the user is on the home page
-   Given I am on the home page
+#Background: the user is on the home page
+ #  Given I am on the home page
 
 # 1. Scenario for the 'Add Courses and Faculty' link
 Scenario: User clicks on the 'Add Courses and Faculty' button

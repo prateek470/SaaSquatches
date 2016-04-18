@@ -7,11 +7,39 @@
 
 # TODO: Refactor the first two steps into one; Test works successfully
 
+# Cesar's 2nd Attempt Begin
+
+Given /^the faculty listed below exist:$/ do |faculty_table|
+  faculty_table.hashes.each do |faculty_args|
+    Faculty.create!(faculty_args)
+  end
+end
+
+Given /^the users listed below exist:$/ do |users_table|
+  users_table.hashes.each do |users_args|
+    User.create!(users_args)
+  end
+end
+
+Given /^the sessions listed below exist:$/ do |session_table|
+  session_table.hashes.each do |session_args|
+    Session.create!(seesion_args)
+  end
+end
+
+Given (/^I am logged in with credentials "(.*?)" and "(.*?)"$/) do |email, password|
+  visit login_path
+  fill_in("Email", :with => email)
+  fill_in("Password", :with => password)
+  click_button("login_btn")
+end
+
+# Cesar's 2nd Attempt End
+
 Given(/^the following faculty is signed up$/) do |faculty_table|
   faculty_table.hashes.each do |faculty_args|
     #click_link("Signup")
     User.create!(faculty_args)
-      
   end
 end
 
@@ -58,7 +86,6 @@ Given(/^the following faculty is signed up as a professor$/) do |faculty_table|
 end
 
 =end
-
 
 # step when being logged in is required
 Given(/^I am logged in with creds "(.*?)" and "(.*?)"$/) do |email, password|

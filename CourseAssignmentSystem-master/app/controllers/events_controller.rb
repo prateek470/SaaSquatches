@@ -18,6 +18,7 @@ class EventsController < ApplicationController
   end
 
   def index
+
     @course_assignments = CourseAssignment.all
     @timeslot = TimeSlot.all
     @building = Building.all

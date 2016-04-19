@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160405190745) do
+ActiveRecord::Schema.define(version: 20160418043841) do
 
   create_table "buildings", force: :cascade do |t|
     t.string   "building_name"
@@ -63,6 +63,17 @@ ActiveRecord::Schema.define(version: 20160405190745) do
     t.string   "day_combination"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
+  end
+
+  create_table "events", force: :cascade do |t|
+    t.string   "title"
+    t.datetime "start_at"
+    t.datetime "end_at"
+    t.string   "allDay"
+    t.string   "user_name"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+    t.integer  "course_assignment_id"
   end
 
   create_table "faculties", force: :cascade do |t|
@@ -155,6 +166,8 @@ ActiveRecord::Schema.define(version: 20160405190745) do
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
     t.integer  "day_combination_id"
+    t.datetime "start"
+    t.datetime "end_time"
   end
 
   add_index "time_slots", ["day_combination_id"], name: "index_time_slots_on_day_combination_id"

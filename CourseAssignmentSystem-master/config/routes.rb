@@ -13,7 +13,13 @@ Rails.application.routes.draw do
   get "addpreference" => 'home_page#addpreference'
   get "addclassroom" => 'home_page#addclassroom'
   get "resetuser" => 'home_page#resetuser'
-  get "calendar" => 'home_page#calendar'
+  get "events" => 'events#index'
+  post 'events/create'
+  get "editevent" => 'events#editevent'
+  get 'events/update_rooms', :as => 'update_rooms'
+  get 'events/show'
+  
+  
   
   #root 'home_page#professorhome'
     root 'home_page#home'

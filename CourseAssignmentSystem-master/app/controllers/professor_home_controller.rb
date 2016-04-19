@@ -26,22 +26,23 @@ class ProfessorHomeController < ApplicationController
       
       preferencesGoodArray = Array.new(9)
       preferencesBadArray = Array.new(9)
-       if params.has_key?(:preferred_ids) && params.has_key?(:unacceptable_ids) 
-                
+ 
+      if params.has_key?(:unacceptable_ids) || params.has_key?(:preferred_ids)          
         @prof_id = session[:faculty_id]
-        puts "AAAAAAAAAAAA"
-        count = 0
-        for time in params[:preferred_ids]
-          goodPreference[count] = time
-          count +=1
+        if params.has_key?(:preferred_ids)
+          count = 0
+          for time in params[:preferred_ids]
+            goodPreference[count] = time
+            count +=1
+          end
         end
-        puts "BBBBBBBBBB"
-        count = 0
-        for time in params[:unacceptable_ids]
-          badPreference[count] = time
-          count +=1
+        if params.has_key?(:unacceptable_ids)
+          count = 0
+          for time in params[:unacceptable_ids]
+            badPreference[count] = time
+            count +=1
+          end
         end
-        puts "CCCCCCCCCCCC"
         count = 0
         for time in goodPreference
           if time == nil
@@ -98,6 +99,13 @@ class ProfessorHomeController < ApplicationController
           prof_name = Faculty.where(:id=>@prof_id).select(:faculty_name).take.faculty_name.to_s
           Faculty.update(@prof_id, preference: good_pref_id.to_s)
           Faculty.update(@prof_id, bad_preference: bad_pref_id.to_s)
+          if !params.has_key?(:unacceptable_ids)
+            Faculty.update(@prof_id, bad_preference: nil)
+          end
+          if !params.has_key?(:preferred_ids)
+            Faculty.update(@prof_id, preference: nil)
+          end
+          
           flash[:success]= "Updated Preference for " + prof_name
           redirect_to professorhome_path
         end

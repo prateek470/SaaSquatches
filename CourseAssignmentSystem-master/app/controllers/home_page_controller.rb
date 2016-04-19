@@ -65,26 +65,29 @@ class HomePageController < ApplicationController
       
       preferencesGoodArray = Array.new(9)
       preferencesBadArray = Array.new(9)
-       if params.has_key?(:class) && params.has_key?(:preferred_ids) && params.has_key?(:unacceptable_ids) 
-         if params[:class] !=nil && params[:class][:FacultyName] !=""         
+ 
+      if params.has_key?(:class) && (params.has_key?(:unacceptable_ids) || params.has_key?(:preferred_ids))          
+        if params[:class] !=nil && params[:class][:FacultyName] !=""         
           @prof_id = params[:class][:FacultyName]
           if !Faculty.exists?(:id=>@prof_id)
             flash[:error] = "Professor does not exist"
             redirect_to addpreference_path
           end
         end
-        
-        count = 0
-        for time in params[:preferred_ids]
-          goodPreference[count] = time
-          count +=1
+        if params.has_key?(:preferred_ids)
+          count = 0
+          for time in params[:preferred_ids]
+            goodPreference[count] = time
+            count +=1
+          end
         end
-        count = 0
-        for time in params[:unacceptable_ids]
-          badPreference[count] = time
-          count +=1
+        if params.has_key?(:unacceptable_ids)
+          count = 0
+          for time in params[:unacceptable_ids]
+            badPreference[count] = time
+            count +=1
+          end
         end
-        
         count = 0
         for time in goodPreference
           if time == nil
@@ -141,15 +144,22 @@ class HomePageController < ApplicationController
           prof_name = Faculty.where(:id=>@prof_id).select(:faculty_name).take.faculty_name.to_s
           Faculty.update(@prof_id, preference: good_pref_id.to_s)
           Faculty.update(@prof_id, bad_preference: bad_pref_id.to_s)
+          if !params.has_key?(:unacceptable_ids)
+            Faculty.update(@prof_id, bad_preference: nil)
+          end
+          if !params.has_key?(:preferred_ids)
+            Faculty.update(@prof_id, preference: nil)
+          end
+          
           flash[:success]= "Updated Preference for " + prof_name
-          redirect_to root_path
+          redirect_to professorhome_path
         end
         
         
       end
     else
       flash[:error] = "Please choose semester"
-      redirect_to root_path
+      redirect_to professorhome_path
     end
   end
   

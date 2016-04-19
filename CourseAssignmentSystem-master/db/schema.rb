@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160415011909) do
+ActiveRecord::Schema.define(version: 20160418190106) do
 
   create_table "buildings", force: :cascade do |t|
     t.string   "building_name"
@@ -69,8 +69,9 @@ ActiveRecord::Schema.define(version: 20160415011909) do
     t.string   "faculty_name"
     t.string   "permission"
     t.integer  "preference"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.integer  "bad_preference"
   end
 
   create_table "faculty_courses", force: :cascade do |t|

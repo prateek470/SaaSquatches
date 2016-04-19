@@ -8,9 +8,14 @@
 .table td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
 .table th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
 .table .badhead{background-color:#009901;color:#ffffff;vertical-align:top;}
+.table .okhead{background-color:#eabf35;color:#ffffff;vertical-align:top;}
 .table .goodhead{background-color:#fe0000;color:#ffffff;vertical-align:top}
+.table .assigned{background-color:#000000;color:#ffffff;vertical-align:top}
 .table .GoodColumn{vertical-align:top}
 .table .BadColumn{vertical-align:top}
+.table .assignedCol{vertical-align:top}
+.linkout{vertical-align: center}
+.timeslotsummary{vertical-align: center}
 </style>
 
 <html>
@@ -21,23 +26,35 @@
 </head>
 <body>
 	<h2 align="center">Preference Summary</h2>
-	<!-- <h6 align="center"> <%= link_to "Click here to download links to send to faculties", pref_summary_index_path(format: "xls")%></h6> -->
 	<%= form_for :class , method: :get, url: pref_summary_index_path do |f| %>
+		
     	<div class="timeslotsummary">
-	 		<%= f.select :selected_time , options_for_select(@timeslot.collect { |timeslot| [DayCombination.where("id=?",timeslot.day_combination_id).select("day_combination").take.day_combination.to_s + " " + timeslot.time_slot , timeslot.id] },
+	 		<%= f.select :selected_time , options_for_select(@timeslot.collect { |timeslot| [DayCombination.where(:id=>timeslot.day_combination_id).select(:day_combination).take.day_combination.to_s + " " + timeslot.time_slot , timeslot.id] },
 		    	session[:selected_time] ), {prompt: "Select Time", hide_label: :true }, 
-		    	{id: 'sessionId' , class: "btn btn-default dropdown-toggle"} %>
+		    	{id: 'time_slot_id' , class: "btn btn-default dropdown-toggle", :selected => @selected_time} %>
+		    	<br />
+		    	<br />
+		    	<%= f.submit "GO", class: "btn btn-primary" %> 
 		</div>
 		
 		<div class = "entireTable">
+		<h4 align="center"> <%=@selected_time%></h4>
+		<p></p>
 		<table class="table">
 		  <tr>
-		    <th class="badhead">Available</th>
+		    <th class="badhead">Preferred</th>
+		    <th class = "okhead">Available</th>
 		    <th class="goodhead">Unavailable</th>
+		    <th class = "assigned">Already Assigned</th>
 		  </tr>
 		  <tr>
 		    <td class="GoodColumn">
 		    	<%for person in @goodtimes%>
+		    		<p><%=person.faculty_name%></p>
+		    	<%end%>
+		    </td>
+		    <td class="okCol">
+		    	<%for person in @oktimes%>
 		    		<p><%=person.faculty_name%></p>
 		    	<%end%>
 		    </td>
@@ -46,14 +63,19 @@
 		    		<p><%=person.faculty_name%></p>
 		    	<%end%>
 		    </td>
+		    <td class="asignedCol">
+		    	<%for person in @assigned%>
+		    		<p><%=person.faculty_name%></p>
+		    	<%end%>
+		    </td>
 		  </tr>
 		</table>
 		</div>
 		<br />
-		<%= f.submit "GO", class: "btn btn-primary" %>	  
+		
 	<%end%>			
 
-			
+	<div class= 'linkout'><%= link_to 'Assign Courses', '/course_assignments', method: :post %></div>		
 
 	</body>
 </html>

@@ -4,28 +4,36 @@ Feature: Professor Log In
     So that I can insert my preferences
     I want to be able to login to the application
     
-Background: At least one user is already signed up
   
-  Given the following faculty is signed up as a professor
-  |faculty_name |email        |password |
-  |Keyser John  |kj@email.com |AAA      | 
+  Background: At least one user is already signed up
   
-Scenario: The professor logs in
+    Given the faculty listed below exist:
+      | faculty_name | permission | preference |
+      | Leyk Teresa  | User       | -1         |
+      | Huang Jeff   | User       | -1         |
+  
+    And the users listed below exist:
+      | faculty_id | faculty_name | email          | password |
+      | 1          | Leyk Teresa  | lt@example.com | AAA      |
+      | 2          | Huang Jeff   | hj@example.com | BBB      |
+    
+  Scenario: The professor logs in
  
-  Given I am on the login page 
-  When I fill in "Email" with "kj@email.com"
-  And I fill in "Password" with "AAA"
-  And I press "login_btn"
-  Then I am on the home page
-  And I should see "Course Assignment System"
+    Given I am on the login page 
+    When I fill in "Email" with "lt@example.com"
+    And I fill in "Password" with "AAA"
+    And I press "login_btn"
+    Then I am on the home page
+    And I should see "Edit Preferences"
+
+
+  Scenario: The professor logs out
   
-Scenario: The professor logs out
-  
-  Given I am logged in with creds "kj@email.com" and "AAA"
-  And I am on the home page 
-  And I should see "Course Assignment System"
-  When I follow "logout_link"
-  Then I should be on the login page
-  But I should not see "Course Assignment System"
+    Given I am logged in with credentials "lt@example.com" and "AAA"
+    And I am on the home page 
+    And I should see "Edit Preferences"
+    When I follow "logout_link"
+    Then I should be on the login page
+    But I should not see "Edit Preferences"
   
 

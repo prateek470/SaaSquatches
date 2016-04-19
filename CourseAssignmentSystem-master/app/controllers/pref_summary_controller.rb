@@ -36,9 +36,6 @@ def index #def
                               pref = Preference.find_by_id(prefid).as_json
                               time = pref["time_slot_id"]
                               timeslot = @timeslot.find_by_id(time).as_json
-                              puts "=================================================================="
-                              puts time
-                              puts selected
                               if time.to_s == selected.to_s
                                   @goodtimes.push(faculty)
                               end 

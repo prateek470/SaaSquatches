@@ -9,243 +9,109 @@ class ProfessorHomeController < ApplicationController
   
   
   def professoraddpreference
-    if session[:semester_id] !=nil && session[:semester_id]!="" 
+    
+    if session[:semester_id] !=nil && session[:semester_id]!=""
       @timeslot = TimeSlot.all
       @semester_id = session[:semester_id]
-      @faculty_names = Faculty.all
+      @faculty = Faculty.all
+      @defaultBad = Array.new
       
-      
-      newID1 = nil
-      newID2 = nil
-      newID3 = nil
-      newID4 = nil
-      newID5 = nil
-      badNewID1 = nil
-      badNewID2 = nil
-      badNewID3 = nil
-      badNewID4 = nil
-      badNewID5 = nil
-      
-      @prof_id = session[:faculty_id]
-      
-      #Check if there are times selected 
-      if params[:class] !=nil &&params[:class][:time_slot_id1] !=""
-        @params_time_slot1 = params[:class][:time_slot_id1]
-        day_combo = TimeSlot.where(:id=>@params_time_slot1).select('day_combination_id').take.day_combination_id
-        
-        #check if preference exists
-        if !Preference.exists?(:time_slot_id => @params_time_slot1,:day_combination_id=>day_combo, :building_id=> '1',:semester_id=> @semester_id)
-          Preference.create!(:time_slot_id=>@params_time_slot1,:day_combination_id=>day_combo, :building_id=> '1',:semester_id=> @semester_id)
-          puts "New Preference Added"
-        end
-        pref1 = Preference.where("time_slot_id=? AND building_id = ? AND semester_id =?",@params_time_slot1, '1', @semester_id).select("id").take
-        
-        #Get preference ID for Faculty Preference
-        if pref1!=nil
-          newID1 = pref1.id
-        elsif
-          flash[:error]="Preference 1 not recorded..."
-          redirect_to professoraddpreference_path
+      for slot in @timeslot
+        if slot.time_slot.to_s.include?("*")
+          @defaultBad.push(slot)
         end
       end
-      #repeated for second preference
-      if params[:class] !=nil &&params[:class][:time_slot_id2] !=""
+      goodPreference = Array.new(9)
+      badPreference = Array.new(9)
+      
+      preferencesGoodArray = Array.new(9)
+      preferencesBadArray = Array.new(9)
+ 
+      if params.has_key?(:unacceptable_ids) || params.has_key?(:preferred_ids)          
+        @prof_id = session[:faculty_id]
+        if params.has_key?(:preferred_ids)
+          count = 0
+          for time in params[:preferred_ids]
+            goodPreference[count] = time
+            count +=1
+          end
+        end
+        if params.has_key?(:unacceptable_ids)
+          count = 0
+          for time in params[:unacceptable_ids]
+            badPreference[count] = time
+            count +=1
+          end
+        end
+        count = 0
+        for time in goodPreference
+          if time == nil
+            next
+          end
+          day_combo = TimeSlot.where(:id=>time).select(:day_combination_id).take.day_combination_id
+          if !Preference.exists?(:time_slot_id => @params_time_slot1,:day_combination_id=>day_combo, :building_id=> '1',:semester_id=> @semester_id)
+            Preference.create!(:time_slot_id=>time,:day_combination_id=>day_combo, :building_id=> '1',:semester_id=> @semester_id)
+            puts "New Preference Added"
+          end
+          id = Preference.where(:time_slot_id=>time,:day_combination_id=>day_combo, :building_id=> '1',:semester_id=> @semester_id).select(:id).take.id
+          preferencesGoodArray[count] = id
+          count +=1
+        end
         
-          @params_time_slot2 = params[:class][:time_slot_id2]
-          day_combo = TimeSlot.where(:id=>@params_time_slot2).select('day_combination_id').take.day_combination_id
-      
-        if !Preference.exists?(:time_slot_id => @params_time_slot2,:day_combination_id=>day_combo, :building_id=> '1', 
-                                :semester_id=> @semester_id)
-          Preference.create!(:time_slot_id=>@params_time_slot2,:day_combination_id=>day_combo, :building_id=> '1', 
-                              :semester_id=> @semester_id )
+        count = 0
+        for time in badPreference
+          if time == nil
+            next
+          end
+          day_combo = TimeSlot.where(:id=>time).select(:day_combination_id).take.day_combination_id
+          if !Preference.exists?(:time_slot_id => @params_time_slot1,:day_combination_id=>day_combo, :building_id=> '1',:semester_id=> @semester_id)
+            Preference.create!(:time_slot_id=>time,:day_combination_id=>day_combo, :building_id=> '1',:semester_id=> @semester_id)
+            puts "New Preference Added"
+          end
+          id = Preference.where(:time_slot_id=>time,:day_combination_id=>day_combo, :building_id=> '1',:semester_id=> @semester_id).select(:id).take.id
+          preferencesBadArray[count] = id
+          count +=1
         end
-        pref2 =  Preference.where("time_slot_id=? AND building_id = ? AND semester_id =?",
-                                    @params_time_slot2, '1', @semester_id).select("id").take
-        if pref2!=nil
-          newID2 = pref2.id
-        elsif
-          flash[:error]="Preference 2 not recorded..."
-          redirect_to professoraddpreference_path
-        end
-      end
-      #repeat for third preference
-      if params[:class] !=nil &&params[:class][:time_slot_id3] !=""
-        @params_time_slot3 = params[:class][:time_slot_id3]
-        day_combo = TimeSlot.where(:id=>@params_time_slot3).select('day_combination_id').take.day_combination_id
         
-        if !Preference.exists?(:time_slot_id => @params_time_slot3,:day_combination_id=>day_combo, :building_id=> '1', 
-                                  :semester_id=> @semester_id)
-          Preference.create!(:time_slot_id=>@params_time_slot3,:day_combination_id=>day_combo, :building_id=> '1', 
-                              :semester_id=> @semester_id)
+        if !FacultyPreference.exists?(:preference1_id=>preferencesGoodArray[0],:preference2_id=>preferencesGoodArray[1],:preference3_id=>preferencesGoodArray[2],:preference4_id=>preferencesGoodArray[3],:preference5_id=>preferencesGoodArray[4],
+                                      :preference6_id=>preferencesGoodArray[5],:preference7_id=>preferencesGoodArray[6],:preference8_id=>preferencesGoodArray[7],:preference9_id=>preferencesGoodArray[8], :semester_id=> @semester_id)
+                                      
+          FacultyPreference.create!(:preference1_id=>preferencesGoodArray[0],:preference2_id=>preferencesGoodArray[1],:preference3_id=>preferencesGoodArray[2],:preference4_id=>preferencesGoodArray[3],:preference5_id=>preferencesGoodArray[4],
+                                    :preference6_id=>preferencesGoodArray[5],:preference7_id=>preferencesGoodArray[6],:preference8_id=>preferencesGoodArray[7],:preference9_id=>preferencesGoodArray[8], :semester_id=> @semester_id)
         end
-        pref3 =  Preference.where("time_slot_id=? AND building_id = ? AND semester_id =?",
-                                    @params_time_slot3, '1', @semester_id).select("id").take
-        if pref3!=nil
-          newID3 = pref3.id
-        elsif
-          flash[:error]="Preference 3 not recorded..."
-          redirect_to professoraddpreference_path
+          goodPref =FacultyPreference.where(:preference1_id=>preferencesGoodArray[0],:preference2_id=>preferencesGoodArray[1],:preference3_id=>preferencesGoodArray[2],:preference4_id=>preferencesGoodArray[3],:preference5_id=>preferencesGoodArray[4],
+                                      :preference6_id=>preferencesGoodArray[5],:preference7_id=>preferencesGoodArray[6],:preference8_id=>preferencesGoodArray[7],:preference9_id=>preferencesGoodArray[8], :semester_id=> @semester_id).take 
+         
+         
+         if !FacultyPreference.exists?(:preference1_id=>preferencesBadArray[0],:preference2_id=>preferencesBadArray[1],:preference3_id=>preferencesBadArray[2],:preference4_id=>preferencesBadArray[3],:preference5_id=>preferencesBadArray[4],
+                                      :preference6_id=>preferencesBadArray[5],:preference7_id=>preferencesBadArray[6],:preference8_id=>preferencesBadArray[7],:preference9_id=>preferencesBadArray[8], :semester_id=> @semester_id)
+                                      
+          FacultyPreference.create!(:preference1_id=>preferencesBadArray[0],:preference2_id=>preferencesBadArray[1],:preference3_id=>preferencesBadArray[2],:preference4_id=>preferencesBadArray[3],:preference5_id=>preferencesBadArray[4],
+                                    :preference6_id=>preferencesBadArray[5],:preference7_id=>preferencesBadArray[6],:preference8_id=>preferencesBadArray[7],:preference9_id=>preferencesBadArray[8], :semester_id=> @semester_id)
         end
-      end
-      
-       #repeat for fourth preference
-      if params[:class] !=nil &&params[:class][:time_slot_id4] !=""
-        @params_time_slot4 = params[:class][:time_slot_id4]
-        day_combo = TimeSlot.where(:id=>@params_time_slot4).select('day_combination_id').take.day_combination_id
+          badPref =FacultyPreference.where(:preference1_id=>preferencesBadArray[0],:preference2_id=>preferencesBadArray[1],:preference3_id=>preferencesBadArray[2],:preference4_id=>preferencesBadArray[3],:preference5_id=>preferencesBadArray[4],
+                                      :preference6_id=>preferencesBadArray[5],:preference7_id=>preferencesBadArray[6],:preference8_id=>preferencesBadArray[7],:preference9_id=>preferencesBadArray[8], :semester_id=> @semester_id).take
+         
+         
+         if goodPref !=nil && badPref !=nil
+          good_pref_id = goodPref.id
+          bad_pref_id = badPref.id
+          prof_name = Faculty.where(:id=>@prof_id).select(:faculty_name).take.faculty_name.to_s
+          Faculty.update(@prof_id, preference: good_pref_id.to_s)
+          Faculty.update(@prof_id, bad_preference: bad_pref_id.to_s)
+          if !params.has_key?(:unacceptable_ids)
+            Faculty.update(@prof_id, bad_preference: nil)
+          end
+          if !params.has_key?(:preferred_ids)
+            Faculty.update(@prof_id, preference: nil)
+          end
+          
+          flash[:success]= "Updated Preference for " + prof_name
+          redirect_to professorhome_path
+        end
         
-        if !Preference.exists?(:time_slot_id => @params_time_slot4,:day_combination_id=>day_combo, :building_id=> '1', 
-                                  :semester_id=> @semester_id)
-          Preference.create!(:time_slot_id=>@params_time_slot4,:day_combination_id=>day_combo, :building_id=> '1', 
-                              :semester_id=> @semester_id)
-        end
-        pref4 =  Preference.where("time_slot_id=? AND building_id = ? AND semester_id =?",
-                                    @params_time_slot4, '1', @semester_id).select("id").take
-        if pref4!=nil
-          newID4 = pref4.id
-        elsif
-          flash[:error]="Preference 4 not recorded..."
-          redirect_to professoraddpreference_path
-        end
-      end
-      
-       #repeat for fifth preference
-      if params[:class] !=nil &&params[:class][:time_slot_id5] !=""
-        @params_time_slot5 = params[:class][:time_slot_id5]
-        day_combo = TimeSlot.where(:id=>@params_time_slot5).select('day_combination_id').take.day_combination_id
         
-        if !Preference.exists?(:time_slot_id => @params_time_slot5,:day_combination_id=>day_combo, :building_id=> '1', 
-                                  :semester_id=> @semester_id)
-          Preference.create!(:time_slot_id=>@params_time_slot5,:day_combination_id=>day_combo, :building_id=> '1', 
-                              :semester_id=> @semester_id)
-        end
-        pref5 =  Preference.where("time_slot_id=? AND building_id = ? AND semester_id =?",
-                                    @params_time_slot5, '1', @semester_id).select("id").take
-        if pref5!=nil
-          newID5 = pref5.id
-        elsif
-          flash[:error]="Preference 5 not recorded..."
-          redirect_to professoraddpreference_path
-        end
       end
-      
-      
-      #repeat for first bad preference
-      if params[:class] !=nil &&params[:class][:bad_time_slot_id1] !=""
-        @params_bad_time_slot1 = params[:class][:bad_time_slot_id1]
-        day_combo = TimeSlot.where(:id=>@params_bad_time_slot1).select('day_combination_id').take.day_combination_id
-        
-        if !Preference.exists?(:time_slot_id => @params_bad_time_slot1,:day_combination_id=>day_combo, :building_id=> '1', 
-                                  :semester_id=> @semester_id)
-          Preference.create!(:time_slot_id=>@params_bad_time_slot1,:day_combination_id=>day_combo, :building_id=> '1', 
-                              :semester_id=> @semester_id)
-        end
-        badPref1 =  Preference.where("time_slot_id=? AND building_id = ? AND semester_id =?",
-                                    @params_bad_time_slot1, '1', @semester_id).select("id").take
-        if badPref1!=nil
-          badNewID1 = badPref1.id
-        elsif
-          flash[:error]="Bad Preference 1 not recorded..."
-          redirect_to professoraddpreference_path
-        end
-      end
-      
-       #repeat for second bad preference
-      if params[:class] !=nil &&params[:class][:bad_time_slot_id2] !=""
-        @params_bad_time_slot2 = params[:class][:bad_time_slot_id2]
-        day_combo = TimeSlot.where(:id=>@params_bad_time_slot2).select('day_combination_id').take.day_combination_id
-        
-        if !Preference.exists?(:time_slot_id => @params_bad_time_slot2,:day_combination_id=>day_combo, :building_id=> '1', 
-                                  :semester_id=> @semester_id)
-          Preference.create!(:time_slot_id=>@params_bad_time_slot2,:day_combination_id=>day_combo, :building_id=> '1', 
-                              :semester_id=> @semester_id)
-        end
-        badPref2 =  Preference.where("time_slot_id=? AND building_id = ? AND semester_id =?",
-                                    @params_bad_time_slot2, '1', @semester_id).select("id").take
-        if badPref2!=nil
-          badNewID2 = badPref2.id
-        elsif
-          flash[:error]="Bad Preference 2 not recorded..."
-          redirect_to professoraddpreference_path
-        end
-      end
-      
-       #repeat for third bad preference
-      if params[:class] !=nil &&params[:class][:bad_time_slot_id3] !=""
-        @params_bad_time_slot3 = params[:class][:bad_time_slot_id3]
-        day_combo = TimeSlot.where(:id=>@params_bad_time_slot3).select('day_combination_id').take.day_combination_id
-        
-        if !Preference.exists?(:time_slot_id => @params_bad_time_slot3,:day_combination_id=>day_combo, :building_id=> '1', 
-                                  :semester_id=> @semester_id)
-          Preference.create!(:time_slot_id=>@params_bad_time_slot3,:day_combination_id=>day_combo, :building_id=> '1', 
-                              :semester_id=> @semester_id)
-        end
-        badPref3 =  Preference.where("time_slot_id=? AND building_id = ? AND semester_id =?",
-                                    @params_bad_time_slot3, '1', @semester_id).select("id").take
-        if badPref3!=nil
-          badNewID3 = badPref3.id
-        elsif
-          flash[:error]="Bad Preference 3 not recorded..."
-          redirect_to professoraddpreference_path
-        end
-      end
-      
-       #repeat for fourth bad preference
-      if params[:class] !=nil &&params[:class][:bad_time_slot_id4] !=""
-        @params_bad_time_slot4 = params[:class][:bad_time_slot_id4]
-        day_combo = TimeSlot.where(:id=>@params_bad_time_slot4).select('day_combination_id').take.day_combination_id
-        
-        if !Preference.exists?(:time_slot_id => @params_bad_time_slot4,:day_combination_id=>day_combo, :building_id=> '1', 
-                                  :semester_id=> @semester_id)
-          Preference.create!(:time_slot_id=>@params_bad_time_slot4,:day_combination_id=>day_combo, :building_id=> '1', 
-                              :semester_id=> @semester_id)
-        end
-        badPref4 =  Preference.where("time_slot_id=? AND building_id = ? AND semester_id =?",
-                                    @params_bad_time_slot4, '1', @semester_id).select("id").take
-        if badPref4!=nil
-          badNewID4 = badPref2.id
-        elsif
-          flash[:error]="Bad Preference 4 not recorded..."
-          redirect_to professoraddpreference_path
-        end
-      end
-      
-       #repeat for fifth bad preference
-      if params[:class] !=nil &&params[:class][:bad_time_slot_id5] !=""
-        @params_bad_time_slot5 = params[:class][:bad_time_slot_id5]
-        day_combo = TimeSlot.where(:id=>@params_bad_time_slot2).select('day_combination_id').take.day_combination_id
-        
-        if !Preference.exists?(:time_slot_id => @params_bad_time_slot5,:day_combination_id=>day_combo, :building_id=> '1', 
-                                  :semester_id=> @semester_id)
-          Preference.create!(:time_slot_id=>@params_bad_time_slot5,:day_combination_id=>day_combo, :building_id=> '1', 
-                              :semester_id=> @semester_id)
-        end
-        badPref5 =  Preference.where("time_slot_id=? AND building_id = ? AND semester_id =?",
-                                    @params_bad_time_slot5, '1', @semester_id).select("id").take
-        if badPref5!=nil
-          badNewID5 = badPref5.id
-        elsif
-          flash[:error]="Bad Preference 5 not recorded..."
-          redirect_to professoraddpreference_path
-        end
-      end
-      
-      
-      #Create new Faculty Preference
-      if !FacultyPreference.exists?(:preference1_id=>newID1 ,:preference2_id => newID2 ,:preference3_id=>newID3, :preference4_id => newID4, :preference5_id => newID5, :bad_preference1_id => badNewID1, :bad_preference2_id => badNewID2, :bad_preference3_id => badNewID3, :bad_preference4_id => badNewID4, :bad_preference5_id => badNewID5, :semester_id=> @semester_id)
-        FacultyPreference.create!(:preference1_id=>newID1 ,:preference2_id => newID2 ,:preference3_id=>newID3, :preference4_id => newID4, :preference5_id => newID5, :bad_preference1_id => badNewID1, :bad_preference2_id => badNewID2, :bad_preference3_id => badNewID3, :bad_preference4_id => badNewID4, :bad_preference5_id => badNewID5, :semester_id=> @semester_id)
-      end
-      prof_pref = FacultyPreference.where("preference1_id=? AND preference2_id=? AND preference3_id=? AND preference4_id=? AND preference5_id=? AND bad_preference1_id=? AND bad_preference2_id=? AND bad_preference3_id=? AND bad_preference4_id=? AND bad_preference5_id=? AND semester_id=?",
-                                            newID1,newID2,newID3,newID4,newID5,badNewID1,badNewID2,badNewID3,badNewID4,badNewID5,@semester_id).take
-      #link Faculty Preference to Faculty record
-      if prof_pref !=nil
-        prof_pref_id = prof_pref.id
-        prof_name = Faculty.where(:id=>@prof_id).select("faculty_name").take.faculty_name.to_s
-        Faculty.update(@prof_id, preference: prof_pref_id.to_s)
-        flash[:success]= "Updated Preference for " + prof_name
-        redirect_to professorhome_path
-      else
-        #flash[:error] = "Faculty Preference Not found..."
-        end
     else
       flash[:error] = "Please choose semester"
       redirect_to professorhome_path

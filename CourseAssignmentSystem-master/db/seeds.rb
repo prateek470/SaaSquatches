@@ -223,6 +223,7 @@ facultypreferences = [{:faculty_course_id => '1', :preference1_id => '1', :prefe
 semesters = [{:SemesterTitle => 'Fall 2015'},
          ]
 					
+facultypreferences=[{:preference1_id=>14}]
 buildings.each do |building|
   Building.create!(building)
 end
@@ -256,13 +257,13 @@ semesters.each do |s|
  Semester.create_semester(s[:SemesterTitle])
 end
 
-#preferences.each do |pf|
-#  Preference.create!(pf)
-#end
+# preferences.each do |pf|
+ # Preference.create!(pf)
+# end
 
-#facultypreferences.each do |fpf|
-#  FacultyPreference.create!(fpf)
-#end
+# facultypreferences.each do |fpf|
+ # FacultyPreference.create!(fpf)
+# end
 #Preference.destroy(3)
 
 #FacultyPreference.all.each do |fp|

@@ -46,7 +46,6 @@ class HomePageController < ApplicationController
   	redirect_to root_path;
   end
   
- 
   
   def addpreference
     if session[:semester_id] !=nil && session[:semester_id]!=""

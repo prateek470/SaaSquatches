@@ -120,9 +120,7 @@ class ProfessorHomeController < ApplicationController
   
   def viewpreferences
     if session[:semester_id] !=nil && session[:semester_id]!=""  
-     @course =  'BANANA'
-     @start = '2016-04-13T09:00:00'
-     @end = '2016-04-13T09:50:00'
+
     else
       flash[:error] = "Please choose semester"
       redirect_to professorhome_path

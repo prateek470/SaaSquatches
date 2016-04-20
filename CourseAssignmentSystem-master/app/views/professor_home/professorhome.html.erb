@@ -81,15 +81,8 @@
                      <%= link_to "Edit  Preferences", professoraddpreference_path, class: "btn btn-default btn-lg" %>
                   </li>
                   <li>
-                     <%= link_to "View  Preferences", viewpreferences_path, class: "btn btn-default btn-lg" %>
+                     <%= link_to "View Course Assignments", display_events_path, 'data-no-turbolink' => true, class: "btn btn-default btn-lg" %>
                   </li>
-                  <h3> Assignments</h3>
-                  <hr class="intro-divider">
-                  <ul class="list-inline intro-social-buttons">
-                    <li>
-                      <%= link_to "Course Assignments", display_events_path, 'data-no-turbolink' => true, class: "btn btn-default btn-lg" %>
-                    </li>
-	             <br></br>
 	             <hr class="intro-divider">
 	             <ul class="list-inline intro-social-buttons">
 	             <li>

@@ -74,6 +74,7 @@
                     <%= f.select :semester_id , options_for_select(@semester.collect { |semester| [semester.SemesterTitle, semester.id] },session[:semester_id] ), {prompt: "Please Select", hide_label: :true }, { :onchange => "this.form.submit()", id: 'sessionId' , class: "btn btn-default dropdown-toggle"} %>
                   <% end %>  
                   </p>
+				  
                   <h3>Edit Faculty</h3>
                   
                   <hr class="intro-divider">
@@ -95,9 +96,10 @@
 	                   </li>
 	               </p>
             	   <br>
-            	    <br>
-            	    <h3>Edit Courses & Classrooms</h3>
-            	   <hr class="intro-divider">
+            	   <br>
+					
+            	  <h3>Edit Courses & Classrooms</h3>
+            	  <hr class="intro-divider">
                   <ul class="list-inline intro-social-buttons">
                   	<p>
 	                   <li>
@@ -119,26 +121,35 @@
                 <h3>Make Assignments</h3>
                 <hr class="intro-divider">
                   <ul class="list-inline intro-social-buttons">
+                  	<p> 
+						<li>
+	                    	<%= link_to "Assign Classroom & Timings", class_index_path, class: "btn btn-default btn-lg" %>
+	                  	</li>
+		            	<li>
+							<%= link_to "Assign Faculty & Courses", faculty_courses_path, class: "btn btn-default btn-lg" %>
+	            	    </li>
+					</p>
+					<br />
+                 	<p>
+						<li>
+							<%= link_to "Course Assignments", course_assignments_path, class: "btn btn-default btn-lg" %>
+						</li>
+		            </p>
+				 <br>
+            	 <br>
+				<h3>View Assignments</h3>
+                <hr class="intro-divider">
+                  <ul class="list-inline intro-social-buttons">
                   	<p>
 						 <li>
 						  	<%= link_to "Preference Summary", pref_summary_index_path, class: "btn btn-default btn-lg" %>
 						 </li>
-						        
-						  <li>
-							<%= link_to "Course Assignments", course_assignments_path, class: "btn btn-default btn-lg" %>
-						  </li>
-						  <li>
-	                    	<%= link_to "Assign Classroom", class_index_path, class: "btn btn-default btn-lg" %>
-	                  	  </li>
-		          	</p>
-		            <p>
-		            	<li>
-	             		   <%= link_to "Assign Faculty & Courses", faculty_courses_path, class: "btn btn-default btn-lg" %>
-	            	    </li>
 			             <li>
 			               <%= link_to "Conflict Checker", conflict_checker_index_path, class: "btn btn-default btn-lg" %>
 			             </li>
-			             
+					</p>
+					<br />
+                 	<p>
 			             <li>
 			               <%= link_to "Calendar", events_path, 'data-no-turbolink' => true, class: "btn btn-default btn-lg" %>
 			             </li>

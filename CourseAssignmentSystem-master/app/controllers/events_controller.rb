@@ -69,11 +69,12 @@ class EventsController < ApplicationController
     end 
    
     if permission == "User"
-      courses = CourseAssignment.where(:faculty_id => session[:faculty_id]).pluck(:id)
+      courses = CourseAssignment.where(:faculty_id => session[:faculty_id], :semester_id => session[:semester_id]).pluck(:id)
       puts courses
       @events = Event.where(course_assignment_id: courses)
     elsif permission == "Admin"
-      @events = Event.all
+      semester = CourseAssignment.where(:semester_id => session[:semester_id]).pluck(:id)
+      @events = Event.where(course_assignment_id: semester)
     end 
   
     #@events = Event.all

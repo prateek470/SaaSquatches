@@ -17,25 +17,25 @@ class CourseAssignmentsController < ApplicationController
   		@faculties.each {|faculty|
   	    		course_assignments = CourseAssignment.includes(:course,:room,:day_combination,:time_slot).where("semester_id = ? and faculty_id = ?",session[:semester_id],faculty.id)
   	    		course_assignments.each {|course_assignment|	
-  			course1_name = ""
-  			course2_name = ""
-  			course3_name = ""
-  			course_name = course_assignment.course.course_name + " " + course_assignment.course.CourseTitle
-  			assign_str = ""
-  			if course_assignment.room_id != nil
-  				room = course_assignment.room
-  				building = Building.find(room.building_id)
-  				assign_str += building.building_name
-  				assign_str += " " + room.room_name
-  			end
-  			if course_assignment.day_combination_id != nil
-  				assign_str += " " + course_assignment.day_combination.day_combination
-  			end
-  			if course_assignment.time_slot_id != nil
-  				assign_str += " " + course_assignment.time_slot.time_slot
-  			end
-  			
-  	    		@assignments << {"faculty_name" => faculty.faculty_name, "course_name" => course_name, "assign" => assign_str}
+        			course1_name = ""
+        			course2_name = ""
+        			course3_name = ""
+        			course_name = course_assignment.course.course_name + " " + course_assignment.course.CourseTitle
+        			assign_str = ""
+        			if course_assignment.room_id != nil
+        				room = course_assignment.room
+        				building = Building.find(room.building_id)
+        				assign_str += building.building_name
+        				assign_str += " " + room.room_name
+        			end
+        			if course_assignment.day_combination_id != nil
+        				assign_str += " " + course_assignment.day_combination.day_combination
+        			end
+        			if course_assignment.time_slot_id != nil
+        				assign_str += " " + course_assignment.time_slot.time_slot
+        			end
+        			
+  	    		  @assignments << {"faculty_name" => faculty.faculty_name, "course_name" => course_name, "assign" => assign_str}
   	    		}
   		}
   	else
@@ -71,8 +71,8 @@ class CourseAssignmentsController < ApplicationController
                   attributes[:day_combination_id] = params["day_combination_select_#{course_id}"]
                   attributes[:time_slot_id] = params["time_slot_select_#{course_id}"]
   		duplicate_assignment = CourseAssignment.where("semester_id = ? and room_id = ? and day_combination_id = ? and time_slot_id = ?",session[:semester_id],attributes[:room_id],attributes[:day_combination_id],attributes[:time_slot_id])
-  		if duplicate_assignment.length > 1 || (duplicate_assignment.length == 1 && duplicate_assignment[0].course_id != course_id)
-  			flash[:error] = "Assignment already exists for the chosen building, room, day combination and time slot"
+  		if duplicate_assignment.length > 2 || (duplicate_assignment.length == 2 && duplicate_assignment[0].course_id != course_id)
+  			flash[:error] = "Assignment already exists for the chosen building, room, day combination or time slot"
   		elsif course_assignment == nil
   			attributes[:semester_id] = session[:semester_id]
   			attributes[:faculty_id] = faculty_id
@@ -83,7 +83,7 @@ class CourseAssignmentsController < ApplicationController
   			flash[:success] = "Created course assignment for " + faculty.faculty_name + ", " + course.course_name
   			has_updated = true
   		else
-          		course_assignment.update_attributes!(attributes)
+        course_assignment.update_attributes!(attributes)
   			flash[:success] = "Updated course assignment for " + faculty.faculty_name + ", " + course.course_name
   			has_updated = true
   		end

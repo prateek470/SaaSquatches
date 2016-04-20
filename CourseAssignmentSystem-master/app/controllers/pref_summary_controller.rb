@@ -7,9 +7,9 @@ end
 def index #def
     
   	if session[:semester_id] != nil && session[:semester_id] != ""
-  	  @timeslot = TimeSlot.all
+  	    @timeslot = TimeSlot.all
         @faculty = Faculty.all
-        
+        @semester = session[:semester_id]
         @goodtimes = Array.new
         @oktimes = Array.new
         @badtimes = Array.new

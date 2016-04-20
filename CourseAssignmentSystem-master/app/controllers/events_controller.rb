@@ -18,8 +18,11 @@ class EventsController < ApplicationController
   end
 
   def index
-
+    permission = Faculty.where(:id=>session[:faculty_id]).select("permission").take.permission
+  
+     
     @course_assignments = CourseAssignment.all
+    
     @timeslot = TimeSlot.all
     @building = Building.all
     @rooms = Room.where("building_id = ?", Building.first.id)
@@ -65,8 +68,15 @@ class EventsController < ApplicationController
         
     end 
    
-      
-    @events = Event.all
+    if permission == "User"
+      courses = CourseAssignment.where(:faculty_id => session[:faculty_id]).pluck(:id)
+      puts courses
+      @events = Event.where(course_assignment_id: courses)
+    elsif permission == "Admin"
+      @events = Event.all
+    end 
+  
+    #@events = Event.all
     respond_to do |format| 
       format.html
       format.json { render :json => @events } 

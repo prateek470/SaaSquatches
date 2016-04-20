@@ -137,10 +137,7 @@ $("#buildingId").change(function(){
   });
   
   
-  function getTime(id){
-
-    
-  }
+  
 });
     
     

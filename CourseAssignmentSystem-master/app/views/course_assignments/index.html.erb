@@ -13,11 +13,14 @@
 </head>
 
 <body>
-  <h1 align="center">Assign Room and Timings for Faculty Courses</h1>
+  <h1 align="center"> Assign Classroom for Courses</h1>
 
   <div class="jumbotron">
 	<%= link_to 'Preference Summary', '/pref_summary', method: :post %>
-	<%= link_to 'Assign Courses', '/faculty_courses', method: :post %>
+	</br>
+	<%= link_to 'Assign Faculty & Courses', '/faculty_courses', method: :post %>
+	</br>
+	</br>
 	<p>
 		<%= label_tag :faculty_id, "Faculty: " %>
 		<%= select_tag :faculty_id, options_from_collection_for_select(@faculties,"id","faculty_name"), :include_blank => true ,class: "btn btn-default dropdown-toggle"%>

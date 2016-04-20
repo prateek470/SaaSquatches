@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   get "editevent" => 'events#editevent'
   get 'events/update_rooms', :as => 'update_rooms'
   get 'events/show'
+  get "display_events" => 'events#prof_index'
   
   
   

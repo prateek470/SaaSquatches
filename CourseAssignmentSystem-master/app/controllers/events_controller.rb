@@ -82,6 +82,78 @@ class EventsController < ApplicationController
       format.json { render :json => @events } 
     end
   end
+  
+  
+  
+  def prof_index 
+       permission = Faculty.where(:id=>session[:faculty_id]).select("permission").take.permission
+  
+     
+    @course_assignments = CourseAssignment.all
+    
+    @timeslot = TimeSlot.all
+    @building = Building.all
+    @rooms = Room.where("building_id = ?", Building.first.id)
+    if !@course_assignments.empty? and @course_assignments != nil
+      @course_assignments.each do |c|
+        course = Course.where(:id => c.course_id).select("course_name").take.course_name
+        room = Room.where(:id=> c.room_id).select("room_name").take.room_name
+        building_id = Room.where(:id=> c.room_id).select("building_id").take.building_id
+        building = Building.where(:id=> building_id).select("building_name").take.building_name
+        day_combination = DayCombination.where(:id=>c.day_combination_id).select("day_combination").take.day_combination
+        start = TimeSlot.where(:id=>c.time_slot_id).select("start").take.start
+        end_time = TimeSlot.where(:id=>c.time_slot_id).select("end_time").take.end_time
+        
+        puts course
+        puts room
+        puts building
+        puts day_combination
+        start = start.to_s(:time)
+        end_time =  end_time.to_s(:time)
+        title = course + " " + building + " " + room
+        puts title
+        days = Array.new
+        days = getDay(day_combination)
+        
+        days.each do |day|
+          start_at = day + " " + start + ":00.000000"
+          end_at = day + " " + end_time + ":00.000000"
+          puts start_at
+          puts end_at
+          #vent = Event.where(:title => title, :start_at => start_at, :end_at => end_at, :user_name => "Tyler").all
+          
+          if !Event.exists?(:title => title, :start_at => start_at, :end_at => end_at, :course_assignment_id => c.id)
+            Event.create(:title => title, :start_at => start_at, :end_at => end_at, :course_assignment_id => c.id )
+          else 
+            puts "Already Exists"
+          end 
+          end 
+        end 
+      
+        
+        
+        
+        
+    end 
+   
+    if permission == "User"
+      courses = CourseAssignment.where(:faculty_id => session[:faculty_id]).pluck(:id)
+      puts courses
+      @events = Event.where(course_assignment_id: courses)
+    elsif permission == "Admin"
+      @events = Event.all
+    end 
+  
+    #@events = Event.all
+    respond_to do |format| 
+      format.html
+      format.json { render :json => @events } 
+    end
+  end 
+  
+  
+  
+  
 
   def event_params
     params.permit(:title).merge start_at: params[:start].to_time, end_at: params[:end].to_time, user_name: params[:user_name]

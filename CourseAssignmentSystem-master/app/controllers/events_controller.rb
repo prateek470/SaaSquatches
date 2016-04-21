@@ -37,6 +37,9 @@ class EventsController < ApplicationController
         start = TimeSlot.where(:id=>c.time_slot_id).select("start").take.start
         end_time = TimeSlot.where(:id=>c.time_slot_id).select("end_time").take.end_time
         
+        
+        
+        
         puts course
         puts room
         puts building

@@ -1,6 +1,7 @@
 # @author Purvesh Karkamkar
 # Handles request to assign courses to faculties
 class FacultyCoursesController < ApplicationController
+  before_action :require_user,:check_permission
     # Handles request to display landing page for the feature
   def create
     redirect_to action: "index"

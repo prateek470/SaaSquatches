@@ -1,7 +1,7 @@
 # @author Purvesh Karkamkar
 # Handles requests to assign classroom and timings to faculty's courses
 class CourseAssignmentsController < ApplicationController
-  
+  before_action :require_user,:check_permission
   def create
     redirect_to action: "index"
   end

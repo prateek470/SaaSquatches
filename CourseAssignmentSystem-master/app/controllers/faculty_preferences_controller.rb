@@ -1,4 +1,5 @@
 class FacultyPreferencesController < ApplicationController
+  before_action :require_user,:check_permission
   layout "faculty_preference"
   def index
     @facultycourse = FacultyCourse.joins("LEFT JOIN faculties ON faculties.id = faculty_id").where(:semester_id => session[:semester_id]).all.order("faculty_name")

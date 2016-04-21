@@ -1,5 +1,5 @@
 class PrefSummaryController < ApplicationController
-
+before_action :require_user,:check_permission
 def create
   redirect_to action: "index"
 end	

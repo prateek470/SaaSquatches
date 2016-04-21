@@ -26,7 +26,7 @@ Rails.application.routes.draw do
     root 'home_page#home'
 
   resources :pref_summary, :controller => :pref_summary
-  get "pref_summary/index"
+  get  "pref_summary/index"
   
   resources :professor_home, :controller=> :professorhome
   get "professorhome" =>'professor_home#professorhome'

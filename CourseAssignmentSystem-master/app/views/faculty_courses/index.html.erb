@@ -9,14 +9,16 @@
 </head>
 
 <body>
-  <h1 align="center">Faculty and Courses</h1>
+  <h1 align="center">Assign Faculty to Courses</h1>
+  <table align = "center">
+	    <tr>
+	        <td><%= link_to "Schedule Course", course_assignments_path, class: "btn btn-default btn-lg" %></td>
+	         <td> <%= link_to "Calendar", events_path, 'data-no-turbolink' => true, class: "btn btn-default btn-lg" %></td>
+	        <td> <%= link_to "Preference Summary", pref_summary_index_path, class: "btn btn-default btn-lg" %></td>
+	    </tr>
+	</table>
   <div class="jumbotron">
     <%= form_tag :action => :select_faculty, :method => :post do %>
-    <%= link_to 'Preference Summary', '/pref_summary', method: :post %>
-	</br>
-	<%= link_to 'Course Assignments', '/course_assignments', method: :post %>
-	</br>
-	</br>
     <p>
 	    <%= label_tag :faculty_id, "Faculty Name: " %>
 	    <%= select_tag :faculty_id, options_from_collection_for_select(@faculties,"id","faculty_name"), :include_blank => true ,class: "btn btn-default dropdown-toggle"%>

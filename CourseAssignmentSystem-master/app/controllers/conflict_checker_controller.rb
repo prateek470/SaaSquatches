@@ -2,6 +2,7 @@
 # @author: Abhishek Vinod Kumar Joshi
 # Controller class for the Conflict Checker page
 class ConflictCheckerController < ApplicationController
+  before_action :require_user,:check_permission
 # Inlcuding the Helper class for Conflict Checker
 include ConflictCheckerHelper
 

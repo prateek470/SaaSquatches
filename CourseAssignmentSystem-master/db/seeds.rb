@@ -79,8 +79,8 @@ faculties = [{:faculty_name => 'Amato Nancy', :permission => 'User'},
 			]
 
 courses = 	[		 
-			 {:CourseTitle => 'Programming with C and Java', :course_name => 'CSCE 601'},
-			 {:CourseTitle => 'Object-Oriented Programming, Development and Software Engineering', :course_name => 'CSCE 602'},
+			 {:CourseTitle => 'Programming with C and Java', :course_name => 'CSCE 601', :course_size => '100'},
+			 {:CourseTitle => 'Object-Oriented Programming, Development and Software Engineering', :course_name => 'CSCE 602', :course_size => '20'},
 			 {:CourseTitle => 'Database Systems and Applications', :course_name => 'CSCE 603'},
 			 {:CourseTitle => 'Programming Languages', :course_name => 'CSCE 604'},
 			 {:CourseTitle => 'Compiler Design', :course_name => 'CSCE 605'},

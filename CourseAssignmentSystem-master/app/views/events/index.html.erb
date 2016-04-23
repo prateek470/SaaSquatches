@@ -53,12 +53,12 @@
        <p>
            <%= f.label "Building" %>
            <%= f.select :building_id, options_for_select(@building.collect { |building|
-        [building.building_name.titleize, building.id] }, 1), {}, { id: 'building_select' } %>
+        [building.building_name, building.id] }, 1), {}, { id: 'building_select' } %>
        </p>
        <p>
        <%= f.label "Room" %> 
       <%= f.select :room_id, options_for_select(@rooms.collect { |room|
-        [room.room_name.titleize, room.id] }, 0), {}, { id: 'room_select' } %>
+        [room.room_name, room.id] }, 0), {}, { id: 'room_select' } %>
       
       </p>
       </p>

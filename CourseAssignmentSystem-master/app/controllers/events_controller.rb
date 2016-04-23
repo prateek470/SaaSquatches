@@ -37,6 +37,9 @@ class EventsController < ApplicationController
         start = TimeSlot.where(:id=>c.time_slot_id).select("start").take.start
         end_time = TimeSlot.where(:id=>c.time_slot_id).select("end_time").take.end_time
         
+        
+        
+        
         puts course
         puts room
         puts building
@@ -202,6 +205,9 @@ end
   
   if params[:class] != nil && params[:class][:name] != ""
     temp = Event.where(:id=> params[:class][:name]).select("course_assignment_id").take.course_assignment_id
+    course_id = CourseAssignment.where(:id=> temp).select("course_id").take.course_id
+    course_size = Course.where(:id=>course_id).select("course_size").take.course_size
+    @rooms = Room.where("building_id = ? and Capacity >= ?", params[:building_id], course_size)
     assignment = CourseAssignment.where(:id=>temp).select("time_slot_id").take.time_slot_id
     if assignment != params[:class][:time_slot_id]
       #Update the timeslot with the correct day combination in CourseAssignment
@@ -212,8 +218,13 @@ end
       
       
       if !CourseAssignment.exists?(:time_slot_id => ts, :day_combination_id => dayId, :room_id => room_id)
-        CourseAssignment.update(temp, :time_slot_id => ts, :day_combination_id => dayId, :room_id => room_id)
-        Event.where(course_assignment_id: temp).destroy_all
+        capacity = Room.where(:id=> room_id).select("Capacity").take.Capacity
+        if course_size > capacity 
+          flash[:error] = "Room is too small for this course"
+        else 
+          CourseAssignment.update(temp, :time_slot_id => ts, :day_combination_id => dayId, :room_id => room_id)
+          Event.where(course_assignment_id: temp).destroy_all
+        end 
       else 
         flash[:error] = "Course Conflict at this Time"
       end 
@@ -227,7 +238,12 @@ end
  end
  
 def update_rooms
-  @rooms = Room.where("building_id = ?", params[:building_id])
+  course =  Event.where(:id=> params[:class][:name]).select("course_assignment_id").take.course_assignment_id
+  course_id = CoruseAssignment.where(:id=> course).select("course_id").take.course_id
+  course_size = Course.where(:id=>course_id).select("course_size").take.course_size
+  puts course_size
+  puts "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+  @rooms = Room.where("building_id = ? and Capacity >= ?", params[:building_id], course_size)
   respond_to do |format|
     format.js 
   end

@@ -157,7 +157,7 @@ class HomePageController < ApplicationController
               end
               
               flash[:success]= "Updated Preference for " + prof_name
-              redirect_to root_path
+              redirect_to addpreference_path
             end
             
             

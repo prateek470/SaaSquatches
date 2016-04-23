@@ -1,5 +1,10 @@
 <div style="text-align: center;"> 
   <h2 style="display: inline-block;">Edit Faculty Preferences </h2>
+  <table align="center">
+	    <tr>
+	        <td> <%= link_to "Preference Summary", pref_summary_index_path, class: "btn btn-default btn-lg" %></td>
+	    </tr>
+	</table>
 <br></br>
  
 <%= form_for :class , method: :get, url: addpreference_path, :html => { :id => "addpreference" } do |f| %>
@@ -11,7 +16,7 @@
 </p>
 <br />
 
-<table>
+<table align="center">
   <thead>
     <tr>
       <th>Teaching Time Slots</th>

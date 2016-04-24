@@ -7,6 +7,8 @@ describe ConflictCheckerController do
 		@time_ranges = [double(:t_range => 'Morning',:t_slots => '1',:day_combination_id => 1)]
 		@buildings = [double(:id => 1,:building_name => 'test')]
 		session[:semester_id] = '1'
+		session[:user_id] = "1"
+		session[:permission] = "Admin"
     end
     describe 'getting conflict data' do
 	it 'should call the appropriate model methods to get conflict data' do

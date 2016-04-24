@@ -3,6 +3,8 @@ require 'rails_helper'
 describe CourseAssignmentsController do
     before :each do
 	session[:semester_id] = '1'
+	session[:user_id] = "1"
+	session[:permission] = "Admin"
     end
     describe 'showing faculties' do
 	before :each do
@@ -52,8 +54,8 @@ describe CourseAssignmentsController do
     end
     describe 'selecting building' do
 	it 'should get rooms for the selected building' do
-		rooms = [double(:id => 1,:room_name => 'room1'),double(:id => '1',:room_name => 'room2')]
-		Room.should_receive(:where).with("building_id = ?",'1').and_return(rooms)
+		rooms = [double(:id => 1,:room_name => 'room1',:Capacity => '100'),double(:id => '1',:room_name => 'room2',:Capacity => '75')]
+		Room.should_receive(:where).with("building_id = ? and Capacity = ?",'1',nil).and_return(rooms)
 		course_assignments = [double(:room_id => '1',:course_id => '1'),double(:room_id => '2',:course_id => '2'),double(:room_id => '3',:course_id => '3')]
 		CourseAssignment.should_receive(:where).with("semester_id = ? and course_id = ?",'1','1').and_return(course_assignments)
 		post :update_room, {:building_id => '1',:course_id => '1', :format => :json}

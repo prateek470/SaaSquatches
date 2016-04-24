@@ -13,27 +13,87 @@ end
   
   # 0. HOME link at the top
    describe "GET #home" do
-     it "returns http success" do
+     it "returns http success for admin" do
 	   session[:user_id] = '1'
 	   session[:permission] = 'Admin'
        get :home
        expect(response).to have_http_status(:success)
      end
+	 it "returns http success for professor" do
+	   session[:user_id] = '2'
+	   session[:permission] = 'User'
+       get :home
+	   response.should redirect_to '/professorhome'
+     end
    end
+   
 
    describe "add new faculty" do
      it "should call the model method to create new faculty" do
+	 session[:user_id] = "1"
+	 session[:FacultyName] = "Faculty1"
+	 session[:permission] = "Admin"
 	 Faculty.create(:faculty_name => "Faculty1", :permission => "User").should be_valid
 	 #Faculty.should_receive(:create!).with({:faculty_name => "Faculty1", :permission=>"User"})
 	 post :addfaculty, {:class => {:faculty_name => "Faculty1", :permission=>"User"}}
+	 response.should redirect_to root_path
      end
    end
- 
+   
+   describe "reset user" do
+   before :each do
+     @test = User.create(:id => 4, :faculty_name=> "Shell Dylan",:faculty_id=>"40", :email => "mm@gmail.com", :password => "asdf")
+	 @user = [double(:id => 4, :faculty_name=> "Shell Dylan",:faculty_id=>"40", :email => "mm@gmail.com", :password => "asdf")]
+     session[:user_id] = '4'
+	 #session[:permission] = 'Admin'
+	 session[:selectedUser] = 4
+   end
+     it "should call resetuser and redirect to root" do
+	 get :resetuser
+	 session.should_not == nil
+	 @desired_user = @test.id
+	 User.destroy(@desired_user)
+	 end
+   end
+   
+   describe "addpreference" do
+   before :each do
+     session[:user_id] = '2'
+	 session[:semester_id] = '1'
+	 session[:FacultyName] = "Huang Jef"
+   end
+	it "should add professor preferences to database and redirect to professorhome" do
+	session[:permission] = 'User'
+	#FacultyPreference.create(:faculty_course_id => 3,:preference1_id=>'5', :semester_id => '1')
+	#session[:preferred_ids] = FacultyPreference.find_by(faculty_course_id: 3).preference1_id
+	#session.should_not == nil
+	#session[:FacultyName].should_not == ""
+	#session[:preferred_ids].should_not == nil
+	post :addpreference, {:class=>{:faculty_course_id => 2,:preference1_id=>'7', :semester_id => '1'}}
+	#flash[:error].should == "Professor does not exist"
+	
+	#response.should redirect_to addpreference_path
+	end
+   end
+   
+   describe "calendar" do
+    it "should create a calander" do
+	#@cal_course = Course.find_by(course_name: "CSCE_601")
+	#get :calendar, {:course =>{:course_name => "CSCE_601", :CourseTitle => "Programming with C and Java", :course_size => 20}}
+	end
+   end
+   
    describe "add new course" do
+   before :each do
+	 session[:semester_id] = '1'
+	 session[:user_id] = '1'
+	 session[:permission] = 'Admin'
+   end
      it "should call the model method to create new course" do
-	 Course.create(:course_name => 'name', :CourseTitle => 'title').should be_valid
+	 
+	 #Course.create(:course_name => 'name', :CourseTitle => 'title').should be_valid
 	 #Course.should_receive(:create!).with(:course_name => 'name', :CourseTitle => 'title')
-	 post :addcourse, {:class => {:CourseName => "name",:CourseTitle => "title"}}
+	 post :addcourse, {:class => {:course_name => 'CSCE 601', :CourseTitle => 'Programming with C and Java'}}
      end
    end
  
@@ -77,8 +137,19 @@ end
      it 'should add a new faculty preference if it is new'do
 	 FacultyPreference.create(:preference1_id => '99').should be_valid
      #FacultyPreference.should_receive(:create!).with(:preference1_id=>'99')
-     post :addpreference, {:class=>{:time_slot_id1=>'99'}}
+     post :addpreference, {:class=>{:preference1_id=>'99'}}
    end
+   end
+   
+   describe 'addclassroom' do
+   before :each do
+     session[:building_name] = "HRBB"
+	 session[:room_name] = "113"
+	 session[:room_capacity] = "60"
+   end
+     it 'should add a new classroom if it is new' do
+	 post :addclassroom, {:class=>{:building_name=>"HRBB",:room_name=>"113",:room_capacity=>"60"}}
+	 end
    end
    #Links to various pages:
 

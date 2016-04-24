@@ -1,6 +1,10 @@
 require 'rails_helper'
 
 describe FacultyCoursesController do
+    before :each do
+		session[:user_id] = "1"
+		session[:permission] = "Admin"
+	end
     describe 'showing list of faculty and courses' do
 	before :each do
 		@fake_faculty = [double('1'), double('2')]

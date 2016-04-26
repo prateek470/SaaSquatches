@@ -14,7 +14,7 @@ end
   # 0. HOME link at the top
    describe "GET #home" do
      it "returns http success for admin" do
-	   session[:user_id] = '1'
+	   session[:user_id] = '3'
 	   session[:permission] = 'Admin'
        get :home
        expect(response).to have_http_status(:success)
@@ -30,11 +30,10 @@ end
 
    describe "add new faculty" do
      it "should call the model method to create new faculty" do
-	 session[:user_id] = "1"
+	 session[:user_id] = "3"
 	 session[:FacultyName] = "Faculty1"
 	 session[:permission] = "Admin"
 	 Faculty.create(:faculty_name => "Faculty1", :permission => "User").should be_valid
-	 #Faculty.should_receive(:create!).with({:faculty_name => "Faculty1", :permission=>"User"})
 	 post :addfaculty, {:class => {:faculty_name => "Faculty1", :permission=>"User"}}
 	 response.should redirect_to root_path
      end
@@ -42,46 +41,41 @@ end
    
    describe "reset user" do
    before :each do
-     #@test = User.create(:id => 4, :faculty_name=> "Shell Dylan",:faculty_id=>"40", :email => "mm@gmail.com", :password => "asdf")
 	 @user = [double(:id => 4, :faculty_name=> "Shell Dylan",:faculty_id=>"40", :email => "mm@gmail.com", :password => "asdf")]
-     #session[:user_id] = '4'
-	 #session[:permission] = 'Admin'
 	 session[:selectedUser] = 4
    end
      it "should call resetuser and redirect to root" do
-	 #session.should_not == nil
-	 #@desired_user = @test.id
-	 #User.destroy(@desired_user)
-	 post :resetuser, {:class=>{:selectedUser => 4, :user_id => '4', :faculty_name=>"Shell Dylan"}}
+	 post :resetuser, {:class=>{:selectedUser => 1}}
+	 User.create(:id=>1, :faculty_name=> "Keyser John", :faculty_id=>"25", :email => "john@tamu.edu", :password => "asdf")
 	 end
    end
    
    describe "addpreference" do
    before :each do
-     session[:user_id] = '2'
+     session[:user_id] = '3'
 	 session[:semester_id] = '1'
-	 session[:FacultyName] = "Huang Jeff"
 	 session[:permission] = 'Admin'
    end
 	it "should add bad professor preferences to database" do
-	post :addpreference, {:class=>{:faculty_course_id => 2,:preference1_id=>'7', :semester_id => '1'}, :unacceptable_ids=>['15', '16', '17','18','19']}
+	post :addpreference, {:class=>{:FacultyName => "3"}, :unacceptable_ids=>['17','18','19']}
 	end
 	it 'should add good professor preferences to database' do
-	post :addpreference, {:class=>{:faculty_course_id => 2,:preference1_id=>'7', :semester_id => '1'}, :preferred_ids=>['1', '2', '3','4','5']}
+	post :addpreference, {:class=>{:FacultyName => "3"}, :preferred_ids=>['4','5']}
 	end
 	
    end
    
    describe "calendar" do
    before :each do
-     session[:user_id] = '2'
+     session[:user_id] = '3'
 	 session[:semester_id] = '1'
-	 session[:FacultyName] = "Huang Jeff"
-	 session[:permission] = 'User'
+	 #session[:FacultyName] = "Huang Jeff"
+	 session[:permission] = 'Admin'
    end
-    it "should create a calander" do
+    it "should create a calendar" do
 	#@course = [double(:id => 1, :course_name=>'CSCE_601', :CourseTitle=>'Programming with C and Java', :course_size=>20)]
-	post :calendar
+	get :calendar
+	get :calendar, {:start => '2016-04-11', :end => '2016-04-16'}
 	end
    end
    
@@ -91,7 +85,7 @@ end
 	 session[:CourseTitle] = 'Programming with C and Java'
 	 session[:course_size] = '100'
 	 session[:semester_id] = '1'
-	 session[:user_id] = '1'
+	 session[:user_id] = '3'
 	 session[:permission] = 'Admin'
    end
      it "should call the model method to create new course" do
@@ -104,7 +98,7 @@ end
  
    describe 'setting semester id in session' do
 	 it 'should set the semester id in session and redirect to home page' do
-		 session[:user_id] = '1'
+		 session[:user_id] = '3'
 		 session[:permission] = 'Admin'
 		 post :setsession, {:class => {:semester_id => '1'}}
 		 session[:semester_id].should == '1'
@@ -114,7 +108,7 @@ end
  
    describe 'creating new semester' do
    before :each do
-     session[:user_id] = '1'
+     session[:user_id] = '3'
      session[:permission] = 'Admin'
    end
 	 it 'should call model method to create new semester' do

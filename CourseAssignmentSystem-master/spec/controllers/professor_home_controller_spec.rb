@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe ProfessorHomeController, type: :controller do
 	before :each do
-	session[:user_id] = '1'
+	session[:user_id] = '3'
 	session[:permission] = 'User'
 	end
 	describe 'professorhome' do
@@ -14,17 +14,15 @@ RSpec.describe ProfessorHomeController, type: :controller do
 	end
 	describe 'professoraddpreference' do
 	before :each do
-     session[:user_id] = '2'
+     #session[:user_id] = '3'
 	 session[:semester_id] = '1'
-	 session[:FacultyName] = "Huang Jeff"
-	 session[:permission] = 'User'
-	 session[:FacultyName] = "Huang Jeff"
+	 #session[:permission] = 'User'
    end
 		it 'should add bad preferences to database' do
-		post :professoraddpreference, {:class=>{:faculty_course_id => 2,:preference1_id=>'7', :semester_id => '1'}, :unacceptable_ids=>['15', '16', '17','18','19']}
+		get :professoraddpreference, :unacceptable_ids=>['15','16']
 		end
 		it 'should add good professor preferences to database' do
-		post :professoraddpreference, {:class=>{:faculty_course_id => 2,:preference1_id=>'7', :semester_id => '1'}, :preferred_ids=>['1', '2', '3','4','5']}
+		get :professoraddpreference, :preferred_ids=>['1', '2', '3']
 		end
 	end
 	describe 'viewpreferences' do

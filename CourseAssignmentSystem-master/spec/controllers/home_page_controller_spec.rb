@@ -42,17 +42,17 @@ end
    
    describe "reset user" do
    before :each do
-     @test = User.create(:id => 4, :faculty_name=> "Shell Dylan",:faculty_id=>"40", :email => "mm@gmail.com", :password => "asdf")
+     #@test = User.create(:id => 4, :faculty_name=> "Shell Dylan",:faculty_id=>"40", :email => "mm@gmail.com", :password => "asdf")
 	 @user = [double(:id => 4, :faculty_name=> "Shell Dylan",:faculty_id=>"40", :email => "mm@gmail.com", :password => "asdf")]
-     session[:user_id] = '4'
+     #session[:user_id] = '4'
 	 #session[:permission] = 'Admin'
 	 session[:selectedUser] = 4
    end
      it "should call resetuser and redirect to root" do
-	 get :resetuser
-	 session.should_not == nil
-	 @desired_user = @test.id
-	 User.destroy(@desired_user)
+	 #session.should_not == nil
+	 #@desired_user = @test.id
+	 #User.destroy(@desired_user)
+	 post :resetuser, {:class=>{:selectedUser => 4, :user_id => '4', :faculty_name=>"Shell Dylan"}}
 	 end
    end
    
@@ -60,31 +60,36 @@ end
    before :each do
      session[:user_id] = '2'
 	 session[:semester_id] = '1'
-	 session[:FacultyName] = "Huang Jef"
+	 session[:FacultyName] = "Huang Jeff"
+	 session[:permission] = 'Admin'
    end
-	it "should add professor preferences to database and redirect to professorhome" do
-	session[:permission] = 'User'
-	#FacultyPreference.create(:faculty_course_id => 3,:preference1_id=>'5', :semester_id => '1')
-	#session[:preferred_ids] = FacultyPreference.find_by(faculty_course_id: 3).preference1_id
-	#session.should_not == nil
-	#session[:FacultyName].should_not == ""
-	#session[:preferred_ids].should_not == nil
-	post :addpreference, {:class=>{:faculty_course_id => 2,:preference1_id=>'7', :semester_id => '1'}}
-	#flash[:error].should == "Professor does not exist"
-	
-	#response.should redirect_to addpreference_path
+	it "should add bad professor preferences to database" do
+	post :addpreference, {:class=>{:faculty_course_id => 2,:preference1_id=>'7', :semester_id => '1'}, :unacceptable_ids=>['15', '16', '17','18','19']}
 	end
+	it 'should add good professor preferences to database' do
+	post :addpreference, {:class=>{:faculty_course_id => 2,:preference1_id=>'7', :semester_id => '1'}, :preferred_ids=>['1', '2', '3','4','5']}
+	end
+	
    end
    
    describe "calendar" do
+   before :each do
+     session[:user_id] = '2'
+	 session[:semester_id] = '1'
+	 session[:FacultyName] = "Huang Jeff"
+	 session[:permission] = 'User'
+   end
     it "should create a calander" do
-	#@cal_course = Course.find_by(course_name: "CSCE_601")
-	#get :calendar, {:course =>{:course_name => "CSCE_601", :CourseTitle => "Programming with C and Java", :course_size => 20}}
+	#@course = [double(:id => 1, :course_name=>'CSCE_601', :CourseTitle=>'Programming with C and Java', :course_size=>20)]
+	post :calendar
 	end
    end
    
    describe "add new course" do
    before :each do
+     session[:CourseName] = 'CSCE 601'
+	 session[:CourseTitle] = 'Programming with C and Java'
+	 session[:course_size] = '100'
 	 session[:semester_id] = '1'
 	 session[:user_id] = '1'
 	 session[:permission] = 'Admin'
@@ -93,7 +98,7 @@ end
 	 
 	 #Course.create(:course_name => 'name', :CourseTitle => 'title').should be_valid
 	 #Course.should_receive(:create!).with(:course_name => 'name', :CourseTitle => 'title')
-	 post :addcourse, {:class => {:course_name => 'CSCE 601', :CourseTitle => 'Programming with C and Java'}}
+	 get :addcourse, {:class => {:course_name => 'CSCE 601', :CourseTitle => 'Programming with C and Java'}, :course_size=>{:course_size => '100'}}
      end
    end
  

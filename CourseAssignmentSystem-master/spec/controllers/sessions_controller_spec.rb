@@ -5,20 +5,19 @@ require 'rails_helper'
 RSpec.describe SessionsController, type: :controller do
     describe 'create' do
 	  before :each do
-		#@mock_user = double(User, :id => 1, :faculty_id => '25', :faculty_name => 'Keyser John', :email => 'john@tamu.edu', :password => 'password')
+		get :new
 		@users = [double(:id => 1, :faculty_id => '25', :faculty_name => 'Keyser John', :email => 'john@tamu.edu', :password => 'password')]
-		@faculty = [double(:id => 25, :faculty_name => 'Keyser John', :permission => 'Admin')]
-		session[:user_id] = @users[0].id
-		session[:permission] = @faculty[0].permission
 		session[:email] = @users[0].email
 		session[:password] = @users[0].password
 	  end
-	  it 'should create a session based on who logs in' do
-	  #post :create, {:user => {:id => 5, :faculty_name=> "Shell Dylan",:faculty_id=>"40", :email => "mm@gmail.com", :password => "asdf"}}
-		#{:user => {:id => "2", :faculty_name=> "Shell Dylan",:faculty_id=>"40", :email => "mm@gmail.com", :password => "asdf"}, :faculty => {:id => 25, :faculty_name => 'Shell Dylan', :permission => 'User'}}
-		#response.should redirect_to '/professorhome'
-		
-	    #User.should_receive(:find_by_email).with('john@tamu.edu').and_return(@users)
+	  it 'should create a session when a professor logs in' do
+	  @faculty = [double(:id => 25, :faculty_name => 'Keyser John', :permission => 'Admin'), double(:id => 4, :faculty_name=> "Shell Dylan",:faculty_id=>"40", :email => "mm@gmail.com", :password => "asdf")]
+	  post :create, {:session => {:id => 5, :faculty_name=> "Shell Dylan",:faculty_id=>"40", :email => "mm@gmail.com", :password => "asdf"}}
+	  end
+	  it 'should throw an error if no permission is set' do
+	  @faculty = [double(:id => 4, :faculty_name=> "Shell Dylan",:faculty_id=>"40", :email => "mm@gmail.com", :password => "asdf")]
+	  post :create, {:session => {:id => 5, :faculty_name=> "Shell Dylan",:faculty_id=>"40", :email => "mm@gmail.com", :password => "asdf"}}
+	  response.should redirect_to '/login'
 	  end
 	end
 	describe 'destroy' do

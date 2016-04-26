@@ -14,9 +14,11 @@ RSpec.describe ProfessorHomeController, type: :controller do
 	end
 	describe 'professoraddpreference' do
 	before :each do
-     #session[:user_id] = '3'
+     session[:user_id] = '3'
 	 session[:semester_id] = '1'
-	 #session[:permission] = 'User'
+	 session[:FacultyName] = '3'
+	 session[:faculty_id] = '1'
+	 session[:permission] = 'User'
    end
 		it 'should add bad preferences to database' do
 		get :professoraddpreference, :unacceptable_ids=>['15','16']

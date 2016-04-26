@@ -65,19 +65,7 @@ end
 	
    end
    
-   describe "calendar" do
-   before :each do
-     session[:user_id] = '3'
-	 session[:semester_id] = '1'
-	 #session[:FacultyName] = "Huang Jeff"
-	 session[:permission] = 'Admin'
-   end
-    it "should create a calendar" do
-	#@course = [double(:id => 1, :course_name=>'CSCE_601', :CourseTitle=>'Programming with C and Java', :course_size=>20)]
-	get :calendar
-	get :calendar, {:start => '2016-04-11', :end => '2016-04-16'}
-	end
-   end
+   
    
    describe "add new course" do
    before :each do

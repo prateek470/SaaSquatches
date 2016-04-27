@@ -120,7 +120,7 @@ class ProfessorHomeController < ApplicationController
   
   def viewpreferences
     if session[:semester_id] !=nil && session[:semester_id]!=""  
-
+      
     else
       flash[:error] = "Please choose semester"
       redirect_to professorhome_path

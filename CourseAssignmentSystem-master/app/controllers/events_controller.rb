@@ -1,5 +1,4 @@
 class EventsController < ApplicationController
-  before_action :require_user,:check_permission
   def new
     @event = Event.new
     respond_to do |format|
@@ -20,8 +19,6 @@ class EventsController < ApplicationController
 
   def index
     permission = Faculty.where(:id=>session[:faculty_id]).select("permission").take.permission
-  
-     
     @course_assignments = CourseAssignment.all
     
     @timeslot = TimeSlot.all
@@ -65,7 +62,6 @@ class EventsController < ApplicationController
           end 
           end 
         end 
-      
         
         
         
@@ -75,10 +71,10 @@ class EventsController < ApplicationController
     if permission == "User"
       courses = CourseAssignment.where(:faculty_id => session[:faculty_id], :semester_id => session[:semester_id]).pluck(:id)
       puts courses
-      @events = Event.where(course_assignment_id: courses)
+       @events = Event.where(course_assignment_id: courses)
     elsif permission == "Admin"
       semester = CourseAssignment.where(:semester_id => session[:semester_id]).pluck(:id)
-      @events = Event.where(course_assignment_id: semester)
+       @events = Event.where(course_assignment_id: semester)
     end 
   
     #@events = Event.all
@@ -91,7 +87,7 @@ class EventsController < ApplicationController
   
   
   def prof_index 
-       permission = Faculty.where(:id=>session[:faculty_id]).select("permission").take.permission
+    permission = Faculty.where(:id=>session[:faculty_id]).select("permission").take.permission
   
      
     @course_assignments = CourseAssignment.all

@@ -12,16 +12,12 @@ Feature: Administrator Login
       | Chavira Cesar   | Admin      | -1         |
       | Mankus Nicholas | Admin      | -1         | 
   
-<<<<<<< HEAD
-  Given the following faculty is signed up as an administrator
-  |faculty_name|faculty_id |email        |password |
-  |Keyser John |25         |kj@email.com |AAA      |
-=======
+
     And the users listed below exist:
       | faculty_id | faculty_name | email          | password |
       | 1          | Keyser John  | kj@example.com | AAA      |
       | 2          | Chavira Cesar| cc@example.com | BBB      |
->>>>>>> Iteration3
+
     
   Scenario: successfully sign up new user
 
@@ -36,22 +32,6 @@ Feature: Administrator Login
     
   Scenario: The administrator logs in
  
-<<<<<<< HEAD
-  Given I am on the login page 
-  When I fill in "Email" with "tyler@tamu.edu"
-  And I fill in "Password" with "BBB"
-  And I press "login_btn"
-  Then I am on the home page
-  And I should see "Course Assignment System"
-  
-Scenario: The user logs out
-  
-  Given I am logged in with creds "tyler@tamu.edu" and "BBB"
-  And I am on the home page 
-  When I follow "logout_link"
-  Then I should be on the login page
-  But I should not see "Course Assignment System"
-=======
     Given I am on the login page 
     When I fill in "Email" with "kj@example.com"
     And I fill in "Password" with "AAA"
@@ -69,4 +49,4 @@ Scenario: The user logs out
     Then I should be on the login page
     But I should not see "Edit Faculty"
 
->>>>>>> Iteration3
+

@@ -4,21 +4,6 @@ Feature: Professor Log In
     So that I can insert my preferences
     I want to be able to login to the application
     
-  
-<<<<<<< HEAD
-  Given the following faculty is signed up as a professor
-  |faculty_name|faculty_id |email        |password |
-  |Huang John  |17         |kj@email.com |AAA      |  
-  
-Scenario: The professor logs in
- 
-  Given I am on the login page 
-  When I fill in "Email" with "nick@tamu.edu"
-  And I fill in "Password" with "AAA"
-  And I press "login_btn"
-  Then I am on the home page
-  And I should see "Course Assignment System"
-=======
   Background: At least one user is already signed up
   
     Given the faculty listed below exist:
@@ -26,7 +11,6 @@ Scenario: The professor logs in
       | Leyk Teresa  | User       | -1         |
       | Huang Jeff   | User       | -1         |
       | Fake User    | None       | -1         |
->>>>>>> Iteration3
   
     And the users listed below exist:
       | faculty_id | faculty_name | email          | password |
@@ -47,14 +31,6 @@ Scenario: The professor logs in
 
 
   Scenario: The professor logs out
-  
-<<<<<<< HEAD
-  Given I am logged in with creds "nick@tamu.edu" and "AAA"
-  And I am on the home page 
-  When I follow "logout_link"
-  Then I should be on the login page
-  But I should not see "Course Assignment System"
-=======
     Given I am logged in with credentials "lt@example.com" and "AAA"
     And I am on the home page 
     And I should see "Edit Preferences"
@@ -81,7 +57,6 @@ Scenario: The professor logs in
     And I press "login_btn"
     Then I am on the login page
     And I should see "Log In"
-    
->>>>>>> Iteration3
+
   
 

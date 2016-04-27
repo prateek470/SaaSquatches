@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 # require 'rails_helper'
 # 
 # describe CourseAssignmentsController do
@@ -109,7 +109,6 @@
 	# end
     # end
   # end
-=======
 require 'rails_helper'
 
 describe CourseAssignmentsController do
@@ -222,4 +221,3 @@ describe CourseAssignmentsController do
 	end
     end
   end
->>>>>>> Iteration3

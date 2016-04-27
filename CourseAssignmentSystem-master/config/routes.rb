@@ -12,12 +12,21 @@ Rails.application.routes.draw do
   get "setsession" => 'home_page#setsession'
   get "addpreference" => 'home_page#addpreference'
   get "addclassroom" => 'home_page#addclassroom'
-
+  get "resetuser" => 'home_page#resetuser'
+  get "events" => 'events#index'
+  post 'events/create'
+  get "editevent" => 'events#editevent'
+  get 'events/update_rooms', :as => 'update_rooms'
+  get 'events/show'
+  get "display_events" => 'events#prof_index'
+  
+  
   
   #root 'home_page#professorhome'
   root 'home_page#home'
 
-  
+  resources :pref_summary, :controller => :pref_summary
+  get  "pref_summary/index"
   
   resources :professor_home, :controller=> :professorhome
   get "professorhome" =>'professor_home#professorhome'

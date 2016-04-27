@@ -19,6 +19,10 @@ rooms = [{:room_name => '124', :building_id => 1, :Capacity => 135},
 daycombinations = [{:day_combination => 'MW'},
 				   {:day_combination => 'TR'},
 				   {:day_combination => 'MWF'},
+				   {:day_combination => 'M'},
+				   {:day_combination => 'T'},
+				   {:day_combination => 'W'},
+				   {:day_combination => 'R'}
 				]
 
 faculties = [{:faculty_name => 'Amato Nancy', :permission => 'User'},
@@ -75,8 +79,8 @@ faculties = [{:faculty_name => 'Amato Nancy', :permission => 'User'},
 			]
 
 courses = 	[		 
-			 {:CourseTitle => 'Programming with C and Java', :course_name => 'CSCE 601'},
-			 {:CourseTitle => 'Object-Oriented Programming, Development and Software Engineering', :course_name => 'CSCE 602'},
+			 {:CourseTitle => 'Programming with C and Java', :course_name => 'CSCE 601', :course_size => '100'},
+			 {:CourseTitle => 'Object-Oriented Programming, Development and Software Engineering', :course_name => 'CSCE 602', :course_size => '20'},
 			 {:CourseTitle => 'Database Systems and Applications', :course_name => 'CSCE 603'},
 			 {:CourseTitle => 'Programming Languages', :course_name => 'CSCE 604'},
 			 {:CourseTitle => 'Compiler Design', :course_name => 'CSCE 605'},
@@ -163,20 +167,25 @@ timeranges = 	[{:t_range => 'Early morning', :t_slots => '', :day_combination_id
 			 
 				]
 
-timeslots = 	[{:time_slot => '8:00 am to 8:50 am', :day_combination_id => '3'},
-				 {:time_slot => '9:10 am to 10:00 am', :day_combination_id => '3'},
-				 {:time_slot => '10:20 am to 11:10 am', :day_combination_id => '3'},
-				 {:time_slot => '11:30 am to 12:10 pm', :day_combination_id => '3'},
-				 {:time_slot => '12:40 pm to 1:30 pm', :day_combination_id => '3'},
-				 {:time_slot => '1:50 pm to 2:40 pm', :day_combination_id => '3'},
-				 {:time_slot => '3:00 pm to 3:50 pm', :day_combination_id => '3'},
-				 {:time_slot => '4:10 pm to 5:25 pm', :day_combination_id => '1'},
-				 {:time_slot => '8:00 am to 9:15 am', :day_combination_id => '2'},
-				 {:time_slot => '9:35 am to 10:50 am', :day_combination_id => '2'},
-				 {:time_slot => '11:10 am to 12:25 pm', :day_combination_id => '2'},
-				 {:time_slot => '12:45 pm to 2:00 pm', :day_combination_id => '2'},
-				 {:time_slot => '2:20 pm to 3:35 pm', :day_combination_id => '2'},
-				 {:time_slot => '3:55 pm to 5:10 pm', :day_combination_id => '2'},
+timeslots = 	[{:time_slot => '8:00 am to 8:50 am', :day_combination_id => '3', :start => '2016-04-15 08:00:00.000000', :end_time => '2016-04-15 08:50:00.000000'},
+				 {:time_slot => '9:10 am to 10:00 am', :day_combination_id => '3',:start => '2016-04-15 09:10:00.000000', :end_time => '2016-04-15 10:00:00.000000'},
+				 {:time_slot => '10:20 am to 11:10 am', :day_combination_id => '3', :start => '2016-04-15 10:20:00.000000', :end_time => '2016-04-15 11:10:00.000000'},
+				 {:time_slot => '11:30 am to 12:10 pm', :day_combination_id => '3', :start => '2016-04-15 11:30:00.000000', :end_time => '2016-04-15 12:10:00.000000'},
+				 {:time_slot => '1:50 pm to 2:40 pm', :day_combination_id => '3', :start => '2016-04-15 13:50:00.000000', :end_time => '2016-04-15 14:40:00.000000'},
+				 {:time_slot => '3:00 pm to 3:50 pm', :day_combination_id => '3', :start => '2016-04-15 15:00:00.000000', :end_time => '2016-04-15 15:50:00.000000'},
+				 {:time_slot => '4:10 pm to 5:25 pm', :day_combination_id => '1', :start => '2016-04-15 16:10:00.000000', :end_time => '2016-04-15 17:25:00.000000'},
+				 {:time_slot => '8:00 am to 9:15 am', :day_combination_id => '2', :start => '2016-04-15 08:00:00.000000', :end_time => '2016-04-15 09:15:00.000000'},
+				 {:time_slot => '9:35 am to 10:50 am', :day_combination_id => '2',:start => '2016-04-15 09:35:00.000000', :end_time => '2016-04-15 10:50:00.000000'},
+				 {:time_slot => '11:10 am to 12:25 pm', :day_combination_id => '2', :start => '2016-04-15 11:10:00.000000', :end_time => '2016-04-15 12:25:00.000000'},
+				 {:time_slot => '12:45 pm to 2:00 pm', :day_combination_id => '2', :start => '2016-04-15 12:45:00.000000', :end_time => '2016-04-15 14:00:00.000000'},
+				 {:time_slot => '2:20 pm to 3:35 pm', :day_combination_id => '2', :start => '2016-04-15 14:20:00.000000', :end_time => '2016-04-15 15:35:00.000000'},
+				 {:time_slot => '3:55 pm to 5:10 pm', :day_combination_id => '2', :start => '2016-04-15 15:55:00.000000', :end_time => '2016-04-15 17:10:00.000000'},
+				 {:time_slot => '5:45 pm to 7:00 pm*', :day_combination_id => '1', :start => '2016-04-15 17:45:00.000000', :end_time=> '2016-04-15 19:00:00.000000'},
+				  {:time_slot => '5:30 pm to 8:15 pm*', :day_combination_id => '2', :start => '2016-04-15 17:30:00.000000', :end_time => '2016-04-15 20:15:00.000000'},
+				  {:time_slot => '5:45 pm to 8:15 pm*', :day_combination_id => '4', :start => '2016-04-15 17:45:00.000000', :end_time => '2016-04-15 20:15:00.000000'},
+				  {:time_slot => '5:30 pm to 8:00 pm*', :day_combination_id => '5', :start => '2016-04-15 17:30:00.000000', :end_time => '2016-04-15 20:00:00.000000'},
+				  {:time_slot => '5:45 pm to 8:15 pm*', :day_combination_id => '6', :start => '2016-04-15 17:45:00.000000', :end_time => '2016-04-15 20:15:00.000000'},
+				  {:time_slot => '5:30 pm to 8:00 pm*', :day_combination_id => '7', :start => '2016-04-15 17:30:00.000000', :end_time => '2016-04-15 20:00:00.000000'}
 			 
 				]	
 
@@ -214,6 +223,7 @@ facultypreferences = [{:faculty_course_id => '1', :preference1_id => '1', :prefe
 semesters = [{:SemesterTitle => 'Fall 2015'},
          ]
 					
+facultypreferences=[{:preference1_id=>14}]
 buildings.each do |building|
   Building.create!(building)
 end
@@ -247,13 +257,13 @@ semesters.each do |s|
  Semester.create_semester(s[:SemesterTitle])
 end
 
-#preferences.each do |pf|
-#  Preference.create!(pf)
-#end
+# preferences.each do |pf|
+ # Preference.create!(pf)
+# end
 
-#facultypreferences.each do |fpf|
-#  FacultyPreference.create!(fpf)
-#end
+# facultypreferences.each do |fpf|
+ # FacultyPreference.create!(fpf)
+# end
 #Preference.destroy(3)
 
 #FacultyPreference.all.each do |fp|

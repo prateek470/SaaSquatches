@@ -1,135 +1,139 @@
 # @author Purvesh Karkamkar
 # Handles requests to assign classroom and timings to faculty's courses
 class CourseAssignmentsController < ApplicationController
+  before_action :require_user,:check_permission
+  def create
+    redirect_to action: "index"
+  end
   def show
 
   end
 
   # Handles request to get landing page for the feature
   def index
-	if session[:semester_id] != nil && session[:semester_id] != ""
-		@faculties = Faculty.order(faculty_name: :asc)
-		@assignments = []
-		@faculties.each {|faculty|
-	    		course_assignments = CourseAssignment.includes(:course,:room,:day_combination,:time_slot).where("semester_id = ? and faculty_id = ?",session[:semester_id],faculty.id)
-	    		course_assignments.each {|course_assignment|	
-			course1_name = ""
-			course2_name = ""
-			course3_name = ""
-			course_name = course_assignment.course.course_name + " " + course_assignment.course.CourseTitle
-			assign_str = ""
-			if course_assignment.room_id != nil
-				room = course_assignment.room
-				building = Building.find(room.building_id)
-				assign_str += building.building_name
-				assign_str += " " + room.room_name
-			end
-			if course_assignment.day_combination_id != nil
-				assign_str += " " + course_assignment.day_combination.day_combination
-			end
-			if course_assignment.time_slot_id != nil
-				assign_str += " " + course_assignment.time_slot.time_slot
-			end
-			
-	    		@assignments << {"faculty_name" => faculty.faculty_name, "course_name" => course_name, "assign" => assign_str}
-	    		}
-		}
-	else
-		flash[:error] = "Please choose semester"
-		redirect_to root_path
-	end
+  	if session[:semester_id] != nil && session[:semester_id] != ""
+  		@faculties = Faculty.order(faculty_name: :asc)
+  		@assignments = []
+  		@faculties.each {|faculty|
+  	    		course_assignments = CourseAssignment.includes(:course,:room,:day_combination,:time_slot).where("semester_id = ? and faculty_id = ?",session[:semester_id],faculty.id)
+  	    		course_assignments.each {|course_assignment|	
+        			course1_name = ""
+        			course2_name = ""
+        			course3_name = ""
+        			course_name = course_assignment.course.course_name + " " + course_assignment.course.CourseTitle
+        			assign_str = ""
+        			if course_assignment.room_id != nil
+        				room = course_assignment.room
+        				building = Building.find(room.building_id)
+        				assign_str += building.building_name
+        				assign_str += " " + room.room_name
+        			end
+        			if course_assignment.day_combination_id != nil
+        				assign_str += " " + course_assignment.day_combination.day_combination
+        			end
+        			if course_assignment.time_slot_id != nil
+        				assign_str += " " + course_assignment.time_slot.time_slot
+        			end
+        			
+  	    		  @assignments << {"faculty_name" => faculty.faculty_name, "course_name" => course_name, "assign" => assign_str}
+  	    		}
+  		}
+  	else
+  		flash[:error] = "Please choose semester"
+  		redirect_to root_path
+  	end
   end
 
   # Handles request to create / update course assignment for a faculty
   # @param hash containing faculty id, course id,building id, room id, day combination id and time slot id
   def update_course_assignment
-	attributes = {}
-	faculty_id = params[:faculty_id]
-        course_id = params[:course_id]
-	course_assignments = CourseAssignment.includes(:course,:faculty).where("semester_id = ? and course_id = ?",session[:semester_id],course_id)
-	course_assignment = nil
-	has_updated = false
-	if course_assignments.length > 0
-		course_assignment = course_assignments[0]
-		faculty = course_assignment.faculty
-		course = course_assignment.course
-	end
-	if params["building_select_#{course_id}"] == "" || params["room_select_#{course_id}"] == "" || params["day_combination_select_#{course_id}"] == "" || params["time_slot_select_#{course_id}"] == ""
-		if course_assignment == nil
-			flash[:error] = "Cannot create empty assignment"
-		else
-			CourseAssignment.destroy(course_assignment.id)
-			flash[:success] = "Deleted course assignment for " + faculty.faculty_name + ", " + course.course_name
-			has_updated = true
-		end
-	else
-		attributes[:room_id] = params["room_select_#{course_id}"]
-                attributes[:day_combination_id] = params["day_combination_select_#{course_id}"]
-                attributes[:time_slot_id] = params["time_slot_select_#{course_id}"]
-		duplicate_assignment = CourseAssignment.where("semester_id = ? and room_id = ? and day_combination_id = ? and time_slot_id = ?",session[:semester_id],attributes[:room_id],attributes[:day_combination_id],attributes[:time_slot_id])
-		if duplicate_assignment.length > 1 || (duplicate_assignment.length == 1 && duplicate_assignment[0].course_id != course_id)
-			flash[:error] = "Assignment already exists for the chosen building, room, day combination and time slot"
-		elsif course_assignment == nil
-			attributes[:semester_id] = session[:semester_id]
-			attributes[:faculty_id] = faculty_id
-			attributes[:course_id] = course_id
-			course_assignment = CourseAssignment.includes(:course,:faculty).create!(attributes)
-			faculty = course_assignment.faculty
-			course = course_assignment.course
-			flash[:success] = "Created course assignment for " + faculty.faculty_name + ", " + course.course_name
-			has_updated = true
-		else
-        		course_assignment.update_attributes!(attributes)
-			flash[:success] = "Updated course assignment for " + faculty.faculty_name + ", " + course.course_name
-			has_updated = true
-		end
-	end
-	respond_to do |format|
-		format.js {render inline: "location.reload();" }
-	end
+  	attributes = {}
+  	faculty_id = params[:faculty_id]
+          course_id = params[:course_id]
+  	course_assignments = CourseAssignment.includes(:course,:faculty).where("semester_id = ? and course_id = ?",session[:semester_id],course_id)
+  	course_assignment = nil
+  	has_updated = false
+  	if course_assignments.length > 0
+  		course_assignment = course_assignments[0]
+  		faculty = course_assignment.faculty
+  		course = course_assignment.course
+  	end
+  	if params["building_select_#{course_id}"] == "" || params["room_select_#{course_id}"] == "" || params["day_combination_select_#{course_id}"] == "" || params["time_slot_select_#{course_id}"] == ""
+  		if course_assignment == nil
+  			flash[:error] = "Cannot create empty assignment"
+  		else
+  			CourseAssignment.destroy(course_assignment.id)
+  			flash[:success] = "Deleted course assignment for " + faculty.faculty_name + ", " + course.course_name
+  			has_updated = true
+  		end
+  	else
+  		attributes[:room_id] = params["room_select_#{course_id}"]
+                  attributes[:day_combination_id] = params["day_combination_select_#{course_id}"]
+                  attributes[:time_slot_id] = params["time_slot_select_#{course_id}"]
+  		duplicate_assignment = CourseAssignment.where("semester_id = ? and room_id = ? and day_combination_id = ? and time_slot_id = ?",session[:semester_id],attributes[:room_id],attributes[:day_combination_id],attributes[:time_slot_id])
+  		if duplicate_assignment.length > 2 || (duplicate_assignment.length == 2 && duplicate_assignment[0].course_id != course_id)
+  			flash[:error] = "Assignment already exists for the chosen building, room, day combination or time slot"
+  		elsif course_assignment == nil
+  			attributes[:semester_id] = session[:semester_id]
+  			attributes[:faculty_id] = faculty_id
+  			attributes[:course_id] = course_id
+  			course_assignment = CourseAssignment.includes(:course,:faculty).create!(attributes)
+  			faculty = course_assignment.faculty
+  			course = course_assignment.course
+  			flash[:success] = "Created course assignment for " + faculty.faculty_name + ", " + course.course_name
+  			has_updated = true
+  		else
+        course_assignment.update_attributes!(attributes)
+  			flash[:success] = "Updated course assignment for " + faculty.faculty_name + ", " + course.course_name
+  			has_updated = true
+  		end
+  	end
+  	respond_to do |format|
+  		format.js {render inline: "location.reload();" }
+  	end
   end
 
   # Handles information to be updated based on change in faculty from drop-down box
   # @param hash containing faculty id
   def update_faculty_details
-	# add semester id to query
-	faculty_courses_arr = FacultyCourse.includes(:course1,:course2,:course3).where("semester_id = ? and faculty_id = ?",session[:semester_id],params[:faculty_id])
-	if faculty_courses_arr.length == 0
-		@course_assignments = []	
-	else
-		faculty_courses = faculty_courses_arr[0]
-		@courses = build_courses_object([faculty_courses.course1,faculty_courses.course2,faculty_courses.course3])
-		@course_assignments = CourseAssignment.includes(:room).where("semester_id = ? and faculty_id = ?",session[:semester_id],params[:faculty_id])
-		@buildings = Building.all
-		@assigned_building_ids = {}
-		@courses.each_key {|key|
-			setup_course_assignment(params[:faculty_id],key)
-		}
-	end
-	respond_to do |format|
-		format.js
-	end
+  	# add semester id to query
+  	faculty_courses_arr = FacultyCourse.includes(:course1,:course2,:course3).where("semester_id = ? and faculty_id = ?",session[:semester_id],params[:faculty_id])
+  	if faculty_courses_arr.length == 0
+  		@course_assignments = []	
+  	else
+  		faculty_courses = faculty_courses_arr[0]
+  		@courses = build_courses_object([faculty_courses.course1,faculty_courses.course2,faculty_courses.course3])
+  		@course_assignments = CourseAssignment.includes(:room).where("semester_id = ? and faculty_id = ?",session[:semester_id],params[:faculty_id])
+  		@buildings = Building.all
+  		@assigned_building_ids = {}
+  		@courses.each_key {|key|
+  			setup_course_assignment(params[:faculty_id],key)
+  		}
+  	end
+  	respond_to do |format|
+  		format.js
+  	end
   end
 
   # Helper function to setup course assignment drop down for the selected faculty and course
   # @param faculty_id faculty id
   # @param course_id course id
   def setup_course_assignment(faculty_id,course_id)
-	@course_assignments.each {|course_assignment|
-		if course_assignment.course_id == course_id
-			if course_assignment.room_id != nil
-                                building_id = course_assignment.room.building_id
-                        else
-                                building_id = ""
-                        end
-                        @assigned_building_ids[course_id] = building_id
-			return
-		end
-	}
-	course_assign = CourseAssignment.new(semester_id: session[:semester_id],faculty_id: faculty_id, course_id: course_id)
-	@course_assignments << course_assign
-	@assigned_building_ids[course_id] = ""
-	return
+  	@course_assignments.each {|course_assignment|
+  		if course_assignment.course_id == course_id
+  			if course_assignment.room_id != nil
+                                  building_id = course_assignment.room.building_id
+                          else
+                                  building_id = ""
+                          end
+                          @assigned_building_ids[course_id] = building_id
+  			return
+  		end
+  	}
+  	course_assign = CourseAssignment.new(semester_id: session[:semester_id],faculty_id: faculty_id, course_id: course_id)
+  	@course_assignments << course_assign
+  	@assigned_building_ids[course_id] = ""
+  	return
   end
 
   # Helper function to get course assignment record for the selected course id
@@ -151,7 +155,8 @@ class CourseAssignmentsController < ApplicationController
   def update_room
 	@room_options = {}
 	@room_options["data"] = {}
-	rooms = Room.where("building_id = ?",params[:building_id])
+	course_size = Course.where(:id => params[:course_id]).select("course_size").take.course_size
+	rooms = Room.where("building_id = ? and Capacity = ?",params[:building_id], course_size)
 	if rooms.length == 0
 		@room_options["data"][""] = ""
 	else

@@ -1,3 +1,28 @@
+<style type="text/css">
+.entireTable{
+	width: 80%;
+	position: absolute;
+	right:5%;
+	
+    
+}
+.table  {border-collapse:collapse;border-spacing:0;table-layout: fixed;}
+.table td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
+.table th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
+.table .badhead{background-color:#009901;color:#ffffff;vertical-align:top;}
+.table .okhead{background-color:#eabf35;color:#ffffff;vertical-align:top;}
+.table .goodhead{background-color:#fe0000;color:#ffffff;vertical-align:top}
+.table .assigned{background-color:#000000;color:#ffffff;vertical-align:top}
+.table .GoodColumn{vertical-align:top}
+.table .BadColumn{vertical-align:top}
+.table .assignedCol{vertical-align:top}
+.linkout{vertical-align: center}
+.timeslotsummary{
+	left:15px;
+	
+}
+</style>
+
 <html>
 <head>
 	<%= javascript_include_tag "application" %>
@@ -6,80 +31,60 @@
 </head>
 <body>
 	<h2 align="center">Preference Summary</h2>
-	<h6 align="center"> <%= link_to "Click here to download links to send to faculties", pref_summary_index_path(format: "xls")%></h6>
+	<table align="center">
+	    <tr>
+	        <td><%= link_to "Assign Faculty To Courses", faculty_courses_path, class: "btn btn-default btn-lg" %></td>
+	        <td> <%= link_to "Calendar", events_path, 'data-no-turbolink' => true, class: "btn btn-default btn-lg" %></td>
+	        <td> <%= link_to "Schedule Course", course_assignments_path, class: "btn btn-default btn-lg" %></td>
 
-	<% if @showPrefSummary.empty? %>
-			   <h2 align="center"> No Preference summary to display </h2>
-	<% else %>
-	<div class="scrollPref">
-		<table id="preftable">
-			<tr>
-				<th>Index</th>
-				<th>Faculty Name</th>
-				<th>Courses Assigned</th>
-				<th>Preference 1</th>
-				<th>Preference 2</th>
-				<th>Preference 3</th>
-				<th>Faculty Note</th>
-			</tr>
-			<tbody>
-			<% id = 0 %>
-			<% @showPrefSummary.each do |key,prefSummary| 
-				@faculty = prefSummary[:faculty]
-				course = prefSummary[:course]
-				prefids = prefSummary[:prefids]
-				@note = prefSummary[:note]
-				%>
-				<tr>
-					<td><%= id = id + 1 %></td>
-					<td><%= @faculty.faculty_name %></td>
-					<td>
-						<% course.each do |course| 
-							unless course.nil? %>
-							<p><%= course.course_name %></p>
-							<% end 
-							end %>
-						</td>
-						<%  prefids.each do |prefid| %>
-						<td>
-							<% if prefid.nil? %>
-							<%= "No Preference" %>
-							<% else %>
-							<% 
-							@pref = Preference.find_by_id(prefid) 
-							@day_combo = DayCombination.find_by_id(@pref.day_combination_id)
-							@timeslot = TimeSlot.find_by_id(@pref.time_slot_id)
-							@building = Building.find_by_id(@pref.building_id)
-							%>
-							<% unless @day_combo.nil? %>
-								<p><%= "Day Combination : #{@day_combo.day_combination}" %></p> 
-							<% else %>
-								<%= "No Day-Combination Preference" %><br>
-							<% end %>
+	    </tr>
+	</table>
+	<%= form_for :class , method: :get, url: pref_summary_index_path do |f| %>
+		
+    	<div class="timeslotsummary">
+	 		<%= f.select :selected_time , options_for_select(@timeslot.collect { |timeslot| [DayCombination.where(:id=>timeslot.day_combination_id).select(:day_combination).take.day_combination.to_s + " " + timeslot.time_slot , timeslot.id] },
+		    	session[:selected_time] ), {prompt: "Select Time", hide_label: :true }, 
+		    	{id: 'time_slot_id' , class: "btn btn-default dropdown-toggle", :selected => @selected_time} %>
+		    	<%= f.submit "GO", class: "btn btn-primary" %> 
+		</div>
 
-							<% unless @timeslot.nil? %>
-								<p><%= "Time slot : #{@timeslot.time_slot}" %></p>
-							<% else %>
-								<%= "No Time-Slot Preference" %><br>
-							<% end %>
+		<div class = "entireTable", style = "display: inline-block">
+		<h4 align="center"> <%=@selected_time%></h4>
+		<table class="table">
+		  <tr>
+		    <th class="badhead">Preferred</th>
+		    <th class = "okhead">Available</th>
+		    <th class="goodhead">Unavailable</th>
+		    <th class = "assigned">Already Assigned</th>
+		  </tr>
+		  <tr>
+		    <td class="GoodColumn">
+		    	<%for person in @goodtimes%>
+		    		<p><%=person.faculty_name%></p>
+		    	<%end%>
+		    </td>
+		    <td class="okCol">
+		    	<%for person in @oktimes%>
+		    		<p><%=person.faculty_name%></p>
+		    	<%end%>
+		    </td>
+		    <td class="BadColumn">
+		    	<%for person in @badtimes%>
+		    		<p><%=person.faculty_name%></p>
+		    	<%end%>
+		    </td>
+		    <td class="asignedCol">
+		    	<%for person in @assigned%>
+		    		<p><%=person.faculty_name%></p>
+		    	<%end%>
+		    </td>
+		  </tr>
+		</table>
+		</div>
+		<br />
+		
+	<%end%>			
 
-							<% unless @building.nil? %>
-								<p><%= "Location : #{@building.building_name}" %></p>
-							<% else %>
-								<%= "No Location Preference" %><br>
-							<% end %>
-							<% end %>
-						</td>	
-					  <% end %>
-					  <td><%= @note %></td>
-					</tr>
-					</tbody>
-					<% end %>
-				</table>
-			</div>
-			<% end %>
 
-			
-
-		</body>
-		</html>
+	</body>
+</html>

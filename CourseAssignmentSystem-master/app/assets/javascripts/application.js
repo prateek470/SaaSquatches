@@ -12,8 +12,12 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery-ui
 //= require turbolinks
+//= require moment
+//= require fullcalendar
 //= require_tree .
+
 
 $(document).ready(function () {
   //called when key is pressed in textbox

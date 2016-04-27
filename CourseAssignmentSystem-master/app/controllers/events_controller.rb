@@ -237,8 +237,6 @@ def update_rooms
   course =  Event.where(:id=> params[:class][:name]).select("course_assignment_id").take.course_assignment_id
   course_id = CoruseAssignment.where(:id=> course).select("course_id").take.course_id
   course_size = Course.where(:id=>course_id).select("course_size").take.course_size
-  puts course_size
-  puts "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
   @rooms = Room.where("building_id = ? and Capacity >= ?", params[:building_id], course_size)
   respond_to do |format|
     format.js 

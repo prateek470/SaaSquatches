@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 # require 'rails_helper'
 # require 'spec_helper'
 # describe Preference do
@@ -122,9 +122,8 @@
 # #  
  # end
 # 
-=======
-require 'rails_helper'
 
+require 'rails_helper'
 describe Preference do
   
   before :each do
@@ -312,6 +311,47 @@ end
     end
   end
 =end
+  # describe "GET addclassroom" do
+    # it "returns http success" do
+      # get :addclassroom
+      # expect(response).to have_http_status(:success)
+    # end
+  # end
+# 
+# 
+  # describe "GET faculty_preferences" do
+    # it "redirects to the Faculty Preferences page" do
+      # get :facultyprefs
+      # expect(response).to have_http_status(:success)
+    # end
+  # end
+# 
+# 
+  # describe "GET conflict_resolution" do
+    # it "redirects to the Conflict Resolution page" do
+      # get :conflict_resolution
+      # expect(response).to have_http_status(:success)
+    # end
+  # end
+# 
+# 
+  # describe "GET add_new_faculty" do
+    # it "redirects to the Add New Faculty page" do
+      # get :addfaculty
+      # expect(response).to have_http_status(:success)
+    # end
+  # end
+# 
+# 
+# 
+    # describe "GET addpreference" do
+      # it "redirects to the Add New Preference page" do
+        # get :addpreference
+        # expect(response).to have_http_status(:success)
+      # end
+    # end
+#  
+ #end
 
 =begin
   # 6. Add New Faculty
@@ -334,4 +374,4 @@ end
 =end 
 
 end
->>>>>>> Iteration3
+

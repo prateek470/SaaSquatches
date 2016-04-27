@@ -1,9 +1,13 @@
 {
   "result": {
 <<<<<<< HEAD
+<<<<<<< HEAD
     "covered_percent": 87.39
 =======
     "covered_percent": 93.79
 >>>>>>> Iteration3
+=======
+    "covered_percent": 87.67
+>>>>>>> origin/master
   }
 }

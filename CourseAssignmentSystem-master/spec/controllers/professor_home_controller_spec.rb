@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 # require 'spec_helper'
 # RSpec.describe ProfessorHomePageController, type: :controller do
 #   
@@ -11,7 +11,6 @@
     # # it 'should get all semesters' do
 #       
 # end
-=======
 require 'rails_helper'
 
 # This is a comment 
@@ -59,4 +58,4 @@ RSpec.describe ProfessorHomeController, type: :controller do
 		end
 	end
 end
->>>>>>> Iteration3
+

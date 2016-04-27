@@ -1,12 +1,20 @@
 {
   "RSpec": {
     "coverage": {
+<<<<<<< HEAD
       "/vagrant/SaaSquatches/CourseAssignmentSystem-master/app/helpers/application_helper.rb": [
+=======
+      "/home/ubuntu/workspace/SaaSquatches/CourseAssignmentSystem-master/app/helpers/application_helper.rb": [
+>>>>>>> origin/master
         1,
         null,
         null
       ],
+<<<<<<< HEAD
       "/vagrant/SaaSquatches/CourseAssignmentSystem-master/app/helpers/conflict_checker_helper.rb": [
+=======
+      "/home/ubuntu/workspace/SaaSquatches/CourseAssignmentSystem-master/app/helpers/conflict_checker_helper.rb": [
+>>>>>>> origin/master
         null,
         null,
         null,
@@ -191,6 +199,7 @@
         null,
         null
       ],
+<<<<<<< HEAD
       "/vagrant/SaaSquatches/CourseAssignmentSystem-master/app/helpers/conflict_suggestion_helper.rb": [
         1,
         null
@@ -212,6 +221,29 @@
         null
       ],
       "/vagrant/SaaSquatches/CourseAssignmentSystem-master/app/controllers/class_controller.rb": [
+=======
+      "/home/ubuntu/workspace/SaaSquatches/CourseAssignmentSystem-master/app/helpers/conflict_suggestion_helper.rb": [
+        1,
+        null
+      ],
+      "/home/ubuntu/workspace/SaaSquatches/CourseAssignmentSystem-master/app/helpers/faculty_page_helper.rb": [
+        1,
+        null
+      ],
+      "/home/ubuntu/workspace/SaaSquatches/CourseAssignmentSystem-master/app/helpers/sessions_helper.rb": [
+        1,
+        null
+      ],
+      "/home/ubuntu/workspace/SaaSquatches/CourseAssignmentSystem-master/app/helpers/user_helper.rb": [
+        1,
+        null
+      ],
+      "/home/ubuntu/workspace/SaaSquatches/CourseAssignmentSystem-master/app/helpers/users_helper.rb": [
+        1,
+        null
+      ],
+      "/home/ubuntu/workspace/SaaSquatches/CourseAssignmentSystem-master/app/controllers/class_controller.rb": [
+>>>>>>> origin/master
         1,
         1,
         null,
@@ -308,7 +340,11 @@
         null,
         null
       ],
+<<<<<<< HEAD
       "/vagrant/SaaSquatches/CourseAssignmentSystem-master/app/controllers/application_controller.rb": [
+=======
+      "/home/ubuntu/workspace/SaaSquatches/CourseAssignmentSystem-master/app/controllers/application_controller.rb": [
+>>>>>>> origin/master
         1,
         null,
         null,
@@ -353,7 +389,11 @@
         null,
         null
       ],
+<<<<<<< HEAD
       "/vagrant/SaaSquatches/CourseAssignmentSystem-master/app/controllers/conflict_checker_controller.rb": [
+=======
+      "/home/ubuntu/workspace/SaaSquatches/CourseAssignmentSystem-master/app/controllers/conflict_checker_controller.rb": [
+>>>>>>> origin/master
         null,
         null,
         null,
@@ -539,6 +579,7 @@
         null,
         null
       ],
+<<<<<<< HEAD
       "/vagrant/SaaSquatches/CourseAssignmentSystem-master/app/controllers/conflict_suggestion_controller.rb": [
         1,
         null
@@ -547,6 +588,13 @@
       "/Users/NMankus/CompSci/431/Project/SaaSquatches/CourseAssignmentSystem-master/app/controllers/faculty_courses_controller.rb": [
 =======
       "/vagrant/SaaSquatches/CourseAssignmentSystem-master/app/controllers/course_assignments_controller.rb": [
+=======
+      "/home/ubuntu/workspace/SaaSquatches/CourseAssignmentSystem-master/app/controllers/conflict_suggestion_controller.rb": [
+        1,
+        null
+      ],
+      "/home/ubuntu/workspace/SaaSquatches/CourseAssignmentSystem-master/app/controllers/course_assignments_controller.rb": [
+>>>>>>> origin/master
         null,
         null,
         1,
@@ -800,8 +848,12 @@
         null,
         null
       ],
+<<<<<<< HEAD
       "/vagrant/SaaSquatches/CourseAssignmentSystem-master/app/controllers/faculty_courses_controller.rb": [
 >>>>>>> Iteration3
+=======
+      "/home/ubuntu/workspace/SaaSquatches/CourseAssignmentSystem-master/app/controllers/faculty_courses_controller.rb": [
+>>>>>>> origin/master
         null,
         null,
         1,
@@ -894,6 +946,7 @@
         null
       ],
 <<<<<<< HEAD
+<<<<<<< HEAD
       "/Users/NMankus/CompSci/431/Project/SaaSquatches/CourseAssignmentSystem-master/app/controllers/sessions_controller.rb": [
 =======
       "/vagrant/SaaSquatches/CourseAssignmentSystem-master/app/models/preference.rb": [
@@ -910,11 +963,15 @@
       ],
       "/vagrant/SaaSquatches/CourseAssignmentSystem-master/app/controllers/home_page_controller.rb": [
 >>>>>>> Iteration3
+=======
+      "/home/ubuntu/workspace/SaaSquatches/CourseAssignmentSystem-master/app/controllers/sessions_controller.rb": [
+>>>>>>> origin/master
         1,
         1,
         null,
         null,
         1,
+<<<<<<< HEAD
 <<<<<<< HEAD
         0,
         0,
@@ -1101,12 +1158,17 @@
         2,
         2,
         null,
-        null,
+=======
+        1,
+        1,
+        0,
+>>>>>>> origin/master
         null,
         null,
         null,
         0,
         0,
+<<<<<<< HEAD
         null,
         null,
         null,
@@ -1151,10 +1213,15 @@
         null,
         null,
         null,
+=======
+        0,
+        0,
+>>>>>>> origin/master
         0,
         0,
         0,
         0,
+<<<<<<< HEAD
         null,
         0,
         0,
@@ -1249,11 +1316,20 @@
         2,
         null,
         null,
+=======
+        0,
+        0,
+        0,
+        null,
+        0,
+        0,
+>>>>>>> origin/master
         null,
         null,
         2,
         null,
         1,
+<<<<<<< HEAD
         null,
         null,
         2,
@@ -1304,11 +1380,17 @@
         null
       ],
       "/vagrant/SaaSquatches/CourseAssignmentSystem-master/app/controllers/sessions_controller.rb": [
-        1,
+=======
         1,
         null,
         null,
+        null,
+        null,
+>>>>>>> origin/master
         1,
+        1,
+        1,
+<<<<<<< HEAD
         2,
         2,
         0,
@@ -1346,6 +1428,12 @@
         null
       ],
       "/vagrant/SaaSquatches/CourseAssignmentSystem-master/app/controllers/users_controller.rb": [
+=======
+        null,
+        null
+      ],
+      "/home/ubuntu/workspace/SaaSquatches/CourseAssignmentSystem-master/app/controllers/users_controller.rb": [
+>>>>>>> origin/master
         1,
         1,
         1,
@@ -1359,6 +1447,13 @@
         2,
         2,
         1,
+<<<<<<< HEAD
+=======
+        0,
+        0,
+        0,
+        0,
+>>>>>>> origin/master
         null,
         1,
         null,
@@ -1369,8 +1464,8 @@
         1,
         null,
         null,
-        1,
-        1,
+        0,
+        0,
         null,
         null,
         null,
@@ -1413,7 +1508,11 @@
         null,
         null
       ],
+<<<<<<< HEAD
       "/vagrant/SaaSquatches/CourseAssignmentSystem-master/app/models/faculty_course.rb": [
+=======
+      "/home/ubuntu/workspace/SaaSquatches/CourseAssignmentSystem-master/app/models/faculty_course.rb": [
+>>>>>>> origin/master
         1,
         1,
         1,
@@ -1436,7 +1535,11 @@
         null,
         null
       ],
+<<<<<<< HEAD
       "/vagrant/SaaSquatches/CourseAssignmentSystem-master/app/models/semester.rb": [
+=======
+      "/home/ubuntu/workspace/SaaSquatches/CourseAssignmentSystem-master/app/models/semester.rb": [
+>>>>>>> origin/master
         1,
         1,
         1,
@@ -1498,12 +1601,20 @@
         null,
         null
       ],
+<<<<<<< HEAD
       "/vagrant/SaaSquatches/CourseAssignmentSystem-master/app/models/user.rb": [
+=======
+      "/home/ubuntu/workspace/SaaSquatches/CourseAssignmentSystem-master/app/models/user.rb": [
+>>>>>>> origin/master
         1,
         1,
         null
       ],
+<<<<<<< HEAD
       "/vagrant/SaaSquatches/CourseAssignmentSystem-master/app/models/classroom_timing.rb": [
+=======
+      "/home/ubuntu/workspace/SaaSquatches/CourseAssignmentSystem-master/app/models/classroom_timing.rb": [
+>>>>>>> origin/master
         1,
         1,
         1,
@@ -1511,7 +1622,11 @@
         1,
         null
       ],
+<<<<<<< HEAD
       "/vagrant/SaaSquatches/CourseAssignmentSystem-master/app/models/building.rb": [
+=======
+      "/home/ubuntu/workspace/SaaSquatches/CourseAssignmentSystem-master/app/models/building.rb": [
+>>>>>>> origin/master
         1,
         1,
         1,
@@ -1520,14 +1635,22 @@
         1,
         null
       ],
+<<<<<<< HEAD
       "/vagrant/SaaSquatches/CourseAssignmentSystem-master/app/models/room.rb": [
+=======
+      "/home/ubuntu/workspace/SaaSquatches/CourseAssignmentSystem-master/app/models/room.rb": [
+>>>>>>> origin/master
         1,
         1,
         1,
         1,
         null
       ],
+<<<<<<< HEAD
       "/vagrant/SaaSquatches/CourseAssignmentSystem-master/app/models/time_slot.rb": [
+=======
+      "/home/ubuntu/workspace/SaaSquatches/CourseAssignmentSystem-master/app/models/time_slot.rb": [
+>>>>>>> origin/master
         1,
         1,
         1,
@@ -1536,7 +1659,11 @@
         1,
         null
       ],
+<<<<<<< HEAD
       "/vagrant/SaaSquatches/CourseAssignmentSystem-master/app/models/day_combination.rb": [
+=======
+      "/home/ubuntu/workspace/SaaSquatches/CourseAssignmentSystem-master/app/models/day_combination.rb": [
+>>>>>>> origin/master
         1,
         1,
         1,
@@ -1546,12 +1673,20 @@
         1,
         null
       ],
+<<<<<<< HEAD
       "/vagrant/SaaSquatches/CourseAssignmentSystem-master/app/models/time_range.rb": [
+=======
+      "/home/ubuntu/workspace/SaaSquatches/CourseAssignmentSystem-master/app/models/time_range.rb": [
+>>>>>>> origin/master
         1,
         1,
         null
       ],
+<<<<<<< HEAD
       "/vagrant/SaaSquatches/CourseAssignmentSystem-master/app/models/faculty_preference.rb": [
+=======
+      "/home/ubuntu/workspace/SaaSquatches/CourseAssignmentSystem-master/app/models/faculty_preference.rb": [
+>>>>>>> origin/master
         1,
         1,
         1,
@@ -1561,24 +1696,48 @@
         1,
         null
       ],
+<<<<<<< HEAD
       "/vagrant/SaaSquatches/CourseAssignmentSystem-master/app/models/course.rb": [
+=======
+      "/home/ubuntu/workspace/SaaSquatches/CourseAssignmentSystem-master/app/models/preference.rb": [
+        1,
+        1,
+>>>>>>> origin/master
         1,
         1,
         1,
         1,
+        1,
+        1,
+        null,
         null
       ],
+<<<<<<< HEAD
       "/vagrant/SaaSquatches/CourseAssignmentSystem-master/app/models/faculty.rb": [
+=======
+      "/home/ubuntu/workspace/SaaSquatches/CourseAssignmentSystem-master/app/models/course.rb": [
+        1,
+>>>>>>> origin/master
+        1,
+        1,
+        1,
+        null
+      ],
+      "/home/ubuntu/workspace/SaaSquatches/CourseAssignmentSystem-master/app/models/faculty.rb": [
         1,
         1,
         1,
         1,
         null
       ],
+<<<<<<< HEAD
       "/vagrant/SaaSquatches/CourseAssignmentSystem-master/app/models/course_assignment.rb": [
         1,
         1,
         1,
+=======
+      "/home/ubuntu/workspace/SaaSquatches/CourseAssignmentSystem-master/app/models/course_assignment.rb": [
+>>>>>>> origin/master
         1,
         1,
         1,
@@ -2463,9 +2622,13 @@
       ]
     },
 <<<<<<< HEAD
+<<<<<<< HEAD
     "timestamp": 1460517334
 =======
     "timestamp": 1461715035
 >>>>>>> Iteration3
+=======
+    "timestamp": 1460518290
+>>>>>>> origin/master
   }
 }

@@ -20,7 +20,14 @@
 	<% for slot in @timeslot %>
 		<tr>
 			<td><%= DayCombination.where(:id=>slot.day_combination).select(:day_combination).take.day_combination.to_s + ' ' + slot.time_slot %></td>
-			<td><%= check_box_tag 'preferred_ids[]', slot.id %></td>
+			<td>
+				<%if !@defaultBad.include?(slot)%>
+					<%= check_box_tag 'preferred_ids[]', slot.id, checked="checked" %>
+					
+				<%else%>
+					<%= check_box_tag 'preferred_ids[]', slot.id %>
+				<%end%>
+			</td>
 			<td><%= check_box_tag 'acceptable_ids[]', slot.id %></td>
 			<td>
 				<%if !@defaultBad.include?(slot)%>

@@ -75,7 +75,9 @@ $("#buildingId").change(function(){
             
             $("#name").val(calEvent.id);
             console.log(calEvent.id);
-
+            
+			$("#event_id").val(calEvent.id);
+			
             $('#dialog').dialog('open');
             
              if(calEvent.url){

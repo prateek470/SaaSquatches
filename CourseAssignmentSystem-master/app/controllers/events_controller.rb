@@ -6,7 +6,14 @@ class EventsController < ApplicationController
       format.js
     end
   end
-
+  def deleteevent
+    event_id = params[:class][:event_id]
+    course_assignment_id = Event.where(:id=>event_id).select("course_assignment_id").take.course_assignment_id
+    CourseAssignment.where(:id=>course_assignment_id).destroy_all
+    Event.where(:id=>event_id).destroy_all
+    redirect_to events_path
+    flash[:success] = "Assignment has been deleted"
+  end 
   def create
     @event = Event.new(event_params)
 

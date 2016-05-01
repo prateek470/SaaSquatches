@@ -19,7 +19,7 @@ Rails.application.routes.draw do
   get 'events/update_rooms', :as => 'update_rooms'
   get 'events/show'
   get "display_events" => 'events#prof_index'
-  
+  get "deleteevent" => 'events#deleteevent'
   
   
   #root 'home_page#professorhome'

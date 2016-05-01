@@ -37,7 +37,8 @@
     
     -->
     
-      <%= form_for :class , method: :get, url:editevent_path  do |f| %>
+<%= form_for :class , method: :get, url:editevent_path  do |f| %>
+       <%= f.hidden_field :name, :id=>"name" %>
       <p><%= f.label "Title" %>
       <%= text_field_tag(:title) %>
       </p>
@@ -53,19 +54,38 @@
        <p>
            <%= f.label "Building" %>
            <%= f.select :building_id, options_for_select(@building.collect { |building|
-        [building.building_name, building.id] }, 1), {}, { id: 'building_select' } %>
+        [building.building_name, building.id] }, 0), {prompt: "Select Building"}, { id: 'building_select' } %>
        </p>
        <p>
        <%= f.label "Room" %> 
       <%= f.select :room_id, options_for_select(@rooms.collect { |room|
-        [room.room_name, room.id] }, 0), {}, { id: 'room_select' } %>
+        [room.room_name, room.id] }, 0), {prompt: "Select Room"}, { id: 'room_select' } %>
       
       </p>
       </p>
-          <%= f.hidden_field :name, :id=>"name" %>
+         
       </p>
-      <%= f.submit "Submit" %>
+      <table>
+          
+          
+     <tr>
+         
+     <td>
+          <%= f.submit "Submit" %>
+     </td>
+     
       
  
  <% end %>
+ 
+ <%= form_for :class , method: :get, url:deleteevent_path do |f| %>
+     <%= f.hidden_field :event_id, :id=>"event_id" %>
+     <td>
+         <%= f.submit "Delete" %>
+     </td>
+     
+          </tr>
+      </table>
+ 
+ <%end %> 
     </div>

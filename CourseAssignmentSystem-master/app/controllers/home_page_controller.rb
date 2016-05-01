@@ -34,7 +34,8 @@ class HomePageController < ApplicationController
 
   def addcourse
   	if params[:class] != nil && params[:class][:CourseName] != ""
-    		Course.create!(:course_name => params[:class][:CourseName], :CourseTitle => params[:class][:CourseTitle], :course_size => params[:course_size][:course_size])
+    		Course.create!(:course_name => params[:class][:CourseName], :CourseTitle => params[:class][:CourseTitle], :course_size => params[:class][:course_size])
+    		flash[:success]= params[:class][:CourseName] + " added to the courses"
   	end
   end
 

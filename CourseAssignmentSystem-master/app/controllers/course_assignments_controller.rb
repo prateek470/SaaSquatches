@@ -71,8 +71,11 @@ class CourseAssignmentsController < ApplicationController
                   attributes[:day_combination_id] = params["day_combination_select_#{course_id}"]
                   attributes[:time_slot_id] = params["time_slot_select_#{course_id}"]
   		duplicate_assignment = CourseAssignment.where("semester_id = ? and room_id = ? and day_combination_id = ? and time_slot_id = ?",session[:semester_id],attributes[:room_id],attributes[:day_combination_id],attributes[:time_slot_id])
+  		
   		if duplicate_assignment.length > 2 || (duplicate_assignment.length == 2 && duplicate_assignment[0].course_id != course_id)
-  			flash[:error] = "Assignment already exists for the chosen building, room, day combination or time slot"
+  			flash[:error] = "Assignment already exists for the chosen building, room, day combination or time slot."
+  			course_assignment_id = duplicate_assignment[1].id
+        CourseAssignment.where(:id=> course_assignment_id).destroy_all
   		elsif course_assignment == nil
   			attributes[:semester_id] = session[:semester_id]
   			attributes[:faculty_id] = faculty_id

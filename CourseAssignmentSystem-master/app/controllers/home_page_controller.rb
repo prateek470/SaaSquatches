@@ -201,7 +201,7 @@ class HomePageController < ApplicationController
       @room = Room.find_or_create_by!(:room_name=>params[:class][:room_name],:building_id=>@building.id)
       @room.Capacity =  params[:class][:room_capacity]
       @room.save
-      flash[:success] = "Successfully Created/Updated Class"
+      flash[:success] = "Successfully Created/Updated Classroom"
       redirect_to root_path; 
     end
   end

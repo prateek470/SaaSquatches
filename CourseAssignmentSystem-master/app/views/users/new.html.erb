@@ -1,9 +1,9 @@
+
 <div class="login">
   <div class="container">
     <div class="form">
-
-    <h1>Sign up</h1>
-
+		<div class = "intro-message"><h1 style="color:white;font-size: 4em">Course Assignment System</h1>
+	<br></br>
     <%= form_for(@user) do |f| %>
     <%= f.select :faculty_id , options_for_select(@faculty_names.collect { |name| [name.faculty_name , name.id] },
 	  	session[:faculty_id]), {prompt: "Select Your Name", hide_label: :true }, 
@@ -11,9 +11,10 @@
       
       <%= f.email_field :email, :placeholder => "Email" %>
       <%= f.password_field :password, :placeholder => "Password" %>
-      <%= f.submit "Create an account", class: "btn-submit", id: "singup_button" %>
+      <br></br>
+      <p><%= f.submit "Create an account", class: "btn-submit", id: "singup_button" %></p>
     <% end %>
-
+	</div>
     </div>
   </div>
 </div>

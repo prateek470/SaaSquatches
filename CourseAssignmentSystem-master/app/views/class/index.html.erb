@@ -17,8 +17,6 @@
       <p>
         <%= f.label "Choose Room Number:" %>
          <%= f.select :rooms_id, options_for_select(@room.collect { |room| [room.room_name, room.id] }, 0), {}, { id: 'room_select', class: "input-sm" } %>
-         <%= f.label "Room Capacity" %>
-         <%= f.text_field :room_capacity , readonly: true , :size => 5%> 
       </p> 
        <p>
         <%= f.label "Choose Day combo:" %>

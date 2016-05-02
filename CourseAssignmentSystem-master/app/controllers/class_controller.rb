@@ -60,10 +60,10 @@ end
 #2)Flashes Error is class was Already assigned
 def create
  if ClassroomTiming.exists?(:semester_id => session[:semester_id], :room_id => params[:class][:rooms_id], :time_slot_id => params[:class][:timeslots_id], :day_combination_id => params[:class][:day_combinations_id])
-  flash[:error] = "Class Already Assigned"
+  flash[:error] = "Classroom Already Assigned"
 else
   ClassroomTiming.create(semester_id: session[:semester_id], room_id: params[:class][:rooms_id], time_slot_id: params[:class][:timeslots_id], day_combination_id: params[:class][:day_combinations_id])
-  flash[:success] = "Successfully Assigned Class"
+  flash[:success] = "Successfully Added Classroom"
 end   
 redirect_to class_index_path;
 end
@@ -73,7 +73,7 @@ end
 def destroy
   @classes = ClassroomTiming.find(params[:id])
   @classes.destroy
-  flash[:success] = "Deleted class Successfully" 
+  flash[:success] = "Deleted classroom Successfully" 
   redirect_to class_index_path
 end
 
@@ -87,7 +87,7 @@ def new
  @room = Room.find_or_create_by!(:room_name=>params[:class][:room_name],:building_id=>@building.id)
  @room.Capacity =  params[:class][:room_capacity]
  @room.save
- flash[:success] = "Successfully Created/Updated Class"
+ flash[:success] = "Successfully Created/Updated Classroom"
  end
  redirect_to class_index_path
 end

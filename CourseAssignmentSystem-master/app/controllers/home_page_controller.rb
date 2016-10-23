@@ -33,9 +33,19 @@ class HomePageController < ApplicationController
   end
 
   def addcourse
-  	if params[:class] != nil && params[:class][:CourseName] != ""
+  	if params[:class] != nil && params[:class][:CourseName] != "" && params[:class][:CourseTitle] != "" && params[:class][:course_size] !=""
+      if !Course.exists?(:course_name => params[:class][:CourseName])
     		Course.create!(:course_name => params[:class][:CourseName], :CourseTitle => params[:class][:CourseTitle], :course_size => params[:class][:course_size])
     		flash[:success]= params[:class][:CourseName] + " added to the courses"
+      else
+        flash[:error]= "Course Already Exists!"
+      end
+    elsif params[:class] != nil && params[:class][:CourseName] == ""
+      flash[:error]= "Course name cannot be empty!"
+    elsif params[:class] != nil && params[:class][:CourseTitle] == ""
+      flash[:error]= "Course title cannot be empty!"
+    elsif params[:class] != nil && params[:class][:course_size] == ""
+      flash[:error]= "Course size should be more than 0!"
   	end
   end
 

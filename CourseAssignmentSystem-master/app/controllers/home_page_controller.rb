@@ -17,27 +17,13 @@ class HomePageController < ApplicationController
       redirect_to root_path
     end
   end
-  
-  def addfaculty
-     
-    @permissions = ["Admin", "User"]
-  	if params[:class] != nil && params[:class][:FacultyName] != "" && params[:class][:permission] !=
-    		Faculty.create!(faculty_name: params[:class][:FacultyName], permission: params[:class][:permission])
-    		flash[:success] = "New Faculty Member added"
-    		redirect_to root_path
-    #elsif
-      #flash[:error] = "Please enter Faculty Name"
-      #redirect_to addfaculty_path
-	 end
-     
-  end
 
   def addcourse
     @data = Course.select('course_name,courseTitle,course_size')
   	if params[:class] != nil && params[:class][:CourseName] != "" && params[:class][:CourseTitle] != "" && params[:class][:course_size] !=""
       if !Course.exists?(:course_name => params[:class][:CourseName])
-    		Course.create!(:course_name => params[:class][:CourseName], :CourseTitle => params[:class][:CourseTitle], :course_size => params[:class][:course_size])
-    		flash[:success]= params[:class][:CourseName] + " added to the courses"
+        Course.create!(:course_name => params[:class][:CourseName], :CourseTitle => params[:class][:CourseTitle], :course_size => params[:class][:course_size])
+        flash[:success]= params[:class][:CourseName] + " added to the courses"
       else
         flash[:error]= "Course Already Exists!"
       end
@@ -47,15 +33,15 @@ class HomePageController < ApplicationController
       flash[:error]= "Course title cannot be empty!"
     elsif params[:class] != nil && params[:class][:course_size] == ""
       flash[:error]= "Course size should be more than 0!"
-  	end
+    end
   end
 
   def addsemester
   end
 
   def setsession
-  	session[:semester_id] = params[:class][:semester_id]
-  	redirect_to root_path;
+    session[:semester_id] = params[:class][:semester_id]
+    redirect_to root_path;
   end
   
   
@@ -189,18 +175,18 @@ class HomePageController < ApplicationController
   def createsemester
     success = false;
     if params[:class] != nil && params[:class][:SemesterTitle] != ""
-  	semester = Semester.find_by(SemesterTitle: params[:class][:SemesterTitle])
-	if semester == nil
-		Semester.create_semester(params[:class][:SemesterTitle])
-		success = true
-	end
+    semester = Semester.find_by(SemesterTitle: params[:class][:SemesterTitle])
+  if semester == nil
+    Semester.create_semester(params[:class][:SemesterTitle])
+    success = true
+  end
     end
     if success == true
-	flash[:success] = "Created new semester"
-	redirect_to root_path;
+  flash[:success] = "Created new semester"
+  redirect_to root_path;
     else
-	flash[:error] = "Enter a valid and new semester"
-	redirect_to addsemester_path;
+  flash[:error] = "Enter a valid and new semester"
+  redirect_to addsemester_path;
     end
   end
   

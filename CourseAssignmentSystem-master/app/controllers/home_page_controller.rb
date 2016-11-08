@@ -6,6 +6,10 @@ class HomePageController < ApplicationController
     @semester = Semester.all
   end
   
+  def index
+    @availableRooms = Room.all
+  end
+  
   def resetuser
     @users = User.all
     
@@ -191,6 +195,7 @@ class HomePageController < ApplicationController
   end
   
   def addclassroom
+    @allRooms = Room.all
     if  params[:class] == nil || params[:class][:building_name] == "" || params[:class][:room_name] == "" || params[:class][:room_capacity] == "" 
        
     else

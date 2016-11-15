@@ -6,10 +6,6 @@ class HomePageController < ApplicationController
     @semester = Semester.all
   end
   
-  def index
-  
-  end
-  
   def resetuser
     @users = User.all
     

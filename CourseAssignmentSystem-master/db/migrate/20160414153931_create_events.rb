@@ -6,7 +6,7 @@ class CreateEvents < ActiveRecord::Migration
       t.datetime :end_at
       t.string :allDay
       t.string :user_name
-
+      t.integer :course_assignment_id
       t.timestamps null: false
     end
   end

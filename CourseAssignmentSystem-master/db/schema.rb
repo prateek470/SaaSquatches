@@ -99,6 +99,9 @@ ActiveRecord::Schema.define(version: 20160414153931) do
   add_index "faculty_courses", ["semester_id"], name: "index_faculty_courses_on_semester_id"
 
   create_table "faculty_preferences", force: :cascade do |t|
+    t.integer  "preference1_id"
+    t.integer  "preference2_id"
+    t.integer  "preference3_id"
     t.integer  "preference4_id"
     t.integer  "preference5_id"
     t.integer  "preference6_id"
@@ -111,16 +114,10 @@ ActiveRecord::Schema.define(version: 20160414153931) do
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
     t.integer  "faculty_course_id"
-    t.integer  "preference1_id"
-    t.integer  "preference2_id"
-    t.integer  "preference3_id"
     t.integer  "semester_id"
   end
 
   add_index "faculty_preferences", ["faculty_course_id"], name: "index_faculty_preferences_on_faculty_course_id"
-  add_index "faculty_preferences", ["preference1_id"], name: "index_faculty_preferences_on_preference1_id"
-  add_index "faculty_preferences", ["preference2_id"], name: "index_faculty_preferences_on_preference2_id"
-  add_index "faculty_preferences", ["preference3_id"], name: "index_faculty_preferences_on_preference3_id"
   add_index "faculty_preferences", ["semester_id"], name: "index_faculty_preferences_on_semester_id"
 
   create_table "preferences", force: :cascade do |t|

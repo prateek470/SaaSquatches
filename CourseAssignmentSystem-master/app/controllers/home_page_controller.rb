@@ -191,6 +191,7 @@ class HomePageController < ApplicationController
   end
   
   def addclassroom
+    @allRooms = Room.select('room_name,Capacity')
     if  params[:class] == nil || params[:class][:building_name] == "" || params[:class][:room_name] == "" || params[:class][:room_capacity] == "" 
        
     else

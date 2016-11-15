@@ -10,7 +10,7 @@
             <tr>
                 <td><%= fac.faculty_name %></td>
                 <!-- <%@faculty = fac%> -->
-                <td><%= link_to 'Delete', faculty_path(fac.id), :method => :delete, :confirm => 'Are you sure?' %></td>
+                <td><%= link_to 'Delete', faculty_path(fac.id), :method => :delete, data: { confirm: 'Are you sure you want to delete Dr. '+fac.faculty_name+' ?' } %></td>
                 
             </tr>
         <% end %>

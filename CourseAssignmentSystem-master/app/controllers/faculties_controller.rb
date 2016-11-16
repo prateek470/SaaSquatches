@@ -6,7 +6,7 @@ class FacultiesController < ApplicationController
   
   def addfaculty
      
-    @permissions = ["Admin", "User"]
+    @permissions = ["User", "Admin"]
   	if params[:class] != nil && params[:class][:FacultyName] != "" && params[:class][:permission] !=
     		Faculty.create!(faculty_name: params[:class][:FacultyName], permission: params[:class][:permission])
     		flash[:success] = "New Faculty Member added"

@@ -7,5 +7,7 @@ class CreateFacultyCourses < ActiveRecord::Migration
 
       t.timestamps null: false
     end
+    add_reference :faculty_courses, :faculty, index: true, foreign_key: true
+    add_reference :faculty_courses, :semester, index: true, foreign_key: true
   end
 end

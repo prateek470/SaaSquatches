@@ -25,7 +25,8 @@ class HomePageController < ApplicationController
         Course.create!(:course_name => params[:class][:CourseName], :CourseTitle => params[:class][:CourseTitle], :course_size => params[:class][:course_size])
         flash[:success]= params[:class][:CourseName] + " added to the courses"
       else
-        flash[:error]= "Course Already Exists!"
+        Course.where(:course_name => params[:class][:CourseName]).update_all(:CourseTitle => params[:class][:CourseTitle], :course_size => params[:class][:course_size])
+        flash[:success]= "Course " + params[:class][:CourseName] + " updated."
       end
     elsif params[:class] != nil && params[:class][:CourseName] == ""
       flash[:error]= "Course name cannot be empty!"

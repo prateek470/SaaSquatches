@@ -192,7 +192,8 @@ class HomePageController < ApplicationController
   end
   
   def addclassroom
-    @allRooms = Room.select('room_name,Capacity')
+    @allRooms = Room.select('room_name,Capacity,building_id')
+    @allBuildings = Building.select('building_name,id')
     if  params[:class] == nil || params[:class][:building_name] == "" || params[:class][:room_name] == "" || params[:class][:room_capacity] == "" 
        
     else
@@ -201,7 +202,7 @@ class HomePageController < ApplicationController
       @room.Capacity =  params[:class][:room_capacity]
       @room.save
       flash[:success] = "Successfully Created/Updated Classroom"
-      redirect_to root_path; 
+      redirect_to addclassroom_path; 
     end
   end
 

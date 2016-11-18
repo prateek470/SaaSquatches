@@ -1,5 +1,5 @@
 class HomePageController < ApplicationController
-   before_action :require_user,:check_permission, only: [:home, :addfaculty, :addcourse, :addsemester, :setsession, :createsemester]
+   before_action :require_user,:check_permission, only: [:home, :resetuser, :addfaculty, :addcourse, :addsemester, :addclassroom, :setsession, :createsemester, :addpreference]
 
 
   def home
@@ -21,11 +21,13 @@ class HomePageController < ApplicationController
   def addcourse
     @data = Course.select('course_name,courseTitle,course_size')
   	if params[:class] != nil && params[:class][:CourseName] != "" && params[:class][:CourseTitle] != "" && params[:class][:course_size] !=""
+  	  flash[:error] = nil
       if !Course.exists?(:course_name => params[:class][:CourseName])
         Course.create!(:course_name => params[:class][:CourseName], :CourseTitle => params[:class][:CourseTitle], :course_size => params[:class][:course_size])
         flash[:success]= params[:class][:CourseName] + " added to the courses"
       else
         flash[:error]= "Course Already Exists!"
+        flash[:success] = nil
       end
     elsif params[:class] != nil && params[:class][:CourseName] == ""
       flash[:error]= "Course name cannot be empty!"
@@ -192,17 +194,18 @@ class HomePageController < ApplicationController
   
   def addclassroom
     @allRooms = Room.select('room_name,Capacity')
-    if  params[:class] == nil || params[:class][:building_name] == "" || params[:class][:room_name] == "" || params[:class][:room_capacity] == "" 
-       
-    else
-      @building = Building.find_or_create_by!(:building_name=>params[:class][:building_name])
+    if  params[:class] != nil && params[:class][:building_name] != "" && params[:class][:room_name] != "" && params[:class][:room_capacity] != "" 
+      #flash[:error] = nil
+      @building = Building.find_or_create_by!(:building_name=>params[:class][:building_name].upcase)
       @room = Room.find_or_create_by!(:room_name=>params[:class][:room_name],:building_id=>@building.id)
       @room.Capacity =  params[:class][:room_capacity]
       @room.save
-      flash[:success] = "Successfully Created/Updated Classroom"
-      redirect_to root_path; 
+      flash[:success] = "Successfully added/updated classroom " +params[:class][:room_name]+ " in " + params[:class][:building_name].upcase+ " building"
+      redirect_to '/addclassroom'
+    else if params[:class] != nil && (params[:class][:building_name] == "" || params[:class][:room_name] == "" || params[:class][:room_capacity] == "")
+    flash[:error] = "Please enter all values before submission"
     end
-  end
+    end
 
   def calendar
     #course_name =Course.where(:id => "1").select(:course_name).take.course_name.to_s
@@ -219,4 +222,5 @@ class HomePageController < ApplicationController
     print "------------------------------"
     
   end
+end
 end

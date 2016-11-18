@@ -1,4 +1,6 @@
 class FacultiesController < ApplicationController
+  before_action :require_user,:check_permission, only: [:addfaculty, :index]
+  
   def index
     @permissions = ["Admin", "User"]
     @faculties = Faculty.all.order(:faculty_name)

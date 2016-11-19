@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   post 'conflict_checker/index' => 'conflict_checker#create'
   get 'pref_summary/index'
   get 'conflict_suggestion/index'
-  get "addcourse" => 'home_page#addcourse'
+  get "addcourse" => 'courses#addcourse'
   get "addsemester" => 'home_page#addsemester'
   get "createsemester" => 'home_page#createsemester'
   get "setsession" => 'home_page#setsession'
@@ -28,6 +28,10 @@ Rails.application.routes.draw do
   resources :faculties
   get "addfaculty" => 'faculties#addfaculty'
   get "faculties" => 'faculties#index'
+
+  resources :courses
+  get "addcourse" => 'courses#addcourse'
+  get "courses" => 'courses#index'
   
   resources :pref_summary, :controller => :pref_summary
   get  "pref_summary/index"

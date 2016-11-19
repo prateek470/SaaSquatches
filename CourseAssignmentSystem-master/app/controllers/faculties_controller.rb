@@ -30,4 +30,9 @@ class FacultiesController < ApplicationController
     @faculty.destroy
     redirect_to '/faculties'
   end
+
+  def import
+  Faculty.import(params[:file])
+  redirect_to '/addfaculty', notice: "Faculties succesfully imported."
+  end
 end

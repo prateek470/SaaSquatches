@@ -32,6 +32,10 @@ Rails.application.routes.draw do
   resources :courses
   get "addcourse" => 'courses#addcourse'
   get "courses" => 'courses#index'
+
+  resources :faculties do
+  collection { post :import }
+  end
   
   resources :pref_summary, :controller => :pref_summary
   get  "pref_summary/index"

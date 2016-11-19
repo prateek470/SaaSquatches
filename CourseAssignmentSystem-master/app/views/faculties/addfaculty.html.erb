@@ -18,4 +18,21 @@
  
   <%= link_to "Back", root_path %>
  <% end %>
+
+ </div>
+
+<div class="center jumbotron">
+  <h2>Import | Export Faculty</h2>
+ <hr>
+  <p>Export as:
+    <%= link_to "CSV", faculties_path(format: "csv") %> |
+    <%= link_to "Excel", faculties_path(format: "xls") %>
+  </p>
+  <hr>
+  <p>Import with .csv/.xls/.xlsx formats</p>
+  <%= form_tag import_faculties_path, multipart: true do %>
+  <%= file_field_tag "file", :class => "upload_image" %>
+  <br>
+  <%= submit_tag "Import", class: "btn btn-lg btn-primary"%>
+<% end %>
 </div>

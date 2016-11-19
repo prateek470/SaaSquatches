@@ -1,7 +1,13 @@
 class FacultiesController < ApplicationController
   def index
     @permissions = ["Admin", "User"]
-    @faculties = Faculty.all.order(:faculty_name)
+    @faculties = Faculty.all.order(:id)
+    @faculty = Faculty.order(:id)
+    respond_to do |format|
+      format.html
+      format.csv { send_data @faculty.to_csv }
+      format.xls
+    end
   end
   
   def addfaculty

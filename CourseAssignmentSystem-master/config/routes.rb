@@ -29,7 +29,6 @@ Rails.application.routes.draw do
   get "addfaculty" => 'faculties#addfaculty'
   get "faculties" => 'faculties#index'
   
-  
   resources :pref_summary, :controller => :pref_summary
   get  "pref_summary/index"
   

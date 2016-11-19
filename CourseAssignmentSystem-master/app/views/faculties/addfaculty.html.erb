@@ -18,4 +18,15 @@
  
   <%= link_to "Back", root_path %>
  <% end %>
+
+ </div>
+
+<div class="center jumbotron">
+  <h2>Import | Export Faculty</h2>
+ <hr>
+  <p>Export as:
+    <%= link_to "CSV", faculties_path(format: "csv") %> |
+    <%= link_to "Excel", faculties_path(format: "xls") %>
+  </p>
+  <hr>
 </div>

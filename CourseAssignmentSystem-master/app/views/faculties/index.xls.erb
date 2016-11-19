@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:o="urn:schemas-microsoft-com:office:office"
+  xmlns:x="urn:schemas-microsoft-com:office:excel"
+  xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:html="http://www.w3.org/TR/REC-html40">
+  <Worksheet ss:Name="Faculties">
+    <Table>
+      <Row>
+        <Cell><Data ss:Type="String">id</Data></Cell>
+        <Cell><Data ss:Type="String">faculty_name</Data></Cell>
+        <Cell><Data ss:Type="String">permission</Data></Cell>
+        <Cell><Data ss:Type="String">preference</Data></Cell>
+        <Cell><Data ss:Type="String">bad_preference</Data></Cell>
+        <Cell><Data ss:Type="String">created_at</Data></Cell>
+        <Cell><Data ss:Type="String">updated_at</Data></Cell>
+      </Row>
+    <% @faculties.each do |faculty| %>
+      <Row>
+        <Cell><Data ss:Type="Number"><%= faculty.id %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= faculty.faculty_name %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= faculty.permission %></Data></Cell>
+        <Cell><Data ss:Type="Number"><%= faculty.preference %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= faculty.bad_preference %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= faculty.created_at %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= faculty.updated_at %></Data></Cell>
+      </Row>
+    <% end %>
+    </Table>
+  </Worksheet>
+</Workbook>

@@ -27,4 +27,9 @@ class CoursesController < ApplicationController
       flash[:error]= "Course size should be more than 0!"
     end
   end
+
+  def import
+  Course.import(params[:file])
+  redirect_to '/addcourse', notice: "Courses succesfully imported."
+  end
 end

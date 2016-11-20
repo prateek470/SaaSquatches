@@ -19,7 +19,7 @@ class HomePageController < ApplicationController
   end
 
   def addcourse
-    @data = Course.select('course_name,courseTitle,course_size')
+    @data = Course.select('id,course_name,courseTitle,course_size')
   	if params[:class] != nil && params[:class][:CourseName] != "" && params[:class][:CourseTitle] != "" && params[:class][:course_size] !=""
   	  flash[:error] = nil
       if !Course.exists?(:course_name => params[:class][:CourseName])
@@ -36,6 +36,13 @@ class HomePageController < ApplicationController
     elsif params[:class] != nil && params[:class][:course_size] == ""
       flash[:error]= "Course size should be more than 0!"
     end
+  end
+  
+  def delete_course
+    @course = Course.find(params[:id])
+    @course.destroy
+    flash[:danger] = "Course successfully deleted."
+    redirect_to addcourse_path
   end
 
   def addsemester

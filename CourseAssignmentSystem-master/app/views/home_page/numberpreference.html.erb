@@ -1,0 +1,23 @@
+<div style="text-align: center;"> 
+  <h2 style="display: inline-block;">Update Number of Preferences </h2>
+  
+<br></br>
+ 
+<%= form_for :class , method: :get, url: numberpreference_path, :html => { :id => "updatepreference" } do |f| %>
+  <p>
+    <%= f.label "Preferred Preferences:" %>
+    <%= f.text_field :preferred_val , value: @pref.value %>
+  </p>
+  <p>
+    <%= f.label "Unacceptable Preferences:" %>
+    <%= f.text_field :unacceptable_val,value: @unaccept.value %>
+  </p>
+  <p>
+     <%= f.submit "Submit",class:"btn btn-primary" %>
+  </p>
+ 
+   
+   <%= link_to "Back", root_path %>
+  <% end %>
+  <br>
+</div>

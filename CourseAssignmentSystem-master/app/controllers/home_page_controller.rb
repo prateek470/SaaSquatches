@@ -53,17 +53,20 @@ class HomePageController < ApplicationController
       @semester_id = session[:semester_id]
       @faculty = Faculty.all
       @defaultBad = Array.new
+
+      @preferred_no = Systemvariable.find_by(:name => 'num_pref_accept').value.to_i
+      @unacceptable_no = Systemvariable.find_by(:name => 'num_pref_unaccept').value.to_i
       
       for slot in @timeslot
         if slot.time_slot.to_s.include?("*")
           @defaultBad.push(slot)
         end
       end
-      goodPreference = Array.new(9)
-      badPreference = Array.new(9)
+      goodPreference = Array.new(@preferred_no)
+      badPreference = Array.new(@unacceptable_no)
       
-      preferencesGoodArray = Array.new(9)
-      preferencesBadArray = Array.new(9)
+      preferencesGoodArray = Array.new(@preferred_no)
+      preferencesBadArray = Array.new(@unacceptable_no)
       if params[:class]!=nil
         if params[:class][:FacultyName] !=""
           if params.has_key?(:class) && (params.has_key?(:unacceptable_ids) || params.has_key?(:preferred_ids))          
@@ -177,18 +180,18 @@ class HomePageController < ApplicationController
   def createsemester
     success = false;
     if params[:class] != nil && params[:class][:SemesterTitle] != ""
-    semester = Semester.find_by(SemesterTitle: params[:class][:SemesterTitle])
-  if semester == nil
-    Semester.create_semester(params[:class][:SemesterTitle])
-    success = true
-  end
+      semester = Semester.find_by(SemesterTitle: params[:class][:SemesterTitle])
+      if semester == nil
+        Semester.create_semester(params[:class][:SemesterTitle])
+        success = true
+      end
     end
     if success == true
-  flash[:success] = "Created new semester"
-  redirect_to root_path;
+      flash[:success] = "Created new semester"
+      redirect_to root_path;
     else
-  flash[:error] = "Enter a valid and new semester"
-  redirect_to addsemester_path;
+      flash[:error] = "Enter a valid and new semester"
+      redirect_to addsemester_path;
     end
   end
   
@@ -206,7 +209,25 @@ class HomePageController < ApplicationController
       flash[:error] = "Please enter all values before submission"
     end
   end
+  def numberpreference
+    @pref = Systemvariable.find_by(:name => 'num_pref_accept')
+    @unaccept = Systemvariable.find_by(:name => 'num_pref_unaccept')
+    if params[:class] != nil
+      if params[:class][:preferred_val] != "" && params[:class][:unacceptable_val] != ""
+        @pref.value = params[:class][:preferred_val].to_i
+        @pref.save
 
+        
+        @unaccept.value = params[:class][:unacceptable_val].to_i
+        @unaccept.save
+
+        flash[:success] = "Updated number of preferences!"
+        redirect_to root_path
+      elsif params[:class][:preferred_val] == "" || params[:class][:unacceptable_val] == ""
+        flash[:success] = "Please put valid values!"
+      end
+    end
+  end
   def calendar
     #course_name =Course.where(:id => "1").select(:course_name).take.course_name.to_s
     #name = @users.where(:id =>desired_user).select(:faculty_name).take.faculty_name.to_s

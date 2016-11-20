@@ -21,7 +21,7 @@ Rails.application.routes.draw do
   get 'events/show'
   get "display_events" => 'events#prof_index'
   get "deleteevent" => 'events#deleteevent'
-  get 'number_preference/index'
+  get "numberpreference" => 'home_page#numberpreference'
   
   root 'home_page#home'
   

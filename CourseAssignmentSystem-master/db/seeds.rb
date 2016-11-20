@@ -222,7 +222,11 @@ facultypreferences = [{:faculty_course_id => '1', :preference1_id => '1', :prefe
 					]
 semesters = [{:SemesterTitle => 'Fall 2015'},
          ]
-					
+
+systemvariables = [{:name => 'num_pref_accept',:value => '5'},
+				   {:name => 'num_pref_unaccept',:value => '7'},
+         		  ]		
+
 facultypreferences=[{:preference1_id=>14}]
 buildings.each do |building|
   Building.create!(building)
@@ -257,6 +261,9 @@ semesters.each do |s|
  Semester.create_semester(s[:SemesterTitle])
 end
 
+systemvariables.each do |s|
+ Systemvariable.create!(s)
+end
 # preferences.each do |pf|
  # Preference.create!(pf)
 # end

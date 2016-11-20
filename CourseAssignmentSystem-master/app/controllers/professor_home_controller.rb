@@ -1,6 +1,6 @@
 class ProfessorHomeController < ApplicationController
   
-   before_action :require_user, only: [:professorhome, :addprofessorpreference, :profsetsession]
+   before_action :require_user, only: [:professorhome, :professoraddpreference, :profsetsession]
    
   def professorhome
     @semester = Semester.all

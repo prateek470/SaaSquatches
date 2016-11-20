@@ -26,8 +26,8 @@ class HomePageController < ApplicationController
         Course.create!(:course_name => params[:class][:CourseName], :CourseTitle => params[:class][:CourseTitle], :course_size => params[:class][:course_size])
         flash[:success]= params[:class][:CourseName] + " added to the courses"
       else
-        flash[:error]= "Course Already Exists!"
-        flash[:success] = nil
+        Course.where(:course_name => params[:class][:CourseName]).update_all(:CourseTitle => params[:class][:CourseTitle], :course_size => params[:class][:course_size])
+        flash[:success]= "Course " + params[:class][:CourseName] + " updated."
       end
     elsif params[:class] != nil && params[:class][:CourseName] == ""
       flash[:error]= "Course name cannot be empty!"
@@ -193,19 +193,19 @@ class HomePageController < ApplicationController
   end
   
   def addclassroom
-    @allRooms = Room.select('room_name,Capacity')
+    @allRooms = Room.select('room_name,Capacity,building_id')
+    @allBuildings = Building.select('building_name,id')
     if  params[:class] != nil && params[:class][:building_name] != "" && params[:class][:room_name] != "" && params[:class][:room_capacity] != "" 
-      #flash[:error] = nil
       @building = Building.find_or_create_by!(:building_name=>params[:class][:building_name].upcase)
       @room = Room.find_or_create_by!(:room_name=>params[:class][:room_name],:building_id=>@building.id)
       @room.Capacity =  params[:class][:room_capacity]
       @room.save
       flash[:success] = "Successfully added/updated classroom " +params[:class][:room_name]+ " in " + params[:class][:building_name].upcase+ " building"
-      redirect_to '/addclassroom'
+      redirect_to addclassroom_path
     else if params[:class] != nil && (params[:class][:building_name] == "" || params[:class][:room_name] == "" || params[:class][:room_capacity] == "")
-    flash[:error] = "Please enter all values before submission"
+      flash[:error] = "Please enter all values before submission"
     end
-    end
+  end
 
   def calendar
     #course_name =Course.where(:id => "1").select(:course_name).take.course_name.to_s

@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   get 'pref_summary/index'
   get 'conflict_suggestion/index'
   get "addcourse" => 'home_page#addcourse'
+  get "delete_course" => 'home_page#delete_course'
   get "addsemester" => 'home_page#addsemester'
   get "createsemester" => 'home_page#createsemester'
   get "setsession" => 'home_page#setsession'

@@ -50,9 +50,13 @@
 
 <script>
 
-$("tr").on("change", ":checkbox", function(){
-   if( $(this).is(":checked") ) {
-       $(this).parent().parent().find(":checkbox").not($(this)).attr('checked', false);
+$("tr").on("click", ":checkbox", function(){
+   if( $(this).is(":checked")) {
+      $(this).parent().parent().find(":checkbox").not($(this)).attr('checked', false);
+   }else{
+   	var checkboxes = $(this).parent().parent().children().find(":checkbox");
+   	if(checkboxes[0].checked == false && checkboxes[1].checked == false && checkboxes[2].checked == false)
+   		this.checked = true;
    }
 });
 
@@ -63,24 +67,26 @@ $("tr input").each(function() {
 	<% end %>
 });
 
-checkboxlimit(document.forms.addpreference.unacceptable_ids_, 9)
-checkboxlimit(document.forms.addpreference.preferred_ids_, 9)
+
+checkboxlimit(document.forms.addpreference.unacceptable_ids_, <%= @unacceptable_no%>)
+checkboxlimit(document.forms.addpreference.preferred_ids_, <%= @preferred_no%>)
 
 function checkboxlimit(checkgroup, limit){
 	var checkgroup=checkgroup
 	var limit=limit
 	for (var i=0; i<checkgroup.length; i++){
 		checkgroup[i].onclick=function(){
-		var checkedcount=0
-		for (var i=0; i<checkgroup.length; i++)
-			checkedcount+=(checkgroup[i].checked)? 1 : 0
-		if (checkedcount>limit){
-			alert("You can only select a maximum of "+limit+" checkboxes")
-			this.checked=false
+			var checkedcount=0
+			for (var j=0; j<checkgroup.length; j++)
+				checkedcount+=(checkgroup[j].checked)? 1 : 0
+			if (checkedcount>limit){
+				alert("You can only select a maximum of "+limit+" checkboxes")
+				this.checked=false
 			}
 		}
 	}
 }
+
 
 <% if false %>
 $(function() {

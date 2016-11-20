@@ -6,9 +6,11 @@
   <%= form_for :class , method: :get, url: createsemester_path do |f| %>
   <p><%= f.label "Semester Name" %>
       <%= f.text_field :SemesterTitle %> 
-      <%= f.submit "Submit" %>
+  </p>
+  <p>
+      <%= f.submit "Submit", class: "btn btn-lg btn-primary"%>
   </p>
  
-  <%= link_to "Back", root_path , class: "btn btn-lg btn-primary" %>
+  <%= link_to "Back", root_path %>
  <% end %>
 </div>

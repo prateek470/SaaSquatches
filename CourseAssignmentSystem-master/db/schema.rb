@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160414153931) do
+ActiveRecord::Schema.define(version: 20161119052149) do
 
   create_table "buildings", force: :cascade do |t|
     t.string   "building_name"
@@ -149,6 +149,13 @@ ActiveRecord::Schema.define(version: 20160414153931) do
     t.string   "SemesterTitle"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
+  end
+
+  create_table "systemvariables", force: :cascade do |t|
+    t.string   "name"
+    t.string   "value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "time_ranges", force: :cascade do |t|

@@ -1,7 +1,8 @@
 class ClassController < ApplicationController
+    before_action :require_user,:check_permission
 	def show
-
-  end
+    
+    end
 
   #Method functions:
   #1) check whether semester is set or not
@@ -64,7 +65,7 @@ def create
 else
   ClassroomTiming.create(semester_id: session[:semester_id], room_id: params[:class][:rooms_id], time_slot_id: params[:class][:timeslots_id], day_combination_id: params[:class][:day_combinations_id])
   flash[:success] = "Successfully Added Classroom"
-end   
+ end   
 redirect_to class_index_path;
 end
 

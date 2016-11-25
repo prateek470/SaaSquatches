@@ -14,13 +14,7 @@ class CourseAssignmentsController < ApplicationController
   	if session[:semester_id] != nil && session[:semester_id] != ""
   		@faculties = Faculty.order(faculty_name: :asc)
   		@assignments = []
-  		logger.info "AMAN : index called"
-  		logger.info params[:faculty_id]
-  		# @good_Preference_list = show_faculty_preference(1)
-    #     logger.info "AMAN : return from show_faculty_preference "
-    #     if @good_Preference_list==nil
-    # 	     logger.info "Nil aa raha hai"
-    #   	end
+  		
   		@faculties.each {|faculty|
   		  
   	    		course_assignments = CourseAssignment.includes(:course,:room,:day_combination,:time_slot).where("semester_id = ? and faculty_id = ?",session[:semester_id],faculty.id)
@@ -108,7 +102,6 @@ class CourseAssignmentsController < ApplicationController
   # @param hash containing faculty id
   def update_faculty_details
   	# add semester id to query
-  	#@good_Preference_list = show_faculty_preference(params[:faculty_id])
   	faculty_courses_arr = FacultyCourse.includes(:course1,:course2,:course3).where("semester_id = ? and faculty_id = ?",session[:semester_id],params[:faculty_id])
   	if faculty_courses_arr.length == 0
   		@course_assignments = []	

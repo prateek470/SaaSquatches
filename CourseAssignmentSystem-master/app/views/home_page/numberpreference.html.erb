@@ -3,14 +3,14 @@
   
 <br></br>
  
-<%= form_for :class , method: :get, url: numberpreference_path, :html => { :id => "updatepreference" } do |f| %>
+<%= form_for :class , method: :get, url: numberpreference_path do |f| %>
   <p>
     <%= f.label "Preferred Preferences:" %>
-    <%= f.text_field :preferred_val , value: @pref.value %>
+    <%= f.number_field :preferred_val, min: 1, max: 12, value: @pref.value %>
   </p>
   <p>
     <%= f.label "Unacceptable Preferences:" %>
-    <%= f.text_field :unacceptable_val,value: @unaccept.value %>
+    <%= f.number_field :unacceptable_val, min: 1, max: 12, value: @unaccept.value %>
   </p>
   <p>
      <%= f.submit "Submit",class:"btn btn-primary" %>

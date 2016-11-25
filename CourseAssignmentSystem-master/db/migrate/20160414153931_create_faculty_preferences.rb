@@ -16,10 +16,8 @@ class CreateFacultyPreferences < ActiveRecord::Migration
 
       t.timestamps null: false
     end
-    add_reference :faculty_preferences, :faculty_course, index: true
-    # add_reference :faculty_preferences, :preference1, index: true
-    # add_reference :faculty_preferences, :preference2, index: true, foreign_key: true
-    # add_reference :faculty_preferences, :preference3, index: true, foreign_key: true
+    add_reference :faculty_preferences, :faculty_course, index: true, foreign_key: true
+    add_reference :faculty_preferences, :faculty, index: true, foreign_key: true
     add_reference :faculty_preferences, :semester, index: true, foreign_key: true
   end
 end

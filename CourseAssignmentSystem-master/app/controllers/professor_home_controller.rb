@@ -76,23 +76,29 @@ class ProfessorHomeController < ApplicationController
         end
         
         if !FacultyPreference.exists?(:preference1_id=>preferencesGoodArray[0],:preference2_id=>preferencesGoodArray[1],:preference3_id=>preferencesGoodArray[2],:preference4_id=>preferencesGoodArray[3],:preference5_id=>preferencesGoodArray[4],
-                                      :preference6_id=>preferencesGoodArray[5],:preference7_id=>preferencesGoodArray[6],:preference8_id=>preferencesGoodArray[7],:preference9_id=>preferencesGoodArray[8], :semester_id=> @semester_id)
+                                      :preference6_id=>preferencesGoodArray[5],:preference7_id=>preferencesGoodArray[6],:preference8_id=>preferencesGoodArray[7],:preference9_id=>preferencesGoodArray[8],
+                                      :preference10_id=>preferencesGoodArray[9],:preference11_id=>preferencesGoodArray[10],:preference12_id=>preferencesGoodArray[11], :faculty_id => @prof_id, :semester_id=> @semester_id)
                                       
           FacultyPreference.create!(:preference1_id=>preferencesGoodArray[0],:preference2_id=>preferencesGoodArray[1],:preference3_id=>preferencesGoodArray[2],:preference4_id=>preferencesGoodArray[3],:preference5_id=>preferencesGoodArray[4],
-                                    :preference6_id=>preferencesGoodArray[5],:preference7_id=>preferencesGoodArray[6],:preference8_id=>preferencesGoodArray[7],:preference9_id=>preferencesGoodArray[8], :semester_id=> @semester_id)
+                                    :preference6_id=>preferencesGoodArray[5],:preference7_id=>preferencesGoodArray[6],:preference8_id=>preferencesGoodArray[7],:preference9_id=>preferencesGoodArray[8],
+                                    :preference10_id=>preferencesGoodArray[9],:preference11_id=>preferencesGoodArray[10],:preference12_id=>preferencesGoodArray[11], :faculty_id => @prof_id, :semester_id=> @semester_id)
         end
           goodPref =FacultyPreference.where(:preference1_id=>preferencesGoodArray[0],:preference2_id=>preferencesGoodArray[1],:preference3_id=>preferencesGoodArray[2],:preference4_id=>preferencesGoodArray[3],:preference5_id=>preferencesGoodArray[4],
-                                      :preference6_id=>preferencesGoodArray[5],:preference7_id=>preferencesGoodArray[6],:preference8_id=>preferencesGoodArray[7],:preference9_id=>preferencesGoodArray[8], :semester_id=> @semester_id).take 
+                                      :preference6_id=>preferencesGoodArray[5],:preference7_id=>preferencesGoodArray[6],:preference8_id=>preferencesGoodArray[7],:preference9_id=>preferencesGoodArray[8],
+                                      :preference10_id=>preferencesGoodArray[9],:preference11_id=>preferencesGoodArray[10],:preference12_id=>preferencesGoodArray[11], :faculty_id => @prof_id, :semester_id=> @semester_id).take 
          
          
          if !FacultyPreference.exists?(:preference1_id=>preferencesBadArray[0],:preference2_id=>preferencesBadArray[1],:preference3_id=>preferencesBadArray[2],:preference4_id=>preferencesBadArray[3],:preference5_id=>preferencesBadArray[4],
-                                      :preference6_id=>preferencesBadArray[5],:preference7_id=>preferencesBadArray[6],:preference8_id=>preferencesBadArray[7],:preference9_id=>preferencesBadArray[8], :semester_id=> @semester_id)
+                                      :preference6_id=>preferencesBadArray[5],:preference7_id=>preferencesBadArray[6],:preference8_id=>preferencesBadArray[7],:preference9_id=>preferencesBadArray[8],
+                                      :preference10_id=>preferencesBadArray[9],:preference11_id=>preferencesBadArray[10],:preference12_id=>preferencesBadArray[11], :faculty_id => @prof_id, :semester_id=> @semester_id)
                                       
           FacultyPreference.create!(:preference1_id=>preferencesBadArray[0],:preference2_id=>preferencesBadArray[1],:preference3_id=>preferencesBadArray[2],:preference4_id=>preferencesBadArray[3],:preference5_id=>preferencesBadArray[4],
-                                    :preference6_id=>preferencesBadArray[5],:preference7_id=>preferencesBadArray[6],:preference8_id=>preferencesBadArray[7],:preference9_id=>preferencesBadArray[8], :semester_id=> @semester_id)
+                                    :preference6_id=>preferencesBadArray[5],:preference7_id=>preferencesBadArray[6],:preference8_id=>preferencesBadArray[7],:preference9_id=>preferencesBadArray[8],
+                                    :preference10_id=>preferencesBadArray[9],:preference11_id=>preferencesBadArray[10],:preference12_id=>preferencesBadArray[11], :faculty_id => @prof_id, :semester_id=> @semester_id)
         end
           badPref =FacultyPreference.where(:preference1_id=>preferencesBadArray[0],:preference2_id=>preferencesBadArray[1],:preference3_id=>preferencesBadArray[2],:preference4_id=>preferencesBadArray[3],:preference5_id=>preferencesBadArray[4],
-                                      :preference6_id=>preferencesBadArray[5],:preference7_id=>preferencesBadArray[6],:preference8_id=>preferencesBadArray[7],:preference9_id=>preferencesBadArray[8], :semester_id=> @semester_id).take
+                                      :preference6_id=>preferencesBadArray[5],:preference7_id=>preferencesBadArray[6],:preference8_id=>preferencesBadArray[7],:preference9_id=>preferencesBadArray[8],
+                                      :preference10_id=>preferencesBadArray[9],:preference11_id=>preferencesBadArray[10],:preference12_id=>preferencesBadArray[11], :faculty_id => @prof_id, :semester_id=> @semester_id).take
          
          
          if goodPref !=nil && badPref !=nil

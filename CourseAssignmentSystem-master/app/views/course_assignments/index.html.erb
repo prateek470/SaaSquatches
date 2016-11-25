@@ -80,37 +80,4 @@ vertical-align: middle;
   </tbody>
   <% end %>
 </table>
-
-<% if @good_Preference_list!=nil %>
-<table class="table table-bordered">
-  <thead>
-    <tr>
-      <th>Faculty Name</th>
-      <th>Good Preference</th>
-      <th>Bad Preference</th>
-    </tr>
-  </thead>
-
-  <% @good_Preference_list.each do |pref| %>
-  <tbody>
-    <tr>
-      <td>
-        <%for time in @good_Preference_list%>
-		    		<p><%=time["time_slot"]%></p>
-		    <%end%></td>
-      <td>
-         <%for time in @good_Preference_list%>
-		    		<p><%=time["time_slot"]%></p>
-		    <%end%></td>
-      </td>
-      <td> 
-         <%for time in @good_Preference_list%>
-		    		<p><%=time["time_slot"]%></p>
-		    <%end%></td></td>
-    </tr>
-  </tbody>
-  <% end %>
-</table>
-<% end %>
-
 </html>

@@ -1,13 +1,12 @@
 class ProfessorHomeController < ApplicationController
   
-   before_action :require_user, only: [:professorhome, :addprofessorpreference, :profsetsession]
+   before_action :require_user, only: [:professorhome, :professoraddpreference, :profsetsession]
    
   def professorhome
     @semester = Semester.all
   end
+  
 
-  
-  
   def professoraddpreference
     
     if session[:semester_id] !=nil && session[:semester_id]!=""
@@ -15,17 +14,20 @@ class ProfessorHomeController < ApplicationController
       @semester_id = session[:semester_id]
       @faculty = Faculty.all
       @defaultBad = Array.new
-      
+      @preferred_no = Systemvariable.find_by(:name => 'num_pref_accept').value.to_i
+      @unacceptable_no = Systemvariable.find_by(:name => 'num_pref_unaccept').value.to_i
+
+      flash[:success] = "You can only choose " + @preferred_no.to_s + " Preferred and " +@unacceptable_no.to_s+ " Unacceptable timings!"
       for slot in @timeslot
         if slot.time_slot.to_s.include?("*")
           @defaultBad.push(slot)
         end
       end
-      goodPreference = Array.new(9)
-      badPreference = Array.new(9)
+      goodPreference = Array.new(@preferred_no)
+      badPreference = Array.new(@unacceptable_no)
       
-      preferencesGoodArray = Array.new(9)
-      preferencesBadArray = Array.new(9)
+      preferencesGoodArray = Array.new(@preferred_no)
+      preferencesBadArray = Array.new(@unacceptable_no)
  
       if params.has_key?(:unacceptable_ids) || params.has_key?(:preferred_ids)          
         @prof_id = session[:faculty_id]

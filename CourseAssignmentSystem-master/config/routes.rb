@@ -64,6 +64,7 @@ Rails.application.routes.draw do
   get 'course_assignments/update_day_combination', as: 'update_day_combination'
   get 'course_assignments/update_room', as: 'update_available_room'
   get 'course_assignments/update_time_slot', as: 'update_time_slot'
+  get 'course_assignments/show_faculty_preference', as: 'show_faculty_preference'
   put 'course_assignments/update_course_assignment', as: 'update_course_assignment'
   # Example resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products

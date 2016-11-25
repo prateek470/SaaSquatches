@@ -14,7 +14,15 @@ class CourseAssignmentsController < ApplicationController
   	if session[:semester_id] != nil && session[:semester_id] != ""
   		@faculties = Faculty.order(faculty_name: :asc)
   		@assignments = []
+  		logger.info "AMAN : index called"
+  		logger.info params[:faculty_id]
+  		# @good_Preference_list = show_faculty_preference(1)
+    #     logger.info "AMAN : return from show_faculty_preference "
+    #     if @good_Preference_list==nil
+    # 	     logger.info "Nil aa raha hai"
+    #   	end
   		@faculties.each {|faculty|
+  		  
   	    		course_assignments = CourseAssignment.includes(:course,:room,:day_combination,:time_slot).where("semester_id = ? and faculty_id = ?",session[:semester_id],faculty.id)
   	    		course_assignments.each {|course_assignment|	
         			course1_name = ""
@@ -49,7 +57,7 @@ class CourseAssignmentsController < ApplicationController
   def update_course_assignment
   	attributes = {}
   	faculty_id = params[:faculty_id]
-          course_id = params[:course_id]
+    course_id = params[:course_id]
   	course_assignments = CourseAssignment.includes(:course,:faculty).where("semester_id = ? and course_id = ?",session[:semester_id],course_id)
   	course_assignment = nil
   	has_updated = false
@@ -100,6 +108,7 @@ class CourseAssignmentsController < ApplicationController
   # @param hash containing faculty id
   def update_faculty_details
   	# add semester id to query
+  	#@good_Preference_list = show_faculty_preference(params[:faculty_id])
   	faculty_courses_arr = FacultyCourse.includes(:course1,:course2,:course3).where("semester_id = ? and faculty_id = ?",session[:semester_id],params[:faculty_id])
   	if faculty_courses_arr.length == 0
   		@course_assignments = []	
@@ -255,4 +264,60 @@ class CourseAssignmentsController < ApplicationController
 	}  	
 	return courses
   end
+  
+  #Display faculty preference to assist Admin with course allotment
+  def show_faculty_preference
+    faculty_id = params[:faculty_id]
+    logger.info "AMAN : show_faculty_preference called from Ajax "
+  	if faculty_id==nil
+  		logger.info "Faculty id is nil"
+  		return nil
+  	end
+  	@faculty = Faculty.where(:id=>faculty_id)
+  	@timeslot = TimeSlot.all
+  	@goodtimes = Array.new
+  	@badtimes = Array.new
+  	for faculty in @faculty
+      fac_preference = faculty.preference
+        if fac_preference !=nil
+          facultyPreference = FacultyPreference.find_by_id(fac_preference)
+          preferences = facultyPreference.as_json(except: [:created_at,:updated_at,:faculty_course_id,:id,:semester_id])
+          if(preferences!=nil)
+            for preference in preferences.keys
+              prefid = preferences[preference]
+              if prefid !=nil
+                pref = Preference.find_by_id(prefid).as_json
+                time = pref["time_slot_id"]
+                timeslot = @timeslot.find_by_id(time)
+                daycombo = DayCombination.find_by_id(timeslot["day_combination_id"] )
+                @goodtimes.push(timeslot["time_slot"] + "	" + daycombo["day_combination"])
+              end
+            end
+          end
+        end
+        bad_preference = faculty.bad_preference
+        if bad_preference !=nil
+          facultyPreference = FacultyPreference.find_by_id(bad_preference)
+          preferences = facultyPreference.as_json(except: [:created_at,:updated_at,:faculty_course_id,:id,:semester_id])
+          if(preferences!=nil)
+            for preference in preferences.keys
+              prefid = preferences[preference] 
+              if prefid !=nil
+                pref = Preference.find_by_id(prefid).as_json
+                time = pref["time_slot_id"]
+                timeslot = @timeslot.find_by_id(time)
+                daycombo = DayCombination.find_by_id(timeslot["day_combination_id"])
+                @badtimes.push(timeslot["time_slot"] + "	" + daycombo["day_combination"])
+              end
+            end    
+          end
+        end
+        end
+	  respond_to do |format|
+		format.json {render :json => {:goodtimes => @goodtimes, 
+		                              :badtimes => @badtimes}}
+		# format.json {render json: @badtimes}
+		end	
+  end
+  
 end

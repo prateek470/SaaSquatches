@@ -1,5 +1,24 @@
 <style type="text/css">
+#wrapper {
+width:100%;
+margin : 0;
+}
 
+#first-div {
+width:50%;
+margin : 0;
+float : left ;
+text-align: center;
+vertical-align: middle;
+}
+
+#second-div {
+width:50%;
+margin : 0;
+float : left ;
+text-align: center;
+vertical-align: middle;
+}
 </style>
 <html>
 
@@ -25,14 +44,23 @@
   <div class="jumbotron">
 	<p>
 		<%= label_tag :faculty_id, "Faculty: " %>
-		<%= select_tag :faculty_id, options_from_collection_for_select(@faculties,"id","faculty_name"), :include_blank => true ,class: "btn btn-default dropdown-toggle"%>
+		<%= select_tag :faculty_id,
+		options_from_collection_for_select(@faculties,"id","faculty_name"),
+		:include_blank => true ,
+		class: "btn btn-default dropdown-toggle"%>
 	</p>
    </br>
    </br>
    <div id = "course_ctr"></div>
   </div>
 
-
+	<div id="wrapper">
+		<div id="first-div" >
+		</div> 
+		<div id="second-div" >
+		</div>
+	</div>
+	
 <table class="table table-bordered">
   <thead>
     <tr>
@@ -53,8 +81,36 @@
   <% end %>
 </table>
 
-</body>
+<% if @good_Preference_list!=nil %>
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>Faculty Name</th>
+      <th>Good Preference</th>
+      <th>Bad Preference</th>
+    </tr>
+  </thead>
 
-
+  <% @good_Preference_list.each do |pref| %>
+  <tbody>
+    <tr>
+      <td>
+        <%for time in @good_Preference_list%>
+		    		<p><%=time["time_slot"]%></p>
+		    <%end%></td>
+      <td>
+         <%for time in @good_Preference_list%>
+		    		<p><%=time["time_slot"]%></p>
+		    <%end%></td>
+      </td>
+      <td> 
+         <%for time in @good_Preference_list%>
+		    		<p><%=time["time_slot"]%></p>
+		    <%end%></td></td>
+    </tr>
+  </tbody>
+  <% end %>
+</table>
+<% end %>
 
 </html>

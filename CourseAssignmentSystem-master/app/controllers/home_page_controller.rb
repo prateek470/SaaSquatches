@@ -11,10 +11,15 @@ class HomePageController < ApplicationController
     
     if params[:class] != nil
       desired_user = params[:class][:selectedUser]
-      name = @users.where(:id =>desired_user).select(:faculty_name).take.faculty_name.to_s
-      User.destroy(desired_user)
-      flash[:success] = "Reset Account for " + name
-      redirect_to root_path
+      if session[:user_id].to_s == desired_user.to_s
+        flash[:error] = "Don't be silly. You can't delete yourself. :) "
+        redirect_to resetuser_path
+      else
+        name = @users.where(:id =>desired_user).select(:faculty_name).take.faculty_name.to_s
+        User.destroy(desired_user)
+        flash[:success] = "Reset Account for " + name
+        redirect_to root_path
+      end
     end
   end
 
@@ -134,23 +139,29 @@ class HomePageController < ApplicationController
             end
             
             if !FacultyPreference.exists?(:preference1_id=>preferencesGoodArray[0],:preference2_id=>preferencesGoodArray[1],:preference3_id=>preferencesGoodArray[2],:preference4_id=>preferencesGoodArray[3],:preference5_id=>preferencesGoodArray[4],
-                                          :preference6_id=>preferencesGoodArray[5],:preference7_id=>preferencesGoodArray[6],:preference8_id=>preferencesGoodArray[7],:preference9_id=>preferencesGoodArray[8], :semester_id=> @semester_id)
+                                          :preference6_id=>preferencesGoodArray[5],:preference7_id=>preferencesGoodArray[6],:preference8_id=>preferencesGoodArray[7],:preference9_id=>preferencesGoodArray[8],
+                                          :preference10_id=>preferencesGoodArray[9],:preference11_id=>preferencesGoodArray[10],:preference12_id=>preferencesGoodArray[11], :faculty_id => @prof_id, :semester_id=> @semester_id)
                                           
               FacultyPreference.create!(:preference1_id=>preferencesGoodArray[0],:preference2_id=>preferencesGoodArray[1],:preference3_id=>preferencesGoodArray[2],:preference4_id=>preferencesGoodArray[3],:preference5_id=>preferencesGoodArray[4],
-                                        :preference6_id=>preferencesGoodArray[5],:preference7_id=>preferencesGoodArray[6],:preference8_id=>preferencesGoodArray[7],:preference9_id=>preferencesGoodArray[8], :semester_id=> @semester_id)
+                                        :preference6_id=>preferencesGoodArray[5],:preference7_id=>preferencesGoodArray[6],:preference8_id=>preferencesGoodArray[7],:preference9_id=>preferencesGoodArray[8],
+                                        :preference10_id=>preferencesGoodArray[9],:preference11_id=>preferencesGoodArray[10],:preference12_id=>preferencesGoodArray[11], :faculty_id => @prof_id, :semester_id=> @semester_id)
             end
               goodPref =FacultyPreference.where(:preference1_id=>preferencesGoodArray[0],:preference2_id=>preferencesGoodArray[1],:preference3_id=>preferencesGoodArray[2],:preference4_id=>preferencesGoodArray[3],:preference5_id=>preferencesGoodArray[4],
-                                          :preference6_id=>preferencesGoodArray[5],:preference7_id=>preferencesGoodArray[6],:preference8_id=>preferencesGoodArray[7],:preference9_id=>preferencesGoodArray[8], :semester_id=> @semester_id).take 
+                                          :preference6_id=>preferencesGoodArray[5],:preference7_id=>preferencesGoodArray[6],:preference8_id=>preferencesGoodArray[7],:preference9_id=>preferencesGoodArray[8],
+                                          :preference10_id=>preferencesGoodArray[9],:preference11_id=>preferencesGoodArray[10],:preference12_id=>preferencesGoodArray[11], :faculty_id => @prof_id, :semester_id=> @semester_id).take 
              
              
              if !FacultyPreference.exists?(:preference1_id=>preferencesBadArray[0],:preference2_id=>preferencesBadArray[1],:preference3_id=>preferencesBadArray[2],:preference4_id=>preferencesBadArray[3],:preference5_id=>preferencesBadArray[4],
-                                          :preference6_id=>preferencesBadArray[5],:preference7_id=>preferencesBadArray[6],:preference8_id=>preferencesBadArray[7],:preference9_id=>preferencesBadArray[8], :semester_id=> @semester_id)
+                                          :preference6_id=>preferencesBadArray[5],:preference7_id=>preferencesBadArray[6],:preference8_id=>preferencesBadArray[7],:preference9_id=>preferencesBadArray[8],
+                                          :preference10_id=>preferencesBadArray[9],:preference11_id=>preferencesBadArray[10],:preference12_id=>preferencesBadArray[11], :faculty_id => @prof_id, :semester_id=> @semester_id)
                                           
               FacultyPreference.create!(:preference1_id=>preferencesBadArray[0],:preference2_id=>preferencesBadArray[1],:preference3_id=>preferencesBadArray[2],:preference4_id=>preferencesBadArray[3],:preference5_id=>preferencesBadArray[4],
-                                        :preference6_id=>preferencesBadArray[5],:preference7_id=>preferencesBadArray[6],:preference8_id=>preferencesBadArray[7],:preference9_id=>preferencesBadArray[8], :semester_id=> @semester_id)
+                                        :preference6_id=>preferencesBadArray[5],:preference7_id=>preferencesBadArray[6],:preference8_id=>preferencesBadArray[7],:preference9_id=>preferencesBadArray[8],
+                                        :preference10_id=>preferencesBadArray[9],:preference11_id=>preferencesBadArray[10],:preference12_id=>preferencesBadArray[11], :faculty_id => @prof_id, :semester_id=> @semester_id)
             end
               badPref =FacultyPreference.where(:preference1_id=>preferencesBadArray[0],:preference2_id=>preferencesBadArray[1],:preference3_id=>preferencesBadArray[2],:preference4_id=>preferencesBadArray[3],:preference5_id=>preferencesBadArray[4],
-                                          :preference6_id=>preferencesBadArray[5],:preference7_id=>preferencesBadArray[6],:preference8_id=>preferencesBadArray[7],:preference9_id=>preferencesBadArray[8], :semester_id=> @semester_id).take
+                                          :preference6_id=>preferencesBadArray[5],:preference7_id=>preferencesBadArray[6],:preference8_id=>preferencesBadArray[7],:preference9_id=>preferencesBadArray[8],
+                                          :preference10_id=>preferencesBadArray[9],:preference11_id=>preferencesBadArray[10],:preference12_id=>preferencesBadArray[11], :faculty_id => @prof_id, :semester_id=> @semester_id).take
              
              
              if goodPref !=nil && badPref !=nil
@@ -201,7 +212,31 @@ class HomePageController < ApplicationController
       redirect_to addsemester_path;
     end
   end
-  
+
+  def numberpreference
+    @pref = Systemvariable.find_by(:name => 'num_pref_accept')
+    @unaccept = Systemvariable.find_by(:name => 'num_pref_unaccept')
+    if params[:class] != nil
+      if params[:class][:preferred_val] != "" && params[:class][:unacceptable_val] != ""
+        if params[:class][:preferred_val].to_i < 0 || params[:class][:preferred_val].to_i > 12 || params[:class][:unacceptable_val].to_i < 0 || params[:class][:unacceptable_val].to_i > 12
+          flash[:success] = "Please choose values between 1 to 12."
+          redirect_to numberpreference_path
+        else
+          @pref.value = params[:class][:preferred_val].to_i
+          @pref.save
+
+          @unaccept.value = params[:class][:unacceptable_val].to_i
+          @unaccept.save
+
+          flash[:success] = "Updated number of preferences!"
+          redirect_to root_path
+        end
+      elsif params[:class][:preferred_val] == "" || params[:class][:unacceptable_val] == ""
+        flash[:success] = "Please put valid values!"
+      end
+    end
+  end
+
   def addclassroom
     @allRooms = Room.select('room_name,Capacity,building_id')
     @allBuildings = Building.select('building_name,id')
@@ -216,25 +251,7 @@ class HomePageController < ApplicationController
       flash[:error] = "Please enter all values before submission"
     end
   end
-  def numberpreference
-    @pref = Systemvariable.find_by(:name => 'num_pref_accept')
-    @unaccept = Systemvariable.find_by(:name => 'num_pref_unaccept')
-    if params[:class] != nil
-      if params[:class][:preferred_val] != "" && params[:class][:unacceptable_val] != ""
-        @pref.value = params[:class][:preferred_val].to_i
-        @pref.save
-
-        
-        @unaccept.value = params[:class][:unacceptable_val].to_i
-        @unaccept.save
-
-        flash[:success] = "Updated number of preferences!"
-        redirect_to root_path
-      elsif params[:class][:preferred_val] == "" || params[:class][:unacceptable_val] == ""
-        flash[:success] = "Please put valid values!"
-      end
-    end
-  end
+  
   def calendar
     #course_name =Course.where(:id => "1").select(:course_name).take.course_name.to_s
     #name = @users.where(:id =>desired_user).select(:faculty_name).take.faculty_name.to_s

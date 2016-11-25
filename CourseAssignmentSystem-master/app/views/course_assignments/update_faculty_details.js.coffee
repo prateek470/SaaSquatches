@@ -1,5 +1,5 @@
 $("#course_ctr").empty().append("<%= escape_javascript(render(:partial => @course_assignments, 
-			:locals => {:buildings => @buildings,:courses => @courses, :assigned_buildings => @assigned_building_ids, :goodTimes => @good_Preference_list})) %>")
+			:locals => {:buildings => @buildings,:courses => @courses, :assigned_buildings => @assigned_building_ids})) %>")
 $(document).on "change", ".building_select", (evt) ->
     course_id = ""
     for i in [1..$(".building_select").length]
@@ -71,6 +71,3 @@ $(".day_combination_select").on 'change', (evt) ->
           i++
 
 $(".building_select").trigger('change')
-
-
-

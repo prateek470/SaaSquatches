@@ -42,9 +42,6 @@ class EventsController < ApplicationController
         start = TimeSlot.where(:id=>c.time_slot_id).select("start").take.start
         end_time = TimeSlot.where(:id=>c.time_slot_id).select("end_time").take.end_time
         
-        
-        
-        
         puts course
         puts room
         puts building
@@ -70,10 +67,6 @@ class EventsController < ApplicationController
           end 
           end 
         end 
-        
-        
-        
-        
     end 
    
     if permission == "User"
@@ -92,14 +85,9 @@ class EventsController < ApplicationController
     end
   end
   
-  
-  
   def prof_index 
     permission = Faculty.where(:id=>session[:faculty_id]).select("permission").take.permission
-  
-     
     @course_assignments = CourseAssignment.all
-    
     @timeslot = TimeSlot.all
     @building = Building.all
     @rooms = Room.where("building_id = ?", Building.first.id)
@@ -138,11 +126,6 @@ class EventsController < ApplicationController
           end 
           end 
         end 
-      
-        
-        
-        
-        
     end 
    
     if permission == "User"
@@ -159,16 +142,10 @@ class EventsController < ApplicationController
       format.json { render :json => @events } 
     end
   end 
-  
-  
-  
-  
 
-  def event_params
-    params.permit(:title).merge start_at: params[:start].to_time, end_at: params[:end].to_time, user_name: params[:user_name]
-  end
-
-
+def event_params
+  params.permit(:title).merge start_at: params[:start].to_time, end_at: params[:end].to_time, user_name: params[:user_name]
+end
 
 def getDay(day_combination)
   dateArray = Array.new
@@ -220,9 +197,11 @@ end
       room_id = Room.where(:id=>params[:class][:room_id]).select("id").take.id
       building_id = Building.where(:id=>params[:class][:building_id]).select("id").take.id
       
-      
       if !CourseAssignment.exists?(:time_slot_id => ts, :day_combination_id => dayId, :room_id => room_id)
         capacity = Room.where(:id=> room_id).select("Capacity").take.Capacity
+        if course_size==nil
+          course_size = 0
+        end
         if course_size > capacity 
           flash[:error] = "Room is too small for this course"
         else 
@@ -232,13 +211,9 @@ end
       else 
         flash[:error] = "Course Conflict at this Time"
       end 
-      
       redirect_to events_path
     end 
-    
   end 
-  	
-  	
  end
  
 def update_rooms
@@ -251,11 +226,7 @@ def update_rooms
   end
 end
 
-
 def show
   @room = Room.find_by("id = ?", params[:class][:room_id])
 end
- 
-end 
-
-
+end

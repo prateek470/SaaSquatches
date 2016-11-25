@@ -261,7 +261,6 @@ class CourseAssignmentsController < ApplicationController
   #Display faculty preference to assist Admin with course allotment
   def show_faculty_preference
     faculty_id = params[:faculty_id]
-    logger.info "AMAN : show_faculty_preference called from Ajax "
   	if faculty_id==nil
   		logger.info "Faculty id is nil"
   		return nil

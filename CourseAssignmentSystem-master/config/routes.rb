@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   get "addclassroom" => 'home_page#addclassroom'
   get "resetuser" => 'home_page#resetuser'
   get "events" => 'events#index'
+  post "events" => 'events#index'
   post 'events/create'
   get "editevent" => 'events#editevent'
   get 'events/update_rooms', :as => 'update_rooms'

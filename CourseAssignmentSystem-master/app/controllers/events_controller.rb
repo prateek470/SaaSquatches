@@ -1,4 +1,5 @@
 class EventsController < ApplicationController
+  before_action :require_user, only: [:index,:prof_index]
   def new
     @event = Event.new
     respond_to do |format|
@@ -25,9 +26,14 @@ class EventsController < ApplicationController
   end
 
   def index
-    permission = Faculty.where(:id=>session[:faculty_id]).select("permission").take.permission
+    if params[:faculty_id]==nil || params[:faculty_id] == ""
+      permission = Faculty.where(:id=>session[:faculty_id]).select("permission").take.permission
+    else
+      session[:faculty_id] = params[:faculty_id]
+      permission = Faculty.where(:id=>params[:faculty_id]).select("permission").take.permission
+    end
     @course_assignments = CourseAssignment.all
-    
+    @faculties = Faculty.order(faculty_name: :asc)
     @timeslot = TimeSlot.all
     @building = Building.all
     @rooms = Room.where("building_id = ?", Building.first.id)
@@ -128,7 +134,7 @@ class EventsController < ApplicationController
     end 
    
     if permission == "User"
-      courses = CourseAssignment.where(:faculty_id => session[:faculty_id]).pluck(:id)
+        courses = CourseAssignment.where(:faculty_id => session[:faculty_id]).pluck(:id)
       puts courses
       @events = Event.where(course_assignment_id: courses)
     elsif permission == "Admin"
@@ -143,7 +149,9 @@ class EventsController < ApplicationController
   end 
 
 def event_params
-  params.permit(:title).merge start_at: params[:start].to_time, end_at: params[:end].to_time, user_name: params[:user_name]
+  if params[:end]!=nil
+    params.permit(:title).merge start_at: params[:start].to_time, end_at: params[:end].to_time, user_name: params[:user_name]
+  end
 end
 
 def getDay(day_combination)

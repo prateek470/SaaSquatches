@@ -77,11 +77,48 @@ class FacultyCoursesController < ApplicationController
   def edit
   	faculty_course = FacultyCourse.find(params[:id])
   	courses = params[:courses]
+
+    #messy code to find if course as assigned to another faculty
+    if(courses[:course1_id] != nil && courses[:course1_id].to_s != "")
+      course1_exist = FacultyCourse.find_by_sql("SELECT  faculty_courses.* FROM faculty_courses WHERE faculty_courses.course1_id = "+courses[:course1_id]+" AND faculty_courses.semester_id = "+session[:semester_id]+" AND faculty_courses.id != "+params[:id]+" LIMIT 1")    
+      if(course1_exist == nil || course1_exist == [])
+        course1_exist = FacultyCourse.find_by_sql("SELECT  faculty_courses.* FROM faculty_courses WHERE faculty_courses.course2_id = "+courses[:course1_id]+" AND faculty_courses.semester_id = "+session[:semester_id]+" AND faculty_courses.id != "+params[:id]+" LIMIT 1")
+      end
+      if(course1_exist == nil || course1_exist == [])
+        course1_exist = FacultyCourse.find_by_sql("SELECT  faculty_courses.* FROM faculty_courses WHERE faculty_courses.course3_id = "+courses[:course1_id]+" AND faculty_courses.semester_id = "+session[:semester_id]+" AND faculty_courses.id != "+params[:id]+" LIMIT 1")
+      end
+    end
+
+    #for course 2
+    if(courses[:course2_id] != nil && courses[:course2_id].to_s != "")
+      course2_exist = FacultyCourse.find_by_sql("SELECT  faculty_courses.* FROM faculty_courses WHERE faculty_courses.course1_id = "+courses[:course2_id]+" AND faculty_courses.semester_id = "+session[:semester_id]+" AND faculty_courses.id != "+params[:id]+" LIMIT 1")    
+      if(course2_exist == nil || course2_exist == [])
+        course2_exist = FacultyCourse.find_by_sql("SELECT  faculty_courses.* FROM faculty_courses WHERE faculty_courses.course2_id = "+courses[:course2_id]+" AND faculty_courses.semester_id = "+session[:semester_id]+" AND faculty_courses.id != "+params[:id]+" LIMIT 1")
+      end
+      if(course2_exist == nil || course2_exist == [])
+        course2_exist = FacultyCourse.find_by_sql("SELECT  faculty_courses.* FROM faculty_courses WHERE faculty_courses.course3_id = "+courses[:course2_id]+" AND faculty_courses.semester_id = "+session[:semester_id]+" AND faculty_courses.id != "+params[:id]+" LIMIT 1")
+      end
+    end
+
+    #For course 3
+    if(courses[:course3_id] != nil && courses[:course3_id].to_s != "")
+      course3_exist = FacultyCourse.find_by_sql("SELECT  faculty_courses.* FROM faculty_courses WHERE faculty_courses.course1_id = "+courses[:course3_id]+" AND faculty_courses.semester_id = "+session[:semester_id]+" AND faculty_courses.id != "+params[:id]+" LIMIT 1")    
+      if(course3_exist == nil || course3_exist == [])
+        course3_exist = FacultyCourse.find_by_sql("SELECT  faculty_courses.* FROM faculty_courses WHERE faculty_courses.course2_id = "+courses[:course3_id]+" AND faculty_courses.semester_id = "+session[:semester_id]+" AND faculty_courses.id != "+params[:id]+" LIMIT 1")
+      end
+      if(course3_exist == nil || course3_exist == [])
+        course3_exist = FacultyCourse.find_by_sql("SELECT  faculty_courses.* FROM faculty_courses WHERE faculty_courses.course3_id = "+courses[:course3_id]+" AND faculty_courses.semester_id = "+session[:semester_id]+" AND faculty_courses.id != "+params[:id]+" LIMIT 1")
+      end
+    end
+
   	if ((courses[:course1_id] == courses[:course2_id]) && courses[:course1_id] != "") || ((courses[:course1_id] == courses[:course3_id]) && courses[:course1_id] != "") || ((courses[:course2_id] == courses[:course3_id]) && courses[:course2_id] != "")
   		flash[:error] = "Please choose a different course in each box"
   		redirect_to faculty_course_path(faculty_course)
-  	else
-      		faculty_course = FacultyCourse.find(params[:id])
+    elsif ((course1_exist != nil && course1_exist.to_s != "[]")|| (course2_exist != nil && course2_exist.to_s != "[]") || (course3_exist != nil && course3_exist.to_s != "[]"))
+      flash[:error] = "Some of the courses already assigned to another faculty. Please choose different courses."
+      redirect_to faculty_course_path(faculty_course)
+    else
+      faculty_course = FacultyCourse.find(params[:id])
   		faculty_course.update_attributes!(params[:courses].permit(:course1_id,:course2_id,:course3_id))
   		flash[:success] = "Courses information updated successfully"
   		redirect_to faculty_courses_path

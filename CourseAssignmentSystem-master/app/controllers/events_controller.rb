@@ -1,5 +1,4 @@
 class EventsController < ApplicationController
-  before_action :require_user,:check_permission, only: [:index, :prof_index]
   def new
     @event = Event.new
     respond_to do |format|

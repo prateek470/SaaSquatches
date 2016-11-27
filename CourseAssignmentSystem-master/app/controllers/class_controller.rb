@@ -86,7 +86,7 @@ def new
  else
  @building = Building.find_or_create_by!(:building_name=>params[:class][:building_name])
  @room = Room.find_or_create_by!(:room_name=>params[:class][:room_name],:building_id=>@building.id)
- @room.Capacity =  params[:class][:room_capacity]
+ @room.capacity =  params[:class][:room_capacity]
  @room.save
  flash[:success] = "Successfully Created/Updated Classroom"
  end

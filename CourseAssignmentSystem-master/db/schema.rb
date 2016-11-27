@@ -53,10 +53,10 @@ ActiveRecord::Schema.define(version: 20161120225941) do
 
   create_table "courses", force: :cascade do |t|
     t.string   "course_name"
-    t.string   "CourseTitle"
+    t.string   "course_title"
     t.integer  "course_size"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
   end
 
   create_table "day_combinations", force: :cascade do |t|
@@ -139,7 +139,7 @@ ActiveRecord::Schema.define(version: 20161120225941) do
 
   create_table "rooms", force: :cascade do |t|
     t.string   "room_name"
-    t.integer  "Capacity"
+    t.integer  "capacity"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.integer  "building_id"
@@ -148,9 +148,9 @@ ActiveRecord::Schema.define(version: 20161120225941) do
   add_index "rooms", ["building_id"], name: "index_rooms_on_building_id"
 
   create_table "semesters", force: :cascade do |t|
-    t.string   "SemesterTitle"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.string   "semester_title"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
   end
 
   create_table "systemvariables", force: :cascade do |t|

@@ -49,7 +49,7 @@ RSpec.describe HomePageController, type: :controller do
       session[:semester_id] = '1'
       session[:user_id] = '3'
       session[:permission] = 'Admin'
-      get :addcourse, {:class => {:CourseName => 'CSCE XXX', :CourseTitle => 'TEST'}, :course_size=>{:course_size => '999'}}
+      get :addcourse, {:class => {:CourseName => 'CSCE XXX', :course_title => 'TEST'}, :course_size=>{:course_size => '999'}}
     end
     after :all do
       @added_course = Course.find_by(course_name: 'CSCE XXX')
@@ -74,11 +74,11 @@ RSpec.describe HomePageController, type: :controller do
     it 'should call model method to create new semester' do
       Semester.should_receive(:find_by)
       Semester.should_receive(:create_semester).with('test1')
-      post :createsemester, {:class => {:SemesterTitle => 'test1'}}
+      post :createsemester, {:class => {:semester_title => 'test1'}}
       response.should redirect_to '/'
     end
     it 'should check for valid input before creating new semester' do
-      post :addsemester, {:class => {:SemesterTitle => ''}}
+      post :addsemester, {:class => {:semester_title => ''}}
       response.should have_http_status(:success)
     end
   end

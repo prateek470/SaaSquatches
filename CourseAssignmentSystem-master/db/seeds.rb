@@ -9,9 +9,9 @@
 buildings = [{:building_name => 'HRBB'},
 			]
 
-rooms = [{:room_name => '124', :building_id => 1, :Capacity => 135},
-		 {:room_name => '126', :building_id => 1, :Capacity => 27},
-		 {:room_name => '113', :building_id => 1, :Capacity => 60},
+rooms = [{:room_name => '124', :building_id => 1, :capacity => 135},
+		 {:room_name => '126', :building_id => 1, :capacity => 27},
+		 {:room_name => '113', :building_id => 1, :capacity => 60},
 		]
 
 		
@@ -219,7 +219,7 @@ facultypreferences = [{:faculty_course_id => '1', :preference1_id => '1', :prefe
 					  {:faculty_course_id => '3', :preference1_id => '5', :preference2_id => '7', :preference3_id => '6', :semester_id => '1'},
 				      {:faculty_course_id => '4', :preference1_id => '7', :preference3_id => '10', :semester_id => '1'},
 					]
-semesters = [{:SemesterTitle => 'Fall 2015'},
+semesters = [{:semester_title => 'Fall 2015'},
          ]
 
 systemvariables = [{:name => 'num_pref_accept',:value => '5'},
@@ -258,7 +258,7 @@ rooms.each do |room|
 end
 
 semesters.each do |s|
- Semester.create_semester(s[:SemesterTitle])
+ Semester.create_semester(s[:semester_title])
 end
 
 systemvariables.each do |s|

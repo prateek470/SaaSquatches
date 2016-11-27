@@ -22,7 +22,7 @@ class CourseAssignmentsController < ApplicationController
         			course1_name = ""
         			course2_name = ""
         			course3_name = ""
-        			course_name = course_assignment.course.course_name + " " + course_assignment.course.CourseTitle
+        			course_name = course_assignment.course.course_name + " " + course_assignment.course.course_title
         			assign_str = ""
         			if course_assignment.room_id != nil
         				room = course_assignment.room
@@ -164,7 +164,7 @@ class CourseAssignmentsController < ApplicationController
 	if course_size == nil 
 		course_size = 0
 	end
-	rooms = Room.where("building_id = ? and \"Capacity\" >= ?",params[:building_id], course_size)
+	rooms = Room.where("building_id = ? and \"capacity\" >= ?",params[:building_id], course_size)
 	if rooms.length == 0
 		@room_options["data"][""] = ""
 	else
@@ -251,7 +251,7 @@ class CourseAssignmentsController < ApplicationController
 	course_arr.each {|course|
 		if course != nil
 			if course.course_name != ""
-				courses[course.id] = course.course_name + " " + course.CourseTitle
+				courses[course.id] = course.course_name + " " + course.course_title
 			end
 		end
 	}  	

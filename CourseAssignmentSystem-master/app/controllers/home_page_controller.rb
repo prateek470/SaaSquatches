@@ -26,7 +26,6 @@ class HomePageController < ApplicationController
   def addcourse
     @data = Course.select('id,course_name,course_title,course_size')
   	if params[:class] != nil && params[:class][:CourseName] != "" && params[:class][:course_title] != "" && params[:class][:course_size] !=""
-  	  flash[:error] = nil
       if !Course.exists?(:course_name => params[:class][:CourseName])
         Course.create!(:course_name => params[:class][:CourseName], :course_title => params[:class][:course_title], :course_size => params[:class][:course_size])
         flash[:success]= params[:class][:CourseName] + " added to the courses"
@@ -197,10 +196,10 @@ class HomePageController < ApplicationController
   
   def createsemester
     success = false;
-    if params[:class] != nil && params[:class][:SemesterTitle] != ""
-      semester = Semester.find_by(SemesterTitle: params[:class][:SemesterTitle])
+    if params[:class] != nil && params[:class][:semester_title] != ""
+      semester = Semester.find_by(semester_title: params[:class][:semester_title])
       if semester == nil
-        Semester.create_semester(params[:class][:SemesterTitle])
+        Semester.create_semester(params[:class][:semester_title])
         success = true
       end
     end
@@ -242,12 +241,12 @@ class HomePageController < ApplicationController
   end
 
   def addclassroom
-    @allRooms = Room.select('room_name,Capacity,building_id')
+    @allRooms = Room.select('room_name,capacity,building_id')
     @allBuildings = Building.select('building_name,id')
     if  params[:class] != nil && params[:class][:building_name] != "" && params[:class][:room_name] != "" && params[:class][:room_capacity] != "" 
       @building = Building.find_or_create_by!(:building_name=>params[:class][:building_name].upcase)
       @room = Room.find_or_create_by!(:room_name=>params[:class][:room_name],:building_id=>@building.id)
-      @room.Capacity =  params[:class][:room_capacity]
+      @room.capacity =  params[:class][:room_capacity]
       @room.save
       flash[:success] = "Successfully added/updated classroom " +params[:class][:room_name]+ " in " + params[:class][:building_name].upcase+ " building"
       redirect_to addclassroom_path

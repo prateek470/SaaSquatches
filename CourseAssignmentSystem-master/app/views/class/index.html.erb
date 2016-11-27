@@ -60,7 +60,7 @@
           <td><%=id = id+1 %></td>
           <td><%= @building.building_name %></td>
           <td><%= @room.room_name %></td>
-          <td><%= @room.Capacity %></td>
+          <td><%= @room.capacity %></td>
           <td><%= @timeslot.time_slot %></td>
           <td><%= @day_combination.day_combination %></td>
           <td><%= button_to 'Delete', class_path(key), :method => :delete, class: "btn btn-primary",:confirm => 'Are you sure?' %></td>

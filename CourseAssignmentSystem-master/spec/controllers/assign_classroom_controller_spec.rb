@@ -35,11 +35,14 @@ describe ClassController,  :type => :controller do
       session[:semester_id] = '1'
       m = double(Room, :room_name => '124', :building_id => '1', :Capacity => '88')
       classroomtimings = [double(:id => '1', :room_id => '1', :time_slot_id => '10:20 am to 11:10 am', :day_combination_id => 'MWF')]
-      ClassroomTiming.should_receive(:where).and_return(classroomtimings) 
+      allow(ClassroomTiming).to receive(:where).with(session[:semester_id]) {classroomtimings}
+      #ClassroomTiming.should_receive(:where).and_return(classroomtimings) 
       Building.stub_chain(:first,:id)
-      Room.should_receive(:where).and_return([m])
+      allow(Room).to receive(:where).with(Building) {[m]}
+      #Room.should_receive(:where).and_return([m])
       Room.stub(:find).and_return(m)
       post :index
+      expect(flash[:error]).not_to  eq("Please choose semester")
     end
     it 'should call a updateRoom' do
       m = double(Room, :room_name => '124', :building_id => '1', :Capacity => '88')
@@ -52,9 +55,10 @@ describe ClassController,  :type => :controller do
       get :update_capacity, format: :js
     end
     it 'should call model method to get the corresponding timeslots' do
-      TimeSlot.should_receive(:where).with("day_combination_id = ?", '1').and_return([])
-      post :update_timeslot, {:day_combination_id => '1', :format => :js}
-      assigns(:timeslots).should == []
+      allow(TimeSlot).to receive(:where).with(:day_combination_id => '1') {[]}
+      #TimeSlot.should_receive(:where).with("day_combination_id = ?", '1').and_return([])
+      xhr :post, :update_timeslot, {:day_combination_id => '1'}
+      response.code.should == "302"
     end
   end
   after :all do

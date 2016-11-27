@@ -68,6 +68,7 @@ faculties = [{:faculty_name => 'Amato Nancy', :permission => 'User'},
 			 {:faculty_name => 'Shipman Frank',:permission => 'User'},
 			 {:faculty_name => 'Song Dezhen',:permission => 'User'},
 			 {:faculty_name => 'Stoleru Radu',:permission => 'User'},
+			 {:faculty_name => 'Super Admin',:permission => 'Admin'},
 			 {:faculty_name => 'Sze Sing-Hoi',:permission => 'User'},
 			 {:faculty_name => 'Taylor Valerie',:permission => 'User'},
 			 {:faculty_name => 'Tyagi Aakash',:permission => 'User'},
@@ -226,7 +227,8 @@ systemvariables = [{:name => 'num_pref_accept',:value => '5'},
 				   {:name => 'num_pref_unaccept',:value => '7'},
 				   {:name => 'num_pref_enabled',:value => '1'},
          		  ]		
-
+users = [{:faculty_id => '44',:faculty_name => 'Super Admin', :email => 'admin@tamu.edu', :password => '29082016@tamu.cse.admin'},
+         ]
 facultypreferences=[{:preference1_id=>14}]
 buildings.each do |building|
   Building.create!(building)
@@ -265,6 +267,9 @@ systemvariables.each do |s|
  Systemvariable.create!(s)
 end
 
+users.each do |s|
+ User.create!(s)
+end
 # preferences.each do |pf|
  # Preference.create!(pf)
 # end

@@ -8,7 +8,12 @@ class ProfessorHomeController < ApplicationController
   
 
   def professoraddpreference
-    
+    @is_enabled = Systemvariable.find_by(:name => 'num_pref_enabled')
+    if (@is_enabled != nil && @is_enabled.value == '0')
+      flash[:error] = "Preference setting is disabled!"
+      redirect_to professorhome_path
+      return
+    end
     if session[:semester_id] !=nil && session[:semester_id]!=""
       @timeslot = TimeSlot.all
       @semester_id = session[:semester_id]

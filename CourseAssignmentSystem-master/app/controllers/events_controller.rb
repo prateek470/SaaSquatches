@@ -182,7 +182,7 @@ end
    @building = Building.all
    @rooms = Room.all
    	#if params[:class] != nil && params[:class][:CourseName] != ""
-    		#Course.create!(:course_name => params[:class][:CourseName], :CourseTitle => params[:class][:CourseTitle], :course_size => params[:course_size][:course_size])
+    		#Course.create!(:course_name => params[:class][:CourseName], :course_title => params[:class][:course_title], :course_size => params[:course_size][:course_size])
   	#end
   	
   #	{"utf8"=>"✓",
@@ -195,7 +195,7 @@ end
     temp = Event.where(:id=> params[:class][:name]).select("course_assignment_id").take.course_assignment_id
     course_id = CourseAssignment.where(:id=> temp).select("course_id").take.course_id
     course_size = Course.where(:id=>course_id).select("course_size").take.course_size
-    @rooms = Room.where("building_id = ? and Capacity >= ?", params[:building_id], course_size)
+    @rooms = Room.where("building_id = ? and capacity >= ?", params[:building_id], course_size)
     assignment = CourseAssignment.where(:id=>temp).select("time_slot_id").take.time_slot_id
     if assignment != params[:class][:time_slot_id]
       #Update the timeslot with the correct day combination in CourseAssignment
@@ -205,7 +205,7 @@ end
       building_id = Building.where(:id=>params[:class][:building_id]).select("id").take.id
       
       if !CourseAssignment.exists?(:time_slot_id => ts, :day_combination_id => dayId, :room_id => room_id)
-        capacity = Room.where(:id=> room_id).select("Capacity").take.Capacity
+        capacity = Room.where(:id=> room_id).select("capacity").take.capacity
         if course_size==nil
           course_size = 0
         end
@@ -227,7 +227,7 @@ def update_rooms
   course =  Event.where(:id=> params[:class][:name]).select("course_assignment_id").take.course_assignment_id
   course_id = CoruseAssignment.where(:id=> course).select("course_id").take.course_id
   course_size = Course.where(:id=>course_id).select("course_size").take.course_size
-  @rooms = Room.where("building_id = ? and Capacity >= ?", params[:building_id], course_size)
+  @rooms = Room.where("building_id = ? and capacity >= ?", params[:building_id], course_size)
   respond_to do |format|
     format.js 
   end

@@ -9,10 +9,15 @@ class FacultiesController < ApplicationController
   def addfaculty
      
     @permissions = ["User", "Admin"]
-  	if params[:class] != nil && params[:class][:FacultyName] != "" && params[:class][:permission] !=
+  	if params[:class] != nil && params[:class][:FacultyName] != "" && params[:class][:permission] != nil
+      if Faculty.exists?(faculty_name: params[:class][:FacultyName],permission: params[:class][:permission])
+        flash[:error] = "Faculty already exists."
+        redirect_to addfaculty_path
+      else
     		Faculty.create!(faculty_name: params[:class][:FacultyName], permission: params[:class][:permission])
-    		flash[:success] = "New Faculty Member added"
-    		redirect_to root_path
+    		flash[:success] = "New Faculty Member Dr. "+params[:class][:FacultyName]+" added."
+    		redirect_to addfaculty_path
+      end
     end
   end
   

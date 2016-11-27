@@ -20,13 +20,13 @@ class FacultyCoursesController < ApplicationController
     			course2_name = ""
     			course3_name = ""
     			if course1 != nil
-    				course1_name = course1.course_name + " " + course1.CourseTitle
+    				course1_name = course1.course_name + " " + course1.course_title
     			end
     			if course2 != nil
-    				course2_name = course2.course_name + " " + course2.CourseTitle
+    				course2_name = course2.course_name + " " + course2.course_title
     			end
     			if course3 != nil
-    				course3_name = course3.course_name + " " + course3.CourseTitle
+    				course3_name = course3.course_name + " " + course3.course_title
     			end
     			if course1 == nil && course2 == nil && course3 == nil
     				FacultyCourse.destroy(faculty_course.id)

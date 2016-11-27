@@ -18,7 +18,7 @@ describe FacultyCoursesController do
     it 'should get all faculties and display courses assigned to faculties' do
       session[:semester_id] = '1'
       Faculty.should_receive(:order).and_return(@fake_faculty)
-      faculty_courses = [double(:faculty_id => '1', :course1_id => '1', :course2_id => '2', :course3_id => '3', :faculty => double(:id => '', :faculty_name => ''), :course1 => double(:id => '', :course_name => '', :CourseTitle => ''), :course2 => double(:id => '', :course_name => '', :CourseTitle => ''), :course3 => double(:id => '', :course_name => '', :CourseTitle => ''))]
+      faculty_courses = [double(:faculty_id => '1', :course1_id => '1', :course2_id => '2', :course3_id => '3', :faculty => double(:id => '', :faculty_name => ''), :course1 => double(:id => '', :course_name => '', :course_title => ''), :course2 => double(:id => '', :course_name => '', :course_title => ''), :course3 => double(:id => '', :course_name => '', :course_title => ''))]
       FacultyCourse.should_receive(:where).with('semester_id = ?', '1').and_return(faculty_courses)
       post :index
       assigns(:faculties).should == @fake_faculty

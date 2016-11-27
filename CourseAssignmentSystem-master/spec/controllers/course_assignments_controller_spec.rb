@@ -9,7 +9,7 @@ describe CourseAssignmentsController do
   describe 'showing faculties' do
     before :each do
       @fake_faculties = [Faculty.new]
-      @fake_assignments = [double(:semester_id => '1', :faculty_id => '1', :course_id => '1', :room_id => '1', :day_combination_id => '1', :time_slot_id => '1', :course => double(:course_name => '', :CourseTitle => ''), :room => double(:room_name => '', :building_id => ''), :day_combination => double(:day_combination => ''), :time_slot => double(:time_slot => ''))]
+      @fake_assignments = [double(:semester_id => '1', :faculty_id => '1', :course_id => '1', :room_id => '1', :day_combination_id => '1', :time_slot_id => '1', :course => double(:course_name => '', :course_title => ''), :room => double(:room_name => '', :building_id => ''), :day_combination => double(:day_combination => ''), :time_slot => double(:time_slot => ''))]
       CourseAssignment.stub(:includes).and_return(CourseAssignment)
     end
     it 'should redirect to the home page if semester is not set' do
@@ -36,7 +36,7 @@ describe CourseAssignmentsController do
   end
   describe 'selecting faculty' do
     before :each do
-      @faculty_course = [double(:course1 => double(:id => '1', :course_name => 'test', :CourseTitle => 'test'), :course2 => double(:id => '2', :course_name => 'test', :CourseTitle => 'test'), :course3 => double(:id => '3', :course_name => 'test', :CourseTitle => 'test'))]
+      @faculty_course = [double(:course1 => double(:id => '1', :course_name => 'test', :course_title => 'test'), :course2 => double(:id => '2', :course_name => 'test', :course_title => 'test'), :course3 => double(:id => '3', :course_name => 'test', :course_title => 'test'))]
       @course = double(:id => '1', :course_name => 'test')
       FacultyCourse.stub(:includes).and_return(FacultyCourse)
       CourseAssignment.stub(:includes).and_return(CourseAssignment)
@@ -54,8 +54,8 @@ describe CourseAssignmentsController do
   end
   describe 'selecting building' do
     it 'should get rooms for the selected building' do
-      rooms = [double(:id => '1', :room_name => 'room1', :Capacity => '100'), double(:id => '1', :room_name => 'room2', :Capacity => '75')]
-      Room.should_receive(:where).with("building_id = ? and \"Capacity\" >= ?", '1', 100).and_return(rooms)
+      rooms = [double(:id => '1', :room_name => 'room1', :capacity => '100'), double(:id => '1', :room_name => 'room2', :capacity => '75')]
+      Room.should_receive(:where).with("building_id = ? and \"capacity\" >= ?", '1', 100).and_return(rooms)
       course_assignments = [double(:room_id => '1', :course_id => '1'), double(:room_id => '2',:course_id => '2'),double(:room_id => '3',:course_id => '3')]
       CourseAssignment.should_receive(:where).with("semester_id = ? and course_id = ?",'1','1').and_return(course_assignments)
       post :update_room, {:building_id => '1', :course_id => '1', :format => :json}

@@ -8,7 +8,7 @@ Feature: add Time preferences for a given faculty member
  Background: faculties,courses,classrooms,day-combinations and time-slots have been added to the database
 
    Given the following semesters exist:
-   | SemesterTitle |
+   | semester_title |
    | Fall 2015 |
 
    And the following faculties exist:
@@ -18,7 +18,7 @@ Feature: add Time preferences for a given faculty member
    | Ioerger Thomas |
 
    And the following courses exist:
-   | course_name | CourseTitle |
+   | course_name | course_title |
    | CSCE 606 | test1 |
    | CSCE/ECEN 680 | test2 |
    | CSCE 629 | test3 |

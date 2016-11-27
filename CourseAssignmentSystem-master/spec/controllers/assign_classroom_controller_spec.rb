@@ -21,10 +21,10 @@ describe ClassController,  :type => :controller do
     end
     it 'should create a new Room' do
       m = double(Building, :building_name => 'HRBB', :id => '1')
-      n = double(Room, :room_name => '124', :building_id => '1', :Capacity => '88')
+      n = double(Room, :room_name => '124', :building_id => '1', :capacity => '88')
       Building.stub(:find_or_create_by).and_return(m)
       Room.stub(:find_or_create_by).and_return(n)
-      post :new, {:class => {:building_name => 'HRBB', :room_name => 'TEST NAME', :building_id => m.id, :Capacity => :to_s}}
+      post :new, {:class => {:building_name => 'HRBB', :room_name => 'TEST NAME', :building_id => m.id, :capacity => :to_s}}
       response.should redirect_to(class_index_path)
     end
     it 'should redirect to home page if semester is not set' do
@@ -33,7 +33,7 @@ describe ClassController,  :type => :controller do
     end
     it 'should show a ClassroomTiming' do
       session[:semester_id] = '1'
-      m = double(Room, :room_name => '124', :building_id => '1', :Capacity => '88')
+      m = double(Room, :room_name => '124', :building_id => '1', :capacity => '88')
       classroomtimings = [double(:id => '1', :room_id => '1', :time_slot_id => '10:20 am to 11:10 am', :day_combination_id => 'MWF')]
       allow(ClassroomTiming).to receive(:where).with(session[:semester_id]) {classroomtimings}
       #ClassroomTiming.should_receive(:where).and_return(classroomtimings) 
@@ -45,12 +45,12 @@ describe ClassController,  :type => :controller do
       expect(flash[:error]).not_to  eq("Please choose semester")
     end
     it 'should call a updateRoom' do
-      m = double(Room, :room_name => '124', :building_id => '1', :Capacity => '88')
+      m = double(Room, :room_name => '124', :building_id => '1', :capacity => '88')
       Room.stub(:where).and_return(m)
       get :update_room ,format: :js
     end
     it 'should call a updateCapacity' do
-      m = double(Room, :room_name => '124', :building_id => '1', :Capacity => '88')
+      m = double(Room, :room_name => '124', :building_id => '1', :capacity => '88')
       Room.stub(:find_by_id).and_return(m)
       get :update_capacity, format: :js
     end

@@ -8,7 +8,7 @@ Feature: Add a page to assign classroom and time for each of the faculty courses
  Background: faculties,courses,classrooms,day-combinations and time-slots have been added to the database
 
  Given the following semesters exist:
- | SemesterTitle |
+ | semester_title |
  | Fall 2015 |
  
  And the following faculties exist:

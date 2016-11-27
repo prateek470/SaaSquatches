@@ -88,7 +88,7 @@ include ConflictCheckerHelper
 
 		  courseRow = courseDetails(courseID)
 		  course_name = courseRow.course_name
-		  course_title = courseRow.CourseTitle	 
+		  course_title = courseRow.course_title	 
 		 
 		  faculty_id = findFacultyforCourse(courseID)
 		  faculty_name = findFacultyName(faculty_id)
@@ -151,7 +151,7 @@ include ConflictCheckerHelper
       fac_name = relevant_preference[2]
       # Course Details
       cour_name = relevant_preference[0] # .course_name
-      cour_title = relevant_preference[1] # .CourseTitle
+      cour_title = relevant_preference[1] # .course_title
       # Day-Combo
       day_combo = (findDayCombinationDataFromId((relevant_preference[3]).day_combination_id)).day_combination
       # Time-Slot

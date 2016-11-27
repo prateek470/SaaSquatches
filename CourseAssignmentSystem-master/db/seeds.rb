@@ -224,6 +224,7 @@ semesters = [{:SemesterTitle => 'Fall 2015'},
 
 systemvariables = [{:name => 'num_pref_accept',:value => '5'},
 				   {:name => 'num_pref_unaccept',:value => '7'},
+				   {:name => 'num_pref_enabled',:value => '1'},
          		  ]		
 
 facultypreferences=[{:preference1_id=>14}]

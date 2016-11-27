@@ -216,6 +216,7 @@ class HomePageController < ApplicationController
   def numberpreference
     @pref = Systemvariable.find_by(:name => 'num_pref_accept')
     @unaccept = Systemvariable.find_by(:name => 'num_pref_unaccept')
+    @is_enabled = Systemvariable.find_by(:name => 'num_pref_enabled')
     if params[:class] != nil
       if params[:class][:preferred_val] != "" && params[:class][:unacceptable_val] != ""
         if params[:class][:preferred_val].to_i < 0 || params[:class][:preferred_val].to_i > 12 || params[:class][:unacceptable_val].to_i < 0 || params[:class][:unacceptable_val].to_i > 12
@@ -227,6 +228,9 @@ class HomePageController < ApplicationController
 
           @unaccept.value = params[:class][:unacceptable_val].to_i
           @unaccept.save
+
+          @is_enabled.value = params[:class][:enabled].to_i
+          @is_enabled.save
 
           flash[:success] = "Updated number of preferences!"
           redirect_to root_path

@@ -5,23 +5,26 @@ def new
 end
 
 def create
-  
   user_name = Faculty.where(:id=>params[:user][:faculty_id]).select(:faculty_name).take.faculty_name.to_s
   if !User.exists?(:faculty_id=>params[:user][:faculty_id])
     @user = User.new(user_params)
     if @user.save
-      session[:user_id] = @user.id
-      
+      # UserMailer.registration_confirmation(@user).deliver
+      # flash[:success] = "Please confirm your email address to continue"
+
+      # session[:user_id] = @user.id
       @user.update(faculty_name: user_name)
-      
       redirect_to '/login'
       flash[:success] = user_name+ " is signed up!"
+    elsif User.exists?(:email=>params[:user][:email].downcase)
+      flash[:error] = "Email Already Exists! For more help, contact Admin."
+      redirect_to '/signup'
     else
-      flash[:error] = "Please Enter Sign-up info"
+      flash[:error] = "Please enter correct Sign-up info."
       redirect_to '/signup'
     end
   else
-    flash[:error] = "User Already Exists!"
+    flash[:error] = "User Already Exists! Please contact Admin."
     redirect_to '/signup' 
   end
 end
@@ -30,6 +33,19 @@ end
   # User.find(params(:user_id).destroy
   # redirect_to '/signup'
  # end
+
+# def confirm_email
+#   user = User.find_by_confirm_token(params[:id])
+#   if user
+#     user.email_activate
+#     flash[:success] = "Welcome to the Sample App! Your email has been confirmed.
+#     Please sign in to continue."
+#     redirect_to '/login'
+#   else
+#     flash[:error] = "Sorry. User does not exist"
+#     redirect_to '/login'
+#   end
+# end
 
 private
   def user_params

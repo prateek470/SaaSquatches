@@ -5,4 +5,6 @@ class CourseAssignment < ActiveRecord::Base
 	belongs_to :day_combination
 	belongs_to :time_slot
 	belongs_to :semester
+
+	has_many :events, :dependent => :destroy
 end

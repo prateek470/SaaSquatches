@@ -1,5 +1,31 @@
 
-
+<style type="text/css">
+#wrapper {
+width:100%;
+margin : 0;
+}
+#first-div-calendar {
+width:40%;
+margin : 0;
+float : left ;
+text-align: center;
+vertical-align: middle;
+}
+#second-div-calendar {
+width:30%;
+margin : 0;
+float : left ;
+text-align: center;
+vertical-align: middle;
+}
+#third-div-calendar {
+width:30%;
+margin : 0;
+float : left ;
+text-align: center;
+vertical-align: middle;
+}
+</style>
 
 <div style="text-align:center">
     <div style="display: inline-block;">
@@ -15,18 +41,41 @@
     </div>
 </div>
 
-<div class="jumbotron">
-    <%= form_tag do %>
+<div id="wrapper">
+    <div class="jumbotron">
+	<div id="first-div-calendar" >
+	<%= form_tag do %>
     <p>
-      <%= label_tag :faculty_id, "Faculty Name: " %>
+      <%= label_tag :faculty_id, "Faculty: " %>
       <%= select_tag :faculty_id, options_from_collection_for_select(@faculties,"id","faculty_name"), :include_blank => true ,class: "btn btn-default dropdown-toggle"%>
       <%= submit_tag "Select" ,class: "btn btn-primary"%>
     </p>
     <% end %>
-  </div>
+	</div>
+	
+    <%= form_tag  do %>
+	<div id="second-div-calendar" >
+      <p>
+        <%= label_tag "Building:" %>
+        <%= select_tag :buildings_id , options_for_select(@building.collect { |building| [building.building_name, building.id] }, 0), {:include_blank => true, id: 'building_selection', class: "btn btn-default dropdown-toggle"} %>
+      </p>
+	</div>
+	<div id="third-div-calendar" >
+      <p>
+        <%= label_tag "Room:" %>
+         <%= select_tag :rooms_id, options_for_select(@rooms.collect { |room| [room.room_name, room.id] }, 0), {:include_blank => true, id: 'room_selection', class: "btn btn-default dropdown-toggle" } %>
+         <%= submit_tag "Submit" ,class: "btn btn-primary"%>
+      </p> 
+	  </div>
+	 </div>
+	<% end %>
+</div>
+
+<%= form_tag  do %>
+<%= submit_tag "Show All" ,class: "btn btn-primary"%>
+<% end %>
 
 <div id='calendar'>
-    
    
 </div>
 
@@ -56,8 +105,6 @@
 				    	session[:time_slot_id] ), {prompt: "Select Time", hide_label: :true }, 
 				    	{ id: 'sessionId' , class: "btn btn-default dropdown-toggle"} %>
       </p>
-      
-    
        
        <p>
            <%= f.label "Building" %>
@@ -72,18 +119,12 @@
       </p>
       </p>
          
-      </p>
-      <table>
-          
-          
-     <tr>
-         
-     <td>
+    </p>
+     <table>
+       <tr>
+       <td>
           <%= f.submit "Submit" %>
      </td>
-     
-      
- 
  <% end %>
  
  <%= form_for :class , method: :get, url:deleteevent_path do |f| %>
@@ -91,9 +132,7 @@
      <td>
          <%= f.submit "Delete" %>
      </td>
-     
-          </tr>
-      </table>
- 
- <%end %> 
-    </div>
+    </tr>
+    </table>
+ <% end %> 
+</div>

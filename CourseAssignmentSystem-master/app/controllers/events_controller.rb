@@ -1,4 +1,6 @@
 class EventsController < ApplicationController
+  @@faculty_selected = nil
+  @@room_selected = nil
   before_action :require_user, only: [:index,:prof_index]
   def new
     @event = Event.new
@@ -17,7 +19,6 @@ class EventsController < ApplicationController
   end 
   def create
     @event = Event.new(event_params)
-
     if @event.save
       render json: {msg: 'your event was saved.'}
     else
@@ -26,12 +27,20 @@ class EventsController < ApplicationController
   end
 
   def index
-    if params[:faculty_id]==nil || params[:faculty_id] == ""
-      permission = Faculty.where(:id=>session[:faculty_id]).select("permission").take.permission
-    else
-      session[:faculty_id] = params[:faculty_id]
-      permission = Faculty.where(:id=>params[:faculty_id]).select("permission").take.permission
+    permission = Faculty.where(:id=>session[:faculty_id]).select("permission").take.permission
+    if params[:start]==nil || params[:start] == ""
+      if params[:faculty_id]==nil || params[:faculty_id] == ""
+        @@faculty_selected = nil
+      else
+        @@faculty_selected = params[:faculty_id]
+      end
+      if params[:rooms_id]==nil || params[:rooms_id]==""
+        @@room_selected = nil
+      else
+        @@room_selected = params[:rooms_id]
+      end
     end
+
     @course_assignments = CourseAssignment.all
     @faculties = Faculty.order(faculty_name: :asc)
     @timeslot = TimeSlot.all
@@ -73,14 +82,26 @@ class EventsController < ApplicationController
           end 
         end 
     end 
-   
+
     if permission == "User"
       courses = CourseAssignment.where(:faculty_id => session[:faculty_id], :semester_id => session[:semester_id]).pluck(:id)
       puts courses
-       @events = Event.where(course_assignment_id: courses)
+      @events = Event.where(course_assignment_id: courses)
     elsif permission == "Admin"
-      semester = CourseAssignment.where(:semester_id => session[:semester_id]).pluck(:id)
-       @events = Event.where(course_assignment_id: semester)
+    #Update Events on the basis of selected faculty
+      if @@faculty_selected != nil
+        courses = CourseAssignment.where(:faculty_id => @@faculty_selected, :semester_id => session[:semester_id]).pluck(:id)
+        puts courses
+        @events = Event.where(course_assignment_id: courses)
+      elsif @@room_selected !=nil
+      #Update Events on the basis of selected room
+        room = CourseAssignment.where(:room_id => @@room_selected, :semester_id => session[:semester_id]).pluck(:id)
+        @events = Event.where(course_assignment_id: room)
+      else
+        #Show full calendar
+        semester = CourseAssignment.where(:semester_id => session[:semester_id]).pluck(:id)
+        @events = Event.where(course_assignment_id: semester)
+      end
     end 
   
     #@events = Event.all
@@ -182,7 +203,7 @@ end
    @building = Building.all
    @rooms = Room.all
    	#if params[:class] != nil && params[:class][:CourseName] != ""
-    		#Course.create!(:course_name => params[:class][:CourseName], :CourseTitle => params[:class][:CourseTitle], :course_size => params[:course_size][:course_size])
+    		#Course.create!(:course_name => params[:class][:CourseName], :course_title => params[:class][:course_title], :course_size => params[:course_size][:course_size])
   	#end
   	
   #	{"utf8"=>"✓",
@@ -195,7 +216,7 @@ end
     temp = Event.where(:id=> params[:class][:name]).select("course_assignment_id").take.course_assignment_id
     course_id = CourseAssignment.where(:id=> temp).select("course_id").take.course_id
     course_size = Course.where(:id=>course_id).select("course_size").take.course_size
-    @rooms = Room.where("building_id = ? and Capacity >= ?", params[:building_id], course_size)
+    @rooms = Room.where("building_id = ? and capacity >= ?", params[:building_id], course_size)
     assignment = CourseAssignment.where(:id=>temp).select("time_slot_id").take.time_slot_id
     if assignment != params[:class][:time_slot_id]
       #Update the timeslot with the correct day combination in CourseAssignment
@@ -205,7 +226,7 @@ end
       building_id = Building.where(:id=>params[:class][:building_id]).select("id").take.id
       
       if !CourseAssignment.exists?(:time_slot_id => ts, :day_combination_id => dayId, :room_id => room_id)
-        capacity = Room.where(:id=> room_id).select("Capacity").take.Capacity
+        capacity = Room.where(:id=> room_id).select("capacity").take.capacity
         if course_size==nil
           course_size = 0
         end
@@ -227,9 +248,18 @@ def update_rooms
   course =  Event.where(:id=> params[:class][:name]).select("course_assignment_id").take.course_assignment_id
   course_id = CoruseAssignment.where(:id=> course).select("course_id").take.course_id
   course_size = Course.where(:id=>course_id).select("course_size").take.course_size
-  @rooms = Room.where("building_id = ? and Capacity >= ?", params[:building_id], course_size)
+  @rooms = Room.where("building_id = ? and capacity >= ?", params[:building_id], course_size)
   respond_to do |format|
     format.js 
+  end
+end
+
+#Method functions:
+#1)Used (during AJAX call)to update room numbers based on building selected 
+def update_room_selection
+  @rooms = Room.where("building_id = ?", params[:building_id])
+  respond_to do |format|
+    format.js
   end
 end
 

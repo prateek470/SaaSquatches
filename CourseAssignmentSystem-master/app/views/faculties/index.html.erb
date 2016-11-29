@@ -4,11 +4,13 @@
     <table class="table table-bordered">
         <tr>
           <th>Name</th>
+          <th>Access level</th>
           <th>Delete</th>
         </tr>
         <% @faculties.each do |fac| %>
             <tr>
                 <td><%= fac.faculty_name %></td>
+                <td><%= fac.permission %></td>
                 <td><%= link_to 'Delete', faculty_path(fac.id), :method => :delete, data: { confirm: 'Are you sure you want to delete Dr. '+fac.faculty_name+' ?' } %></td>
                 
             </tr>

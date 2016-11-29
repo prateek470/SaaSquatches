@@ -51,7 +51,7 @@ class Semester < ActiveRecord::Base
                                 ]
 
     def self.create_semester(name)
-	semester = Semester.create!(SemesterTitle: name)
+	semester = Semester.create!(semester_title: name)
 	@@classroomtimings.each do |cts|
 		cts[:semester_id] = semester.id.to_s
   		ClassroomTiming.create!(cts)

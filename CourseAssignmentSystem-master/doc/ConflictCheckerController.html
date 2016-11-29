@@ -354,7 +354,7 @@
 <span class='ivar'>@course_id</span> <span class='op'>=</span> <span class='id identifier rubyid_faculty_preference'>faculty_preference</span><span class='period'>.</span><span class='id identifier rubyid_faculty_course_id'>faculty_course_id</span>	 
 <span class='ivar'>@courseRow</span> <span class='op'>=</span> <span class='id identifier rubyid_courseDetails'>courseDetails</span><span class='lparen'>(</span><span class='ivar'>@course_id</span><span class='rparen'>)</span>
 <span class='ivar'>@course_name</span> <span class='op'>=</span> <span class='ivar'>@courseRow</span><span class='period'>.</span><span class='id identifier rubyid_course_name'>course_name</span>
-<span class='ivar'>@course_title</span> <span class='op'>=</span> <span class='ivar'>@courseRow</span><span class='period'>.</span><span class='const'>CourseTitle</span>	 
+<span class='ivar'>@course_title</span> <span class='op'>=</span> <span class='ivar'>@courseRow</span><span class='period'>.</span><span class='const'>course_title</span>	 
  
 <span class='ivar'>@faculty_id</span> <span class='op'>=</span> <span class='id identifier rubyid_findFacultyforCourse'>findFacultyforCourse</span><span class='lparen'>(</span><span class='ivar'>@course_id</span><span class='rparen'>)</span>
 <span class='ivar'>@faculty_name</span> <span class='op'>=</span> <span class='id identifier rubyid_findFacultyName'>findFacultyName</span><span class='lparen'>(</span><span class='ivar'>@faculty_id</span><span class='rparen'>)</span>
@@ -399,7 +399,7 @@
 </span>	<span class='ivar'>@fac_name</span> <span class='op'>=</span> <span class='id identifier rubyid_relevant_preference'>relevant_preference</span><span class='lbracket'>[</span><span class='int'>2</span><span class='rbracket'>]</span>
 	<span class='comment'># Course Details
 </span>	<span class='ivar'>@cour_name</span> <span class='op'>=</span> <span class='id identifier rubyid_relevant_preference'>relevant_preference</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span> <span class='comment'># .course_name
-</span>	<span class='ivar'>@cour_title</span> <span class='op'>=</span> <span class='id identifier rubyid_relevant_preference'>relevant_preference</span><span class='lbracket'>[</span><span class='int'>1</span><span class='rbracket'>]</span> <span class='comment'># .CourseTitle
+</span>	<span class='ivar'>@cour_title</span> <span class='op'>=</span> <span class='id identifier rubyid_relevant_preference'>relevant_preference</span><span class='lbracket'>[</span><span class='int'>1</span><span class='rbracket'>]</span> <span class='comment'># .course_title
 </span>	<span class='comment'># Day-Combo
 </span>	<span class='ivar'>@day_combo</span> <span class='op'>=</span> <span class='lparen'>(</span><span class='id identifier rubyid_findDayCombinationDataFromId'>findDayCombinationDataFromId</span><span class='lparen'>(</span><span class='lparen'>(</span><span class='id identifier rubyid_relevant_preference'>relevant_preference</span><span class='lbracket'>[</span><span class='int'>3</span><span class='rbracket'>]</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_day_combination_id'>day_combination_id</span><span class='rparen'>)</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_day_combination'>day_combination</span>
 	<span class='comment'># Time-Slot

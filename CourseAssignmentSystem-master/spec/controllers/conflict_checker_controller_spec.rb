@@ -43,7 +43,7 @@ describe ConflictCheckerController do
       Preference.stub(:find_by).and_return(preferences[0])
       faculty_courses = [double(:faculty_id => '1', :course1_id => 1, :course2_id => nil, :course3_id => nil, :id => 1)]
       FacultyCourse.stub(:where).and_return(faculty_courses)
-      courses = [double(:course_name => '229', :CourseTitle => 'test1', :id => 1)]
+      courses = [double(:course_name => '229', :course_title => 'test1', :id => 1)]
       Course.stub(:all).and_return(courses)
       faculties = [double(:id => 1, :faculty_name => 'test1')]
       Faculty.stub(:all).and_return(faculties)

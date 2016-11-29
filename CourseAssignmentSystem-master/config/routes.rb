@@ -20,6 +20,7 @@ Rails.application.routes.draw do
   post 'events/create'
   get "editevent" => 'events#editevent'
   get 'events/update_rooms', :as => 'update_rooms'
+  get 'events/update_room_selection' => 'events#update_room_selection'
   get 'events/show'
   get "display_events" => 'events#prof_index'
   get "deleteevent" => 'events#deleteevent'

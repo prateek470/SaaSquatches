@@ -8,7 +8,7 @@ Feature: add a page to check conflicts among faculty preferences
  Background: faculties, courses, classrooms and preferences have been added to the database
 
  Given the following semesters exist:
-   | SemesterTitle |
+   | semester_title |
    | Fall 2015 |
 
  Given the following faculties exist:

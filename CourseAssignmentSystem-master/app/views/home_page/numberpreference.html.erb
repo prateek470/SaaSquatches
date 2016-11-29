@@ -5,12 +5,16 @@
  
 <%= form_for :class , method: :get, url: numberpreference_path do |f| %>
   <p>
-    <%= f.label "Preferred Preferences:" %>
+    <%= f.label "Preferred Preferences: " %>
     <%= f.number_field :preferred_val, min: 1, max: 12, value: @pref.value %>
   </p>
   <p>
-    <%= f.label "Unacceptable Preferences:" %>
+    <%= f.label "Unacceptable Preferences: " %>
     <%= f.number_field :unacceptable_val, min: 1, max: 12, value: @unaccept.value %>
+  </p>
+  <p>
+    <%= f.label "Enable Preference Setting:  " %>
+    <%= f.check_box :enabled, checked: @is_enabled.value=="1" %>
   </p>
   <p>
      <%= f.submit "Submit",class:"btn btn-primary" %>

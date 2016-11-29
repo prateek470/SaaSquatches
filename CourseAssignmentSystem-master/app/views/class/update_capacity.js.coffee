@@ -1,1 +1,1 @@
-$("#class_room_capacity").val("<%= @capacity.Capacity %>")
+$("#class_room_capacity").val("<%= @capacity.capacity %>")

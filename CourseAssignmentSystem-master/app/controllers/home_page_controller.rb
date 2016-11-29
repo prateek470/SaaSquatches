@@ -24,19 +24,18 @@ class HomePageController < ApplicationController
   end
 
   def addcourse
-    @data = Course.select('id,course_name,courseTitle,course_size')
-  	if params[:class] != nil && params[:class][:CourseName] != "" && params[:class][:CourseTitle] != "" && params[:class][:course_size] !=""
-  	  flash[:error] = nil
+    @data = Course.select('id,course_name,course_title,course_size')
+  	if params[:class] != nil && params[:class][:CourseName] != "" && params[:class][:course_title] != "" && params[:class][:course_size] !=""
       if !Course.exists?(:course_name => params[:class][:CourseName])
-        Course.create!(:course_name => params[:class][:CourseName], :CourseTitle => params[:class][:CourseTitle], :course_size => params[:class][:course_size])
+        Course.create!(:course_name => params[:class][:CourseName], :course_title => params[:class][:course_title], :course_size => params[:class][:course_size])
         flash[:success]= params[:class][:CourseName] + " added to the courses"
       else
-        Course.where(:course_name => params[:class][:CourseName]).update_all(:CourseTitle => params[:class][:CourseTitle], :course_size => params[:class][:course_size])
+        Course.where(:course_name => params[:class][:CourseName]).update_all(:course_title => params[:class][:course_title], :course_size => params[:class][:course_size])
         flash[:success]= "Course " + params[:class][:CourseName] + " updated."
       end
     elsif params[:class] != nil && params[:class][:CourseName] == ""
       flash[:error]= "Course name cannot be empty!"
-    elsif params[:class] != nil && params[:class][:CourseTitle] == ""
+    elsif params[:class] != nil && params[:class][:course_title] == ""
       flash[:error]= "Course title cannot be empty!"
     elsif params[:class] != nil && params[:class][:course_size] == ""
       flash[:error]= "Course size should be more than 0!"
@@ -197,10 +196,10 @@ class HomePageController < ApplicationController
   
   def createsemester
     success = false;
-    if params[:class] != nil && params[:class][:SemesterTitle] != ""
-      semester = Semester.find_by(SemesterTitle: params[:class][:SemesterTitle])
+    if params[:class] != nil && params[:class][:semester_title] != ""
+      semester = Semester.find_by(semester_title: params[:class][:semester_title])
       if semester == nil
-        Semester.create_semester(params[:class][:SemesterTitle])
+        Semester.create_semester(params[:class][:semester_title])
         success = true
       end
     end
@@ -216,6 +215,7 @@ class HomePageController < ApplicationController
   def numberpreference
     @pref = Systemvariable.find_by(:name => 'num_pref_accept')
     @unaccept = Systemvariable.find_by(:name => 'num_pref_unaccept')
+    @is_enabled = Systemvariable.find_by(:name => 'num_pref_enabled')
     if params[:class] != nil
       if params[:class][:preferred_val] != "" && params[:class][:unacceptable_val] != ""
         if params[:class][:preferred_val].to_i < 0 || params[:class][:preferred_val].to_i > 12 || params[:class][:unacceptable_val].to_i < 0 || params[:class][:unacceptable_val].to_i > 12
@@ -228,6 +228,9 @@ class HomePageController < ApplicationController
           @unaccept.value = params[:class][:unacceptable_val].to_i
           @unaccept.save
 
+          @is_enabled.value = params[:class][:enabled].to_i
+          @is_enabled.save
+
           flash[:success] = "Updated number of preferences!"
           redirect_to root_path
         end
@@ -238,12 +241,12 @@ class HomePageController < ApplicationController
   end
 
   def addclassroom
-    @allRooms = Room.select('room_name,Capacity,building_id')
+    @allRooms = Room.select('room_name,capacity,building_id')
     @allBuildings = Building.select('building_name,id')
     if  params[:class] != nil && params[:class][:building_name] != "" && params[:class][:room_name] != "" && params[:class][:room_capacity] != "" 
       @building = Building.find_or_create_by!(:building_name=>params[:class][:building_name].upcase)
       @room = Room.find_or_create_by!(:room_name=>params[:class][:room_name],:building_id=>@building.id)
-      @room.Capacity =  params[:class][:room_capacity]
+      @room.capacity =  params[:class][:room_capacity]
       @room.save
       flash[:success] = "Successfully added/updated classroom " +params[:class][:room_name]+ " in " + params[:class][:building_name].upcase+ " building"
       redirect_to addclassroom_path

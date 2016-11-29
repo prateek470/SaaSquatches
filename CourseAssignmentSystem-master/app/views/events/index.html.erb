@@ -9,6 +9,7 @@
                 <td><%= link_to "Assign Faculty To Courses", faculty_courses_path, class: "btn btn-default btn-lg" %></td>
                 <td> <%= link_to "Schedule Course", course_assignments_path, class: "btn btn-default btn-lg" %></td>
                 <td> <%= link_to "Preference Summary", pref_summary_index_path, class: "btn btn-default btn-lg" %></td>
+                <td> <%= link_to "Export List of Events", events_path(format: "csv"), class: "btn btn-lg btn-default" %></td>
             </tr>
         </table>
     </div>

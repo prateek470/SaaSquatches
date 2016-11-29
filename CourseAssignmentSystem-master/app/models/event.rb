@@ -23,4 +23,29 @@ class Event < ActiveRecord::Base
       :color => "green"
     }
   end
+
+  def self.to_csv(options = {})
+    CSV.generate(options) do |csv|
+      csv << ["Faculty Name","Course-Building-Room","Day","Time Slot"]
+      all.each do |event|
+        course_assignment_ids = CourseAssignment.where(:id => event.course_assignment_id)
+        course_assignment_ids.each do |course|
+          if (course.id == event.course_assignment_id)
+            faculties = Faculty.where(:id => course.faculty_id)
+            days = DayCombination.where(:id => course.day_combination_id)
+            times = TimeSlot.where(:id => course.time_slot_id)
+            faculties.each do |faculty|
+              days.each do |day|
+                times.each do |time|
+                  if(time.id == course.time_slot_id && day.id == course.day_combination_id && faculty.id == course.faculty_id)
+                    csv << [faculty.faculty_name, event.title, day.day_combination, time.time_slot]
+                  end
+                end
+              end
+            end  
+          end
+        end
+      end
+    end
+  end
 end

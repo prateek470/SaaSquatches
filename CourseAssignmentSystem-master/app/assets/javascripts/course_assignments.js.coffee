@@ -7,13 +7,14 @@ $ ->
       data: {
         faculty_id: $("#faculty_id option:selected").val()
       }
+
     $.ajax 'course_assignments/show_faculty_preference',
-    type: 'GET'
-    dataType: 'json'
-    data: {
-      faculty_id: $("#faculty_id option:selected").val()
-    }
-    success: (data, textStatus, jqXHR) ->
+      type: 'GET'
+      dataType: 'json'
+      data: {
+        faculty_id: $("#faculty_id option:selected").val()
+      }
+      success: (data, textStatus, jqXHR) ->
         $("#first-div").empty()
         $("#second-div").empty()
         $("#first-div").append("<table class = \"table table-bordered\">
@@ -34,8 +35,8 @@ $ ->
         for badtimes in data.badtimes
           $("#second-div").append(badtimes)
           $("#second-div").append("<br></br>")
-    error: (xhr) ->
-      alert 'Dialog3'
+      error: (xhr) ->
+        alert 'Some error in Show Faculty Preference'
 
 
     

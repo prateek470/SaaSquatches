@@ -78,7 +78,10 @@ class CourseAssignmentsController < ApplicationController
   			flash[:error] = "Assignment already exists for the chosen building, room, day combination or time slot."
   			course_assignment_id = duplicate_assignment[1].id
         CourseAssignment.where(:id=> course_assignment_id).destroy_all
-  		elsif course_assignment == nil
+      else
+        if course_assignment != nil
+          CourseAssignment.destroy(course_assignment.id)
+        end
   			attributes[:semester_id] = session[:semester_id]
   			attributes[:faculty_id] = faculty_id
   			attributes[:course_id] = course_id
@@ -86,10 +89,6 @@ class CourseAssignmentsController < ApplicationController
   			faculty = course_assignment.faculty
   			course = course_assignment.course
   			flash[:success] = "Created course assignment for " + faculty.faculty_name + ", " + course.course_name
-  			has_updated = true
-  		else
-        course_assignment.update_attributes!(attributes)
-  			flash[:success] = "Updated course assignment for " + faculty.faculty_name + ", " + course.course_name
   			has_updated = true
   		end
   	end

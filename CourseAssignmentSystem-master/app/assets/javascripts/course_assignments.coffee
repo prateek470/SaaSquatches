@@ -1,4 +1,3 @@
-
 $ ->
    $(document).on 'change', "#faculty_id", (evt) ->
     $.ajax 'course_assignments/update_faculty_details',
@@ -8,12 +7,12 @@ $ ->
         faculty_id: $("#faculty_id option:selected").val()
       }
     $.ajax 'course_assignments/show_faculty_preference',
-    type: 'GET'
-    dataType: 'json'
-    data: {
-      faculty_id: $("#faculty_id option:selected").val()
-    }
-    success: (data, textStatus, jqXHR) ->
+     type: 'GET'
+     dataType: 'json'
+     data: {
+       faculty_id: $("#faculty_id option:selected").val()
+     }
+     success: (data, textStatus, jqXHR) ->
         $("#first-div").empty()
         $("#second-div").empty()
         $("#first-div").append("<table class = \"table table-bordered\">
@@ -35,7 +34,4 @@ $ ->
           $("#second-div").append(badtimes)
           $("#second-div").append("<br></br>")
     error: (xhr) ->
-      alert 'Dialog3'
-
-
-    
+     alert 'Dialog3'

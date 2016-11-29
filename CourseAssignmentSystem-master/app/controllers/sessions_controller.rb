@@ -3,10 +3,15 @@ def new
 end
 
   def create 
-    @user = User.find_by_email(params[:session][:email])
+    @user = User.find_by_email(params[:session][:email].downcase)
     if @user && @user.authenticate(params[:session][:password])
+      # if !@user.email_confirmed
+      #   flash[:error] = 'Please activate your account by following the 
+      #   instructions in the account confirmation email you received to proceed'
+      #   # redirect_to '/signup'
+      #   # return
+      # end
       session[:user_id] = @user.id
-      
       #prof_id = User.where(:id=>@user).select(:faculty_id).take.faculty_id.to_s
       #prof_permission = Faculty.where(:id=>prof_id).select(:permission).take.permission.to_s
       faculty = Faculty.find_by_id(@user.faculty_id)

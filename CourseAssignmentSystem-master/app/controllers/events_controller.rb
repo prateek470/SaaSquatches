@@ -108,6 +108,7 @@ class EventsController < ApplicationController
     respond_to do |format| 
       format.html
       format.json { render :json => @events } 
+      format.csv { send_data @events.to_csv }
     end
   end
   

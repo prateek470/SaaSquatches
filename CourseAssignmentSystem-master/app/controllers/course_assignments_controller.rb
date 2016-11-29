@@ -308,7 +308,6 @@ class CourseAssignmentsController < ApplicationController
 	  respond_to do |format|
 		format.json {render :json => {:goodtimes => @goodtimes, 
 		                              :badtimes => @badtimes}}
-		# format.json {render json: @badtimes}
 		end	
   end
   

@@ -8,6 +8,7 @@ $ ->
         faculty_id: $("#faculty_id option:selected").val()
       }
 
+   $(document).on 'click', '#show_faculty_pref', (evt) ->
     $.ajax 'course_assignments/show_faculty_preference',
       type: 'GET'
       dataType: 'json'
@@ -37,6 +38,3 @@ $ ->
           $("#second-div").append("<br></br>")
       error: (xhr) ->
         alert 'Some error in Show Faculty Preference'
-
-
-    

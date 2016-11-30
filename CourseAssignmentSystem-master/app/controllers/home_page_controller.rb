@@ -44,6 +44,23 @@ class HomePageController < ApplicationController
   
   def delete_course
     @course = Course.find(params[:id])
+    #Delete Course from Faculty courses table too
+    faculties = FacultyCourse.where(:course1_id => @course.id)
+    faculties.each do |faculty|
+      faculty.course1_id = nil
+      faculty.save!
+    end
+    faculties = FacultyCourse.where(:course2_id => @course.id)
+    faculties.each do |faculty|
+      faculty.course2_id = nil
+      faculty.save!
+    end
+    faculties = FacultyCourse.where(:course3_id => @course.id)
+    faculties.each do |faculty|
+      faculty.course3_id = nil
+      faculty.save!
+    end
+    #Now destroy the course 
     @course.destroy
     flash[:danger] = "Course successfully deleted."
     redirect_to addcourse_path

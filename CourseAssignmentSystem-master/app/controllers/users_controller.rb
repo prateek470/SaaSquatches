@@ -39,7 +39,7 @@ def confirm_email
     Please sign in to continue."
     redirect_to '/login'
   else
-    flash[:error] = "Sorry. User does not exist"
+    flash[:error] = "Sorry. User does not exist or already activated."
     redirect_to '/login'
   end
 end

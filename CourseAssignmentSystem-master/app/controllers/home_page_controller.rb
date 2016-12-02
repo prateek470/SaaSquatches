@@ -7,7 +7,7 @@ class HomePageController < ApplicationController
   end
   
   def resetuser
-    @users = User.all
+    @users = User.order(faculty_name: :asc)
     
     if params[:class] != nil
       desired_user = params[:class][:selectedUser]
@@ -29,7 +29,7 @@ class HomePageController < ApplicationController
   end
 
   def addcourse
-    @data = Course.select('id,course_name,course_title,course_size')
+    @data = Course.select('id,course_name,course_title,course_size').order(course_name: :asc)
   	if params[:class] != nil && params[:class][:CourseName] != "" && params[:class][:course_title] != "" && params[:class][:course_size] !=""
       if !Course.exists?(:course_name => params[:class][:CourseName])
         Course.create!(:course_name => params[:class][:CourseName], :course_title => params[:class][:course_title], :course_size => params[:class][:course_size])
@@ -84,7 +84,7 @@ class HomePageController < ApplicationController
     if session[:semester_id] !=nil && session[:semester_id]!=""
       @timeslot = TimeSlot.all
       @semester_id = session[:semester_id]
-      @faculty = Faculty.all
+      @faculty = Faculty.order(faculty_name: :asc)
       @defaultBad = Array.new
 
       @preferred_no = Systemvariable.find_by(:name => 'num_pref_accept').value.to_i

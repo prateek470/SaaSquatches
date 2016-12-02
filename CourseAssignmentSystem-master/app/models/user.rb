@@ -10,13 +10,6 @@ class User < ActiveRecord::Base
 	  self.email.downcase! if self.email
 	end
 
-	private
-	def confirmation_token
-	  if self.confirm_token.blank?
-	    self.confirm_token = SecureRandom.urlsafe_base64.to_s
-	  end
-	end
-
 	def email_activate
       self.email_confirmed = true
       self.confirm_token = nil
@@ -26,5 +19,12 @@ class User < ActiveRecord::Base
 	def self.find_for_authentication(conditions) 
 	  conditions[:email].downcase! 
 	  super(conditions) 
+	end
+
+	private
+	def confirmation_token
+	  if self.confirm_token.blank?
+	    self.confirm_token = SecureRandom.urlsafe_base64.to_s
+	  end
 	end
 end

@@ -27,7 +27,7 @@ def index #def
                     fac_preference = faculty.preference
                     if fac_preference !=nil
                         facultyPreference = FacultyPreference.find_by_id(fac_preference)
-                        preferences = facultyPreference.as_json(except: [:created_at,:updated_at,:faculty_course_id,:id,:semester_id])
+                        preferences = facultyPreference.as_json(except: [:created_at,:updated_at,:faculty_course_id,:id,:faculty_id,:semester_id])
                         for preference in preferences.keys
                           prefid = preferences[preference]
 
@@ -46,7 +46,7 @@ def index #def
                     bad_preference = faculty.bad_preference
                     if bad_preference !=nil
                         facultyPreference = FacultyPreference.find_by_id(bad_preference)
-                        preferences = facultyPreference.as_json(except: [:created_at,:updated_at,:faculty_course_id,:id,:semester_id])
+                        preferences = facultyPreference.as_json(except: [:created_at,:updated_at,:faculty_course_id,:id,:faculty_id,:semester_id])
                         for preference in preferences.keys
                           prefid = preferences[preference] 
                           if prefid !=nil

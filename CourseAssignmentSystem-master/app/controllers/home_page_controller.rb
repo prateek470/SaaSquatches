@@ -24,7 +24,7 @@ class HomePageController < ApplicationController
   end
 
   def addcourse
-    @data = Course.select('id,course_name,course_title,course_size')
+    @data = Course.select('id,course_name,course_title,course_size').order(course_name: :asc)
   	if params[:class] != nil && params[:class][:CourseName] != "" && params[:class][:course_title] != "" && params[:class][:course_size] !=""
       if !Course.exists?(:course_name => params[:class][:CourseName])
         Course.create!(:course_name => params[:class][:CourseName], :course_title => params[:class][:course_title], :course_size => params[:class][:course_size])

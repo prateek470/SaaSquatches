@@ -213,7 +213,7 @@ end
   #"name"=>"1"},
   #"commit"=>"Submit"
   
-  if params[:class] != nil && params[:class][:name] != ""
+  if params[:class] != nil && params[:class][:name] != "" && params[:class][:time_slot_id]!="" && params[:class][:building_id] && params[:class][:room_id]!=""
     temp = Event.where(:id=> params[:class][:name]).select("course_assignment_id").take.course_assignment_id
     course_id = CourseAssignment.where(:id=> temp).select("course_id").take.course_id
     course_size = Course.where(:id=>course_id).select("course_size").take.course_size
@@ -241,7 +241,10 @@ end
         flash[:error] = "Course Conflict at this Time"
       end 
       redirect_to events_path
-    end 
+    end
+  else 
+    flash[:error] = "Please choose all required parameters"
+    redirect_to events_path
   end 
  end
  

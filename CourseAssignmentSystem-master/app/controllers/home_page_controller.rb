@@ -16,9 +16,14 @@ class HomePageController < ApplicationController
         redirect_to resetuser_path
       else
         name = @users.where(:id =>desired_user).select(:faculty_name).take.faculty_name.to_s
-        User.destroy(desired_user)
-        flash[:success] = "Reset Account for " + name
-        redirect_to root_path
+        if name == "Super Admin"
+          flash[:error] = "You cannot reset Super Admin."
+          redirect_to resetuser_path
+        else
+          User.destroy(desired_user)
+          flash[:success] = "Reset Account for " + name
+          redirect_to root_path
+        end
       end
     end
   end

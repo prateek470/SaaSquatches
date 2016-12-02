@@ -7,7 +7,7 @@ class HomePageController < ApplicationController
   end
   
   def resetuser
-    @users = User.all
+    @users = User.order(faculty_name: :asc)
     
     if params[:class] != nil
       desired_user = params[:class][:selectedUser]
@@ -79,7 +79,7 @@ class HomePageController < ApplicationController
     if session[:semester_id] !=nil && session[:semester_id]!=""
       @timeslot = TimeSlot.all
       @semester_id = session[:semester_id]
-      @faculty = Faculty.all
+      @faculty = Faculty.order(faculty_name: :asc)
       @defaultBad = Array.new
 
       @preferred_no = Systemvariable.find_by(:name => 'num_pref_accept').value.to_i

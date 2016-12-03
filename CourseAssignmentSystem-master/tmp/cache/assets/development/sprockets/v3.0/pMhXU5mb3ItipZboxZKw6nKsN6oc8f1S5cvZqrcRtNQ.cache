@@ -1,0 +1,38 @@
+I"
+(function() {
+  $(function() {
+    return $(document).on('change', '#building_select', function(evt) {
+      return $.ajax('events/update_rooms', {
+        type: 'GET',
+        dataType: 'script',
+        data: {
+          building_id: $("#building_select option:selected").val()
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+          return console.log("AJAX Error: " + textStatus);
+        },
+        success: function(data, textStatus, jqXHR) {
+          return console.log("Dynamic country select OK!");
+        }
+      });
+    });
+  });
+
+  $(document).on('change', '#building_selection', function(evt) {
+    return $.ajax('events/update_room', {
+      type: 'GET',
+      dataType: 'script',
+      data: {
+        building_id: $("#building_selection option:selected").val()
+      },
+      error: function(jqXHR, textStatus, errorThrown) {
+        return alert('Error');
+      },
+      success: function(data, textStatus, jqXHR) {
+        return alert('Successfully');
+      }
+    });
+  });
+
+}).call(this);
+:ET

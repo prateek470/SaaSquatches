@@ -1,0 +1,48 @@
+I"¿(function() {
+  $(function() {
+    $(document).on('change', "#faculty_id", function(evt) {
+      return $.ajax('course_assignments/update_faculty_details', {
+        type: 'GET',
+        dataType: 'script',
+        data: {
+          faculty_id: $("#faculty_id option:selected").val()
+        }
+      });
+    });
+    return $(document).on('click', '#show_faculty_pref', function(evt) {
+      return $.ajax('course_assignments/show_faculty_preference', {
+        type: 'GET',
+        dataType: 'json',
+        data: {
+          faculty_id: $("#faculty_id option:selected").val()
+        },
+        success: function(data, textStatus, jqXHR) {
+          var badtimes, goodtimes, i, j, len, len1, ref, ref1, results;
+          $("#first-div").empty();
+          $("#second-div").empty();
+          $("#first-div").append("<table class = \"table table-bordered\"> <thead> <tr> <th>Good Preference</th> </tr> </thead>");
+          ref = data.goodtimes;
+          for (i = 0, len = ref.length; i < len; i++) {
+            goodtimes = ref[i];
+            $("#first-div").append(goodtimes);
+            $("#first-div").append("<br></br>");
+          }
+          $("#second-div").append("<table class = \"table table-bordered\"> <thead> <tr> <th>Bad Preference</th> </tr> </thead>");
+          ref1 = data.badtimes;
+          results = [];
+          for (j = 0, len1 = ref1.length; j < len1; j++) {
+            badtimes = ref1[j];
+            $("#second-div").append(badtimes);
+            results.push($("#second-div").append("<br></br>"));
+          }
+          return results;
+        },
+        error: function(xhr) {
+          return alert('Some error in Show Faculty Preference');
+        }
+      });
+    });
+  });
+
+}).call(this);
+:ET

@@ -40,9 +40,9 @@
                 <span class="icon-bar"></span>
               </button>
               
-              <a class="navbar-brand topnav" href="https://howdy.tamu.edu/cp/home/displaylogin">Howdy</a>
+              <a class="navbar-brand topnav" >Howdy, <%= current_user.faculty_name %></a>
             </div>
-            <div class="nav navbar-nav navbar-right">
+            <div class="nav navbar-brand navbar-right">
               <% if current_user %>
                 <ul>
                   <li><%= link_to "Log Out", logout_path, method: "delete" %></li>
@@ -66,7 +66,7 @@
 
             <div class="row">
               <div class="col-lg-12">
-                <div class="intro-message">
+                <div class="row">
                   <h1>Course Assignment System</h1>
                   <p>
                     <%= form_for :class,  method: :get , url: setsession_path do |f| %>

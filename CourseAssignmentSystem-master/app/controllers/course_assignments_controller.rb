@@ -305,10 +305,13 @@ class CourseAssignmentsController < ApplicationController
           end
         end
         end
-	  respond_to do |format|
-		format.json {render :json => {:goodtimes => @goodtimes, 
-		                              :badtimes => @badtimes}}
-		end	
+	 # respond_to do |format|
+		# format.json {render :json => {:goodtimes => @goodtimes, 
+		#                               :badtimes => @badtimes}}
+		# end	
+		respond_to do |format|
+      format.js
+    end
   end
   
 end

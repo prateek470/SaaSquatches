@@ -90,6 +90,53 @@ class HomePageController < ApplicationController
   
   def addpreference
     if session[:semester_id] !=nil && session[:semester_id]!=""
+      @good_pref_times = Array.new
+      @bad_pref_times = Array.new
+
+      if params[:faculty_id]!=nil && params[:faculty_id]!="" 
+        good_pref_id = Faculty.find(params[:faculty_id]).preference
+        if good_pref_id!=nil
+          facultyPreference = FacultyPreference.find(good_pref_id)
+          preferences = facultyPreference.as_json(except: [:created_at,:updated_at,:faculty_course_id,:id,:faculty_id,:semester_id])
+          if preferences!=nil
+            for preference in preferences.keys
+              prefid = preferences[preference]
+              if prefid != nil
+                time = Preference.find(prefid).time_slot_id
+                timeslot = TimeSlot.find(time)
+                if timeslot != nil
+                  daycombo = DayCombination.find(timeslot.day_combination_id)
+                  if daycombo!=nil
+                    @good_pref_times.push(daycombo.day_combination + " " + timeslot.time_slot)
+                  end
+                end
+              end
+            end
+          end
+        end
+
+        bad_pref_id = Faculty.find(params[:faculty_id]).bad_preference
+        if bad_pref_id!=nil
+          facultyPreference = FacultyPreference.find(bad_pref_id)
+          preferences = facultyPreference.as_json(except: [:created_at,:updated_at,:faculty_course_id,:id,:faculty_id,:semester_id])
+          if preferences!=nil
+            for preference in preferences.keys
+              prefid = preferences[preference]
+              if prefid != nil
+                time = Preference.find(prefid).time_slot_id
+                timeslot = TimeSlot.find(time)
+                if timeslot != nil
+                  daycombo = DayCombination.find(timeslot.day_combination_id)
+                  if daycombo!=nil
+                    @bad_pref_times.push(daycombo.day_combination + " " + timeslot.time_slot)
+                  end
+                end
+              end
+            end
+          end
+        end
+      end
+
       @timeslot = TimeSlot.all
       @semester_id = session[:semester_id]
       @faculty = Faculty.order(faculty_name: :asc)

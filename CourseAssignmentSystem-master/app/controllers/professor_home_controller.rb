@@ -1,7 +1,7 @@
 class ProfessorHomeController < ApplicationController
   
    before_action :require_user, only: [:professorhome, :professoraddpreference, :profsetsession]
-   
+
   def professorhome
     @semester = Semester.all
   end
@@ -132,19 +132,67 @@ class ProfessorHomeController < ApplicationController
   end
   
   def viewpreferences
+    @timeslot = TimeSlot.all
+    @goodtimes = Array.new
+    @badtimes = Array.new
+    
     if session[:semester_id] !=nil && session[:semester_id]!=""  
+      faculty_id = session[:faculty_id]
+      faculty = Faculty.find(faculty_id)
+      if faculty==nil
+        flash[:error] = "No faculty found"
+        return
+      end
       
+      fac_preference = faculty.preference
+      if fac_preference !=nil
+        facultyPreference = FacultyPreference.find(fac_preference)
+        preferences = facultyPreference.as_json(except: [:created_at,:updated_at,:faculty_course_id,:id,:faculty_id,:semester_id])
+        if preferences!=nil
+          for preference in preferences.keys
+            prefid = preferences[preference]
+            if prefid != nil
+              time = Preference.find(prefid).time_slot_id
+              timeslot = @timeslot.find(time)
+              if timeslot != nil
+                daycombo = DayCombination.find(timeslot.day_combination_id)
+                if daycombo!=nil
+                  @goodtimes.push(daycombo.day_combination + " " + timeslot.time_slot)
+                end
+              end
+            end
+          end
+        end
+      end
+
+      bad_preference = faculty.bad_preference
+      if bad_preference !=nil
+        facultyPreference = FacultyPreference.find_by_id(bad_preference)
+        preferences = facultyPreference.as_json(except: [:created_at,:updated_at,:faculty_course_id,:id,:faculty_id,:semester_id])
+        if preferences!=nil
+          for preference in preferences.keys
+            prefid = preferences[preference] 
+            if prefid !=nil
+              time = Preference.find_by_id(prefid).time_slot_id
+              timeslot = @timeslot.find_by_id(time)
+              if timeslot != nil
+                daycombo = DayCombination.find(timeslot.day_combination_id)
+                if daycombo!=nil
+                  @badtimes.push(daycombo.day_combination + " " + timeslot.time_slot)
+                end
+              end
+            end
+          end    
+        end
+      end
     else
       flash[:error] = "Please choose semester"
       redirect_to professorhome_path
     end
   end
+
   def profsetsession
     session[:semester_id] = params[:class][:semester_id]
     redirect_to professorhome_path
   end
- 
-
- 
-
 end

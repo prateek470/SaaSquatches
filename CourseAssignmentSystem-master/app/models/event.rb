@@ -57,10 +57,10 @@ class Event < ActiveRecord::Base
       elsif all_bad_pref_ids!=nil && isPreference(all_bad_pref_ids,day_combination_id,time_slot_id,semester_id)
         return "red"
       else
-        return "default"
+        return "grey"
       end
     end
-    return "default"
+    return "grey"
   end
 
   def isPreference(pref_ids,day_combination,time_slot,semester)

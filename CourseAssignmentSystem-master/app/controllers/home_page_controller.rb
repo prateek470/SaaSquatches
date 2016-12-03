@@ -72,6 +72,14 @@ class HomePageController < ApplicationController
   end
 
   def addsemester
+    @year = 2015
+    if session[:semester_id] !=nil && session[:semester_id]!=""
+      curr_sem = Semester.find(session[:semester_id])
+      if curr_sem != nil && curr_sem != ""
+        @year = curr_sem.semester_title.to_s.split(' ')[1].to_i
+      end
+    end
+    @semesters = ["Fall", "Summer", "Spring"]
   end
 
   def setsession
@@ -218,13 +226,15 @@ class HomePageController < ApplicationController
   
   def createsemester
     success = false;
-    if params[:class] != nil && params[:class][:semester_title] != ""
-      semester = Semester.find_by(semester_title: params[:class][:semester_title])
+    if params[:semester] != "" && params[:year] != ""
+      semester_title = params[:semester]+" "+params[:year]
+      semester = Semester.find_by(semester_title: semester_title)
       if semester == nil
-        Semester.create_semester(params[:class][:semester_title])
+        Semester.create_semester(semester_title)
         success = true
       end
     end
+
     if success == true
       flash[:success] = "Created new semester"
       redirect_to root_path;

@@ -4,8 +4,9 @@
  
 
   <%= form_for :class , method: :get, url: createsemester_path do |f| %>
-  <p><%= f.label "Semester Name" %>
-      <%= f.text_field :semester_title %> 
+  <p>
+      <%= select_tag :semester, options_for_select(@semesters)%>
+      <%= number_field_tag(:year, @year, min: 2015)%> 
   </p>
   <p>
       <%= f.submit "Submit", class: "btn btn-lg btn-primary"%>

@@ -40,9 +40,9 @@
                 <span class="icon-bar"></span>
               </button>
               
-              <a class="navbar-brand topnav" href="https://howdy.tamu.edu/cp/home/displaylogin">Howdy</a>
+              <a class="navbar-brand topnav" >Howdy, <%= current_user.faculty_name %></a>
             </div>
-            <div class="nav navbar-nav navbar-right">
+            <div class="nav navbar-brand navbar-right">
 	            <% if current_user %>
 	              <ul>
 	                <li><%= link_to "Log Out", logout_path, method: "delete" %></li>
@@ -77,12 +77,11 @@
                   
                   <hr class="intro-divider">
                   <ul class="list-inline intro-social-buttons">
-                  <li>
-                     <%= link_to "Edit  Preferences", professoraddpreference_path, class: "btn btn-default btn-lg" %>
-                  </li>
-                  <li>
-                     <%= link_to "View Course Assignments", display_events_path, 'data-no-turbolink' => true, class: "btn btn-default btn-lg" %>
-                  </li>
+                  <li><%= link_to "Edit  Preferences", professoraddpreference_path, class: "btn btn-default btn-lg" %></li>
+                  <li><%= link_to "Current  Preferences", viewpreferences_path, class: "btn btn-default btn-lg" %></li>
+                  <p>
+                  <li><%= link_to "View Course Assignments", display_events_path, 'data-no-turbolink' => true, class: "btn btn-default btn-lg" %></li>
+                  </p>
 	             <hr class="intro-divider">
 	             <ul class="list-inline intro-social-buttons">
 	             <li>

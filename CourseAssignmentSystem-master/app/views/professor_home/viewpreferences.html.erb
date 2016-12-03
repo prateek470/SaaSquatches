@@ -1,15 +1,38 @@
 
 <div style="text-align:center">
     <div style="display: inline-block;">
-        <h1>Assigned Courses</h1>  
-        
-         
+        <h2>View Current Preferences</h2>  
+        <div id="main">
+        	<div id="left">
+        		<table class="table table-bordered">
+		        <tr>
+		          <th>Preferred Timing</th>
+		        </tr>
+		        <% if @goodtimes!=nil %>
+		        <% @goodtimes.each do |good| %>
+		            <tr>
+		                <td><%= good %></td>
+		            </tr>
+		        <% end %>
+		        <% end %>
+		    	</table>
+        	</div>
+
+        	<div id="right">
+        		<table class="table table-bordered">
+		        <tr>
+		          <th>Unacceptable Timing</th>
+		        </tr>
+		        <% if @badtimes!=nil %>
+		        <% @badtimes.each do |bad| %>
+		            <tr>
+		                <td><%= bad %></td>
+		            </tr>
+		        <% end %>
+		        <% end %>
+		    	</table>
+        	</div>
+        </div>
         
     </div>
-    
-</div>
-
-<div id='prof_calendar'>
-    
-   
 </div>

@@ -1,3 +1,26 @@
+<style type="text/css">
+#wrapper {
+width:100%;
+margin : 0;
+}
+
+#first-div {
+width:50%;
+margin : 0;
+float : left ;
+text-align: center;
+vertical-align: middle;
+}
+
+#second-div {
+width:50%;
+margin : 0;
+float : left ;
+text-align: center;
+vertical-align: middle;
+}
+</style>
+
 <div style="text-align: center;"> 
   <h2 style="display: inline-block;">Edit Faculty Preferences </h2>
   <table align="center">
@@ -11,10 +34,19 @@
 
 <p>
 	<%= f.select :FacultyName , options_for_select(@faculty.collect { |name| [name.faculty_name , name.id] },
-		session[:FacultyName] ), {prompt: "Select Faculty", hide_label: :true }, 
-		{id: 'sessionId' , class: "btn btn-default dropdown-toggle"} %>
+			session[:FacultyName] ), {prompt: "Select Faculty", hide_label: :true }, 
+			{id: 'sessionId' , class: "btn btn-default dropdown-toggle"} %> &nbsp
+	<%= f.submit "Submit Default Preferences", class: "btn btn-primary" %>
 </p>
+
 <br />
+
+<div id="wrapper">
+	<div id="first-div" >
+	</div> 
+	<div id="second-div" >
+	</div>
+</div>
 
 <table align="center">
   <thead>
@@ -44,7 +76,6 @@
 			<td>
 				<%if !@defaultBad.include?(slot)%>
 					<%= check_box_tag 'unacceptable_ids[]', slot.id %>
-					
 				<%else%>
 					<%= check_box_tag 'unacceptable_ids[]', slot.id, checked="checked" %>
 				<%end%>

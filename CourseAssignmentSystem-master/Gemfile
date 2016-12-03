@@ -38,6 +38,9 @@ gem 'jquery-turbolinks'
 gem 'momentjs-rails'
 gem 'fullcalendar-rails'
 
+#Browser
+gem "browser_detect"
+
 group :development, :test do
   gem 'sqlite3'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -63,7 +66,7 @@ group :test do
   gem 'cucumber-rails', :require => false
   gem 'cucumber-rails-training-wheels'
   gem 'capybara'
-  gem "capybara-webkit"
+#  gem "capybara-webkit"
   gem 'selenium-webdriver'
   gem 'database_cleaner'
 end

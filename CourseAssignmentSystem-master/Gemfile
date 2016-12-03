@@ -39,7 +39,7 @@ gem 'momentjs-rails'
 gem 'fullcalendar-rails'
 
 #Browser
-gem "browser_detect"
+#gem "browser_detect"
 
 group :development, :test do
   gem 'sqlite3'

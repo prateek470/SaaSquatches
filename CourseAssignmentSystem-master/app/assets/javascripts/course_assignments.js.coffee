@@ -16,6 +16,6 @@ $ ->
         faculty_id: $("#faculty_id option:selected").val()
       }
       success: (data, textStatus, jqXHR) ->
-        alert 'Success'
+        alert 'Ajax success'
       error: (xhr) ->
         alert 'Some error in Show Faculty Preference'

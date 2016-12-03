@@ -175,10 +175,6 @@ class Event < ActiveRecord::Base
     return false
   end
 
-  def isBadPreference(all_bad_pref_ids,day_combination_id,time_slot_id,semester_id)
-    return true
-  end
-
   def self.to_csv(options = {})
     CSV.generate(options) do |csv|
       csv << ["Faculty Name","Course-Building-Room","Day","Time Slot"]

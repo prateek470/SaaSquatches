@@ -10,8 +10,7 @@
         <%= form_for @user, :url => password_reset_path(params[:id]) do |f| %>
 
         <% if @user.errors.any? %>
-          <div class="error_messages">
-            <h2>Form is invalid</h2>
+          <div class="error_messages" style="color:white;" >
             <ul>
               <% for message in @user.errors.full_messages %>
                 <li><%= message %></li>

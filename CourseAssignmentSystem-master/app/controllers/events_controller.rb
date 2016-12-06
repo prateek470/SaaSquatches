@@ -46,9 +46,7 @@ class EventsController < ApplicationController
     @timeslot = TimeSlot.all
     @building = Building.all
     @rooms = Room.where("building_id = ?", Building.first.id)
-    if browser_is?("safari")
-      flash[:warning]="Calender events may not show in Safari. Please try to use Chrome or other browser."
-    end
+
     if !@course_assignments.empty? and @course_assignments != nil
       @course_assignments.each do |c|
         course = Course.where(:id => c.course_id).select("course_name").take.course_name

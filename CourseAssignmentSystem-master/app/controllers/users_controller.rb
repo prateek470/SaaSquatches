@@ -12,17 +12,17 @@ def create
       @user.update(faculty_name: user_name)
       UserMailer.registration_confirmation(@user).deliver
       flash[:success] = "Please confirm your email address to continue."
-      redirect_to '/login'
+      redirect_to login_path
     elsif User.exists?(:email=>params[:user][:email].downcase)
       flash[:error] = "Email Already Exists! For more help, contact Admin."
-      redirect_to '/signup'
+      redirect_to signup_path
     else
       flash[:error] = "Please enter correct Sign-up info."
-      redirect_to '/signup'
+      redirect_to signup_path
     end
   else
     flash[:error] = "User Already Exists! Please contact Admin."
-    redirect_to '/signup' 
+    redirect_to signup_path 
   end
 end
 

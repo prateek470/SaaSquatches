@@ -10,7 +10,7 @@ class SessionsController < ApplicationController
         faculty = Faculty.find_by_id(@user.faculty_id)
         if (faculty == nil)
           flash[:error] = "Faculty does not exist. Please signup."
-          redirect_to '/signup'
+          redirect_to signup_path
           return
         end
         session[:permission] = faculty.permission

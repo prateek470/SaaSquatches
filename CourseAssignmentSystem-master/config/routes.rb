@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
 
   
+  get 'password_resets/new'
+
   get 'faculties/index'
 
   get 'conflict_checker/index'
@@ -116,6 +118,7 @@ Rails.application.routes.draw do
   end
   get '/login' => 'sessions#new'
   post '/login' => 'sessions#create'
-
   delete 'logout' => 'sessions#destroy'
+  resources :sessions
+  resources :password_resets,     only: [:new, :create, :edit, :update]
 end

@@ -246,15 +246,15 @@ class CourseAssignmentsController < ApplicationController
   # @param course_arr assigned courses array for a faculty
   # @return courses hash
   def build_courses_object(course_arr)
- 	courses = {}
-	course_arr.each {|course|
-		if course != nil
-			if course.course_name != ""
-				courses[course.id] = course.course_name + " " + course.course_title
-			end
-		end
-	}  	
-	return courses
+   	courses = {}
+  	course_arr.each {|course|
+  		if course != nil
+  			if course.course_name != ""
+  				courses[course.id] = course.course_name + " " + course.course_title + " (size = " + course.course_size.to_s+")"
+  			end
+  		end
+  	}
+  	return courses
   end
   
   #Display faculty preference to assist Admin with course allotment

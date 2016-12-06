@@ -176,6 +176,10 @@ class Event < ActiveRecord::Base
   end
 
   def self.to_csv(options = {})
+    temp_fac_name = ""
+    temp_title = ""
+    temp_day_combo = ""
+    temp_time_slot = ""
     CSV.generate(options) do |csv|
       csv << ["Faculty Name","Course-Building-Room","Day","Time Slot"]
       all.each do |event|
@@ -188,7 +192,11 @@ class Event < ActiveRecord::Base
             faculties.each do |faculty|
               days.each do |day|
                 times.each do |time|
-                  if(time.id == course.time_slot_id && day.id == course.day_combination_id && faculty.id == course.faculty_id)
+                  if (time.id == course.time_slot_id && day.id == course.day_combination_id && faculty.id == course.faculty_id) && (faculty.faculty_name!=temp_fac_name || event.title!=temp_title || day.day_combination!=temp_day_combo || time.time_slot!=temp_time_slot)
+                    temp_fac_name = faculty.faculty_name
+                    temp_title = event.title
+                    temp_day_combo = day.day_combination
+                    temp_time_slot = time.time_slot
                     csv << [faculty.faculty_name, event.title, day.day_combination, time.time_slot]
                   end
                 end

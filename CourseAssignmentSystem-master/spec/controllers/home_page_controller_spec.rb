@@ -8,8 +8,8 @@ end
 
 RSpec.describe HomePageController, type: :controller do
   before :all do
-    User.create(:id => '2', :faculty_name=> 'Shell Dylan', :faculty_id=> '40', :email => 'mm@gmail.com', :password => 'asdf')
-    User.create(:id => '3', :faculty_name=> 'Da Silva Dilma', :faculty_id=> '7', :email => 'nn@gmail.com', :password => 'asdf')
+    User.create(:id => '4', :faculty_name=> 'Shell Dylan', :faculty_id=> '40', :email => 'mm1@gmail.com', :password => 'asdf', :email_confirmed => true)
+    User.create(:id => '3', :faculty_name=> 'Da Silva Dilma', :faculty_id=> '7', :email => 'nn1@gmail.com', :password => 'asdf', :email_confirmed => true)
   end
   describe 'GET #home' do
     it 'returns http success for admin' do
@@ -19,7 +19,7 @@ RSpec.describe HomePageController, type: :controller do
       expect(response).to have_http_status(:success)
     end
     it 'returns http success for professor' do
-      session[:user_id] = '2'
+      session[:user_id] = '4'
       session[:permission] = 'User'
       get :home
       response.should redirect_to '/professorhome'
@@ -27,8 +27,8 @@ RSpec.describe HomePageController, type: :controller do
   end
   describe 'reset user' do
     it 'should call resetuser and redirect to root' do
-      post :resetuser, {:class => {:selectedUser => '1'}}
-      User.create(:id => '1', :faculty_name=> 'Keyser John', :faculty_id=> '25', :email => 'john@tamu.edu', :password => 'asdf')
+      post :resetuser, {:class => {:selectedUser => '4'}}
+      User.create(:id => '4', :faculty_name=> 'Shell Dylan', :faculty_id=> '40', :email => 'mm1@gmail.com', :password => 'asdf')
     end
   end
   describe 'addpreference' do
@@ -73,12 +73,12 @@ RSpec.describe HomePageController, type: :controller do
     end
     it 'should call model method to create new semester' do
       Semester.should_receive(:find_by)
-      Semester.should_receive(:create_semester).with('test1')
-      post :createsemester, {:class => {:semester_title => 'test1'}}
+      Semester.should_receive(:create_semester).with('fall 2000')
+      post :createsemester, {:semester => 'fall',:year => 2000}
       response.should redirect_to '/'
     end
     it 'should check for valid input before creating new semester' do
-      post :addsemester, {:class => {:semester_title => ''}}
+      post :addsemester, {:semester => 'fall',:year => 2000}
       response.should have_http_status(:success)
     end
   end

@@ -2,11 +2,11 @@ require 'rails_helper'
 
 RSpec.describe ProfessorHomeController, type: :controller do
   before :all do
-    User.create(:id => '2', :faculty_name=> 'Shell Dylan', :faculty_id=> '40', :email => 'mm@gmail.com', :password => 'asdf')
+    User.create(:id => '4', :faculty_name=> 'Shell Dylan', :faculty_id=> '40', :email => 'mm@gmail.com', :password => 'asdf')
     User.create(:id => '3', :faculty_name=> 'Da Silva Dilma', :faculty_id=> '7', :email => 'nn@gmail.com', :password => 'asdf')
   end
   before :each do
-    session[:user_id] = '2'
+    session[:user_id] = '4'
     session[:permission] = 'User'
   end
   describe 'professorhome' do
@@ -32,7 +32,12 @@ RSpec.describe ProfessorHomeController, type: :controller do
     end
   end
   describe 'viewpreferences' do
+    before :each do
+      session[:FacultyName] = '40'
+      session[:faculty_id] = '40'
+    end
     it 'should redirect to home if no semester set' do
+      session[:faculty_id] = '40'
       post :viewpreferences
       response.should redirect_to professorhome_path
     end
